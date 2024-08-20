@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url(https://fonts.googleapis.com/css?family=Josefin+Sans:100,200,300,regular,500,600,700,100italic,200italic,300italic,italic,500italic,600italic,700italic);
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+input{
+  outline: none;
+  border:none;
+  background: none;
+}
+.text-zinc-350{
+  color: rgb(166, 173, 187);
+}
+
+.border-slate-250{
+  border-color: rgb(220, 220, 220);  
+}
+
+.button-primary{
+  background-color: #cc080b;
+}
+.button-primary:is(:hover, :active){
+  background-color: rgb(155, 6, 8);
+}
+
+.border-slate-250:is(:hover, :focus-within, :focus, :active){
+
+    border-color: black;
+}
+.tracking-2px{
+  letter-spacing: 0.125em;
+}
+
+
+.animation-duration-20000{
+  animation-duration: 20s;
+
+  &:hover{
+    animation-play-state: paused;
+  }
+}
