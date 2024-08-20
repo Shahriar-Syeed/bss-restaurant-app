@@ -1,8 +1,8 @@
-import React from 'react'
+
 
 const LoginPage = () => {
   return (
-    <div>LoginPage</div>
+    <div className=" bg-gray-800">LoginPage</div>
   )
 }
 
