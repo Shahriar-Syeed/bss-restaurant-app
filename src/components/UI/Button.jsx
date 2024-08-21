@@ -1,4 +1,4 @@
-
+import PropTypes from "prop-types";
 
 export default function Button({ children, textOnly, className, ...props }) {
   let cssClasses = textOnly ? "text-button" : "button";
@@ -10,3 +10,9 @@ export default function Button({ children, textOnly, className, ...props }) {
     </button>
   );
 }
+// Add PropTypes validation
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  textOnly: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};

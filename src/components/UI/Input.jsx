@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Button from "./Button";
 
 export default function Input({ children, id, error, eyeButton, ...props }) {
@@ -21,30 +22,36 @@ export default function Input({ children, id, error, eyeButton, ...props }) {
 
   return (
     <div className="mb-5">
-      <label htmlFor={id} className="text-lg text-zinc-350 mb-2 capitalize">
+      <label htmlFor={id} className="block text-lg text-zinc-350 mb-2 capitalize">
         {children}
       </label>
       {eyeButton ? (
-        <div
-          className="flex p-3.5 rounded border border-slate-250"
-        >
+        <div className="flex p-3.5 rounded border border-slate-250 items-center" >
           <input
-            {...props}
             type={toggle ? "text" : "password"}
             id={id}
-            className="h-6"
+            name={id}
+            className="h-6 block"
+            {...props}
             style={{ width: "90%" }}
           />
-          <Button type='button' onClick={() => setToggle((prevValue) => !prevValue)} className='text-only hover:fill-red-600 tracking'>
+          <Button type='button' onClick={()=>setToggle(!toggle)}  className='text-only hover:fill-red-600 tracking p-2 fill-slate-600 rounded-full hover:bg-slate-200'>
             {eyeIcon}
           </Button>
         </div>
       ) : (
         <div className="flex p-3.5 rounded border border-slate-250">
-          <input {...props} id={id} className="w-full h-6" />
+          <input {...props} id={id} name={id} className="w-full h-6" />
         </div>
       )}
       <div className="control-error">{error && <p>{error}</p>}</div>
     </div>
   );
 }
+// Add PropTypes validation
+Input.propTypes = {
+  children: PropTypes.node.isRequired,
+  id: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  eyeButton: PropTypes.bool,
+};
