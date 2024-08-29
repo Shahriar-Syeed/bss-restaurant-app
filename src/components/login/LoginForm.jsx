@@ -29,13 +29,12 @@ function handleChange(e){
 
     try{
       console.log(formData);
-      const response = await axios.post(`http://restaurantapi.bssoln.com/api/Auth/SignIn`, formData);
+      const response = await axios.post(`https://www.restaurantapi.bssoln.com/api/Auth/SignIn`, formData);
       console.log(response);
       
     } catch (error){
       console.log(error);
     }
-
   }
   return (
     <div className="login__right__container">
