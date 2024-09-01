@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     element: <LoginPage/>,
   },
   {
-    path: '/admin',
+    path: '/bss-restaurant-app/admin/',
     element: <DashBoard/>
   },
 ]);
