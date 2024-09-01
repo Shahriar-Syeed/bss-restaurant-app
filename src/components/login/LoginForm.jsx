@@ -4,6 +4,7 @@ import Logo from '../../assets/logo-icon.png';
 import Button from "../UI/Button.jsx";
 // import apiUrl from "../../apiUrl/ApiUrl.jsx";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 
@@ -13,7 +14,7 @@ export default function LoginForm () {
     userName: 'admin@mail.com',
     password: 'Admin@123',
 });
-
+const navigate =useNavigate();
 function handleChange(e){
   const {name, value} = e.target;
   setFormData({...formData, [name]: value});
@@ -35,6 +36,13 @@ function handleChange(e){
     } catch (error){
       console.log(error);
     }
+
+    navigate('admin');
+    
+  }
+
+  function navHandle(params) {
+    
   }
   return (
     <div className="login__right__container">
