@@ -1,11 +1,20 @@
 import PropTypes from "prop-types";
 
-export default function Button({ children, textOnly, className, ...props }) {
+export default function Button({
+  children,
+  textOnly,
+  className,
+  disabled,
+  ...props
+}) {
   let cssClasses = textOnly ? "text-button" : "button";
+  
+  disabled && (cssClasses += " " + "fill-slate-400");
+  
   cssClasses += " " + className;
 
   return (
-    <button className={cssClasses} {...props}>
+    <button className={cssClasses} disabled={disabled} {...props}>
       {children}
     </button>
   );
@@ -13,6 +22,7 @@ export default function Button({ children, textOnly, className, ...props }) {
 // Add PropTypes validation
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  textOnly: PropTypes.string.isRequired,
+  textOnly: PropTypes.string,
+  disabled: PropTypes.string,
   className: PropTypes.string,
 };

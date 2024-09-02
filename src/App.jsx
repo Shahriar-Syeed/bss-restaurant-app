@@ -1,6 +1,6 @@
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import DashBoard from './pages/DashBoard.jsx';
+import DashBoardPage from './pages/DashBoardPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 
 const router = createBrowserRouter([
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/bss-restaurant-app/admin/',
-    element: <DashBoard/>
+    element: <DashBoardPage/>
   },
 ]);
 
