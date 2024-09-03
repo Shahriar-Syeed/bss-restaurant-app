@@ -1,13 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import Pagination from "../components/Pagination";
 
 export default function EmployeePage() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex justify-between xl:pb-10 lg:pb-8 md:pb-6 sm:pb-4 pb-2">
         <h1 className="xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl text-lg border-b-2 border-primary">All Employee</h1>
-        <Button className='button__outline--primary rounded-md text-sm leading-none'>ADD EMPLOYEE</Button>
+        <Button className='button__outline--primary rounded-md text-sm leading-none' onClick={()=>navigate('/bss-restaurant-app/admin/employee/employee-add')}>ADD EMPLOYEE</Button>
       </div>
       <div className=" overflow-x-auto shadow-md sm:rounded-t-lg">
         <table className="w-full text-left rtl:text-right text-gray-900 text-xs sm:text-sm ">
@@ -15,43 +16,43 @@ export default function EmployeePage() {
             <tr>
               <th
                 scope="col"
-                className="md:px-2 md:py-1 xl:px-6 xl:py-4 lg:px-3 lg:py-2 p-1 py-2"
+                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
               >
                 Image
               </th>
               <th
                 scope="col"
-                className="md:px-2 md:py-1 xl:px-6 xl:py-4 lg:px-3 lg:py-2 p-1"
+                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
               >
                 Name
               </th>
               <th
                 scope="col"
-                className="md:px-2 md:py-1 xl:px-6 xl:py-4 lg:px-3 lg:py-2 p-1"
+                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
               >
                 Email
               </th>
               <th
                 scope="col"
-                className="md:px-2 md:py-1 xl:px-6 xl:py-4 lg:px-3 lg:py-2 p-1  "
+                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1  "
               >
                 Phone
               </th>
               <th
                 scope="col"
-                className="md:px-2 md:py-1 xl:px-6 xl:py-4 lg:px-3 lg:py-2 p-1  "
+                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1  "
               >
                 Join Date
               </th>
               <th
                 scope="col"
-                className="md:px-2 md:py-1 xl:px-6 xl:py-4 lg:px-3 lg:py-2 p-1 break-all sm:break-normal "
+                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-all sm:break-normal "
               >
                 Designation
               </th>
               <th
                 scope="col"
-                className="md:px-2 md:py-1 xl:px-6 xl:py-4 lg:px-3 lg:py-2 p-1  "
+                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1  "
               >
                 Action
               </th>
@@ -86,7 +87,7 @@ export default function EmployeePage() {
               </td>
               <td className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
                 <Link
-                  to="edit"
+                  to="/bss-restaurant-app/admin/employee/:employeeId/employee-edit"
                   className="font-medium text-green-600  hover:underline"
                 >
                   Edit
