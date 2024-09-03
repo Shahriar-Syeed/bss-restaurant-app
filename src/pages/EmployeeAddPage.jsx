@@ -1,7 +1,10 @@
+import EmployeeForm from "../components/employee/EmployeeForm";
 
 
 export default function EmployeeAddPage() {
   return (
-    <div>EmployeeAddPage</div>
+    <>
+      <EmployeeForm/>
+    </>
   )
 }

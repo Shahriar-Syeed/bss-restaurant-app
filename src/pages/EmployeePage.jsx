@@ -1,15 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import Pagination from "../components/Pagination";
+import PageHeader from "../components/PageHeader";
 
 export default function EmployeePage() {
   const navigate = useNavigate();
   return (
     <>
-      <div className="flex justify-between xl:pb-10 lg:pb-8 md:pb-6 sm:pb-4 pb-2">
-        <h1 className="xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl text-lg border-b-2 border-primary">All Employee</h1>
-        <Button className='button__outline--primary rounded-md text-sm leading-none' onClick={()=>navigate('/bss-restaurant-app/admin/employee/employee-add')}>ADD EMPLOYEE</Button>
-      </div>
+      <PageHeader title="All Employee" showButton={true} buttonLabel="ADD EMPLOYEE" buttonOnClick={()=>navigate('/bss-restaurant-app/admin/employee/employee-add')} />
+      
       <div className=" overflow-x-auto shadow-md sm:rounded-t-lg">
         <table className="w-full text-left rtl:text-right text-gray-900 text-xs sm:text-sm ">
           <thead className="text-xs text-primary uppercase bg-gray-50">

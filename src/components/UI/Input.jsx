@@ -1,9 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
+import defaultImage from "../../assets/default-image-preview.png";
 
-export default function Input({ children, id, error, eyeButton, ...props }) {
+export default function Input({
+  children,
+  id,
+  error,
+  eyeButton,
+  labelClass,
+  controlClass,
+  dropdownImg,
+  imgClass,
+  ...props
+}) {
   const [toggle, setToggle] = useState(false);
+
+  const [selectedFile, setSelectedFile] = useState();
+  const [preview, setPreview] = useState();
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      return;
+    }
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+  function onSelectFile(event) {
+    if (!event.target.files || event.target.files.length === 0) {
+      return;
+    }
+    setSelectedFile(event.target.files[0]);
+  }
 
   const eyeIcon = toggle ? (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="w-6 h-6">
@@ -21,12 +52,20 @@ export default function Input({ children, id, error, eyeButton, ...props }) {
   );
 
   return (
-    <div className="mb-5">
-      <label htmlFor={id} className="block text-lg text-zinc-350 mb-2 capitalize">
+    <>
+      <label
+        htmlFor={id}
+        className={
+          labelClass
+            ? labelClass
+            : "block text-lg text-zinc-350 mb-2 capitalize"
+        }
+      >
         {children}
       </label>
       {eyeButton ? (
-        <div className="flex p-3.5 rounded border border-slate-250 items-center" >
+        <div className="flex p-3.5 rounded border border-slate-250 items-center">
+
           <input
             type={toggle ? "text" : "password"}
             id={id}
@@ -35,17 +74,27 @@ export default function Input({ children, id, error, eyeButton, ...props }) {
             {...props}
             style={{ width: "90%" }}
           />
-          <Button type='button' onClick={()=>setToggle(!toggle)}  className='text-only hover:fill-red-600 tracking p-2 fill-slate-600 rounded-full hover:bg-slate-200'>
+          <Button
+            type="button"
+            onClick={() => setToggle(!toggle)}
+            className="text-only hover:fill-red-600 tracking p-2 fill-slate-600 rounded-full hover:bg-slate-200"
+          >
             {eyeIcon}
           </Button>
         </div>
       ) : (
-        <div className="flex p-3.5 rounded border border-slate-250">
-          <input {...props} id={id} name={id} className="w-full h-6" />
+        <div className={controlClass ? controlClass : ""}>
+          <input
+            {...props}
+            id={id}
+            name={id}
+            onChange={dropdownImg && onSelectFile}
+          />
+          {dropdownImg && <img src={preview ? preview : defaultImage} className={imgClass ? imgClass: ''} />}
         </div>
       )}
       <div className="control-error">{error && <p>{error}</p>}</div>
-    </div>
+    </>
   );
 }
 // Add PropTypes validation
