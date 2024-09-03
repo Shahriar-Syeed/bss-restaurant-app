@@ -1,7 +1,16 @@
-
+import { createBrowserRouter } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import Navbar from "../components/Navbar";
 import EmployeePage from "./EmployeePage";
+import HomePage from "./HomePage";
+
+
+const router = createBrowserRouter([
+  {path:'/bss-restaurant-app/admin/', element:<HomePage/> },
+  {path:'/bss-restaurant-app/admin/', element:<HomePage/> },
+  {path:'/bss-restaurant-app/admin/', element:<HomePage/> },
+  {path:'/bss-restaurant-app/admin/', element:<HomePage/> },
+]);
 
 export default function DashBoard() {
   return (
