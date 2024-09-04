@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
 import PropTypes from "prop-types";
 import Button from "./Button";
 import defaultImage from "../../assets/default-image-preview.png";
@@ -9,32 +10,9 @@ export default function Input({
   error,
   eyeButton,
   labelClass,
-  controlClass,
-  dropdownImg,
-  imgClass,
   ...props
 }) {
-  const [toggle, setToggle] = useState(false);
-
-  const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState();
-
-  useEffect(() => {
-    if (!selectedFile) {
-      setPreview(undefined);
-      return;
-    }
-    const objectUrl = URL.createObjectURL(selectedFile);
-    setPreview(objectUrl);
-
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedFile]);
-  function onSelectFile(event) {
-    if (!event.target.files || event.target.files.length === 0) {
-      return;
-    }
-    setSelectedFile(event.target.files[0]);
-  }
+  const [toggle, setToggle] = useState(false); 
 
   const eyeIcon = toggle ? (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="w-6 h-6">
@@ -83,14 +61,12 @@ export default function Input({
           </Button>
         </div>
       ) : (
-        <div className={controlClass ? controlClass : ""}>
+        <div>
           <input
             {...props}
             id={id}
-            name={id}
-            onChange={dropdownImg && onSelectFile}
+            name={id}       
           />
-          {dropdownImg && <img src={preview ? preview : defaultImage} className={imgClass ? imgClass: ''} />}
         </div>
       )}
       <div className="control-error">{error && <p>{error}</p>}</div>
@@ -102,5 +78,6 @@ Input.propTypes = {
   children: PropTypes.node.isRequired,
   id: PropTypes.string.isRequired,
   error: PropTypes.string,
+  labelClass: PropTypes.string,
   eyeButton: PropTypes.bool,
 };

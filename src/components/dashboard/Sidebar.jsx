@@ -20,8 +20,8 @@ export default function Sidebar() {
   }, []);
 
   const sidebarCss = showSidebar
-    ? "fixed top-0 left-0 z-40 w-64 h-screen transition-transform lg:translate-x-0 transform-none"
-    : "fixed top-0 left-0 z-40 w-64 h-screen transition-transform lg:translate-x-0 -translate-x-full";
+    ? "fixed top-0 left-0 z-40 w-64 h-screen transition-transform  transform-none"
+    : "fixed top-0 left-0 z-40 w-64 h-screen transition-transform xl:translate-x-0 -translate-x-full";
 
   function sidebarToggle() {
     setShowSidebar((prev) => !prev);
@@ -32,7 +32,7 @@ export default function Sidebar() {
       <button
         aria-controls="defaultSidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-primary rounded-50 lg:hidden hover:bg-red-800 focus:outline-none outline-none fixed top-0 right-5 z-50"
+        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-primary rounded-50 xl:hidden hover:bg-red-800 focus:outline-none outline-none fixed top-0 right-5 z-50"
         onClick={sidebarToggle}
       >
         <span className="sr-only">Open sidebar</span>

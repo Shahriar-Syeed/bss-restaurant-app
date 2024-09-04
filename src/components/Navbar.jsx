@@ -4,8 +4,8 @@ import Logo from '../assets/logo-icon.png';
 export default function Navbar() {
   return (
     <>
-      <nav className="bg-primary sticky top-0">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <nav className="bg-primary sticky top-0 z-20">
+        <div className="flex flex-wrap items-center justify-between py-4 px-10">
           <div
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
