@@ -1,10 +1,12 @@
-export default function InputFloating({children,id,error,type, ...props}) {
+export default function InputFloating({ children, id, error, type, ...props }) {
   return (
     <div className="relative group">
       <input
         {...props}
         id={id}
-        className={`block p-3.5 w-full text-xsm sm:text-sm md:text-base lea text-gray-900 bg-transparent${type !=='date' && ' z-10'} rounded border border-blue-600 placeholder-shown:border-gray-200 group-hover:border-gray-400 appearance-none focus:outline-none focus:ring-0 focus:placeholder-shown:border-blue-600 focus:z-0 peer border-solid group-focus:border-blue-600 relative`}
+        className={`block p-3.5 w-full text-xsm sm:text-sm md:text-base lea text-gray-900 bg-transparent${
+          type !== "date" && " z-10"
+        } rounded border border-blue-600 placeholder-shown:border-gray-200 group-hover:border-gray-400 appearance-none focus:outline-none focus:ring-0 focus:placeholder-shown:border-blue-600 focus:z-0 peer border-solid group-focus:border-blue-600 relative`}
         placeholder=" "
         type={type}
       />

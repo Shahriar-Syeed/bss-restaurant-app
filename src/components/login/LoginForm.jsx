@@ -28,15 +28,16 @@ export default function LoginForm() {
     try {
       console.log(formData);
       const response = await axios.post(
-        `https://www.restaurantapi.bssoln.com/api/Auth/SignIn`,
+        `https://restaurantapi.bssoln.com/api/Auth/SignIn`,
         formData
       );
       console.log(response);
+      // if()
+         navigate("admin");
+
     } catch (error) {
       console.log(error);
     }
-
-    navigate("admin");
   }
 
   return (

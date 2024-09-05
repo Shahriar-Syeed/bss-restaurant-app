@@ -2,59 +2,37 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/UI/Button";
 import Pagination from "../components/Pagination";
 import PageHeader from "../components/PageHeader";
+import HeadTable from "../components/HeadTable";
+
+const HEADING = [
+  { id: 'image', label: 'Image', minWidth: 30 },
+  { id: 'name', label: 'Name', minWidth: 230 },
+  { id: 'email', label: 'Email', minWidth: 170 },
+  { id: 'phone', label: 'Phone', minWidth: 100 },
+  { id: 'joiningDate', label: 'Join Date', minWidth: 100 },
+  { id: 'designation', label: 'Designation', minWidth: 120 },
+  { id: 'action', label: 'Action', minWidth: 120 },
+];
+
+const DUMMY_EMPLOYEES =[
+  {id: 'e1', name:'John Michael Doe', image:'https://restaurantapi.bssoln.com/images/user/04-07-2024-13-39-20-7936437.jpg', phone:'015478',join:'23 Jul 2024',email:'john.de@example.com', designation: 'junior'},
+  {id: 'e2', name:'Atik', image:'https://restaurantapi.bssoln.com/images/user/04-07-2024-13-39-20-7936437.jpg', phone:'017578',join:'23 May 2024',email:'john.doe@example.com', designation: 'senior'},
+];
 
 export default function EmployeePage() {
   const navigate = useNavigate();
   return (
     <>
-      <PageHeader title="All Employee" showButton={true} buttonLabel="ADD EMPLOYEE" buttonOnClick={()=>navigate('/bss-restaurant-app/admin/employee/employee-add')} />
+      <PageHeader title="All Employee" buttonLabel="ADD EMPLOYEE" buttonOnClick={()=>navigate('/bss-restaurant-app/admin/employee/employee-add')} />
       
       <div className=" overflow-x-auto shadow-md sm:rounded-t-lg">
         <table className="w-full text-left rtl:text-right text-gray-900 text-xs sm:text-sm ">
           <thead className="text-xs text-primary uppercase bg-gray-50">
             <tr>
-              <th
-                scope="col"
-                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
-              >
-                Image
-              </th>
-              <th
-                scope="col"
-                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
-              >
-                Name
-              </th>
-              <th
-                scope="col"
-                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
-              >
-                Email
-              </th>
-              <th
-                scope="col"
-                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1  "
-              >
-                Phone
-              </th>
-              <th
-                scope="col"
-                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1  "
-              >
-                Join Date
-              </th>
-              <th
-                scope="col"
-                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-all sm:break-normal "
-              >
-                Designation
-              </th>
-              <th
-                scope="col"
-                className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1  "
-              >
-                Action
-              </th>
+              {HEADING.map(heading=>
+
+              <HeadTable key={heading.id}>{heading.label}</HeadTable>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -94,6 +72,7 @@ export default function EmployeePage() {
                 <Button textOnly className="text-red-800">
                   Del
                 </Button>
+                <Link to=''>det</Link>
               </td>
             </tr>  
           </tbody>

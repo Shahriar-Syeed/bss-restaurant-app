@@ -12,6 +12,7 @@ import TablePage from './pages/TablePage.jsx';
 import OrderPage from './pages/OrderPage.jsx';
 import NewOrderPage from './pages/NewOrderPage.jsx';
 import RootAdminDashboardLayout from './pages/RootAdminDashboardLayout.jsx';
+import TableAddPage from './pages/TableAddPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
         element: <EmployeeEditPage />,
       },
       { path: "/bss-restaurant-app/admin/table", element: <TablePage /> },
+      { path: "/bss-restaurant-app/admin/table/table-add", element: <TableAddPage/> },
       { path: "/bss-restaurant-app/admin/foods", element: <FoodsPage /> },
       { path: "/bss-restaurant-app/admin/order", element: <OrderPage /> },
       {
