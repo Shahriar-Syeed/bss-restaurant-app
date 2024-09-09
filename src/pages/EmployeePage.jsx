@@ -4,6 +4,7 @@ import Pagination from "../components/Pagination";
 import PageHeader from "../components/PageHeader";
 import HeadTable from "../components/HeadTable";
 import Loading from "../components/loader/Loading";
+import useLoading from "../hooks/useLoading";
 
 const HEADING = [
   { id: 'image', label: 'Image', minWidth: 30 },
@@ -22,6 +23,7 @@ const DUMMY_EMPLOYEES =[
 
 export default function EmployeePage() {
   const navigate = useNavigate();
+  const {loader, startLoader, stopLoader}=useLoading();
   return (
     <>
       <PageHeader title="All Employee" buttonLabel="ADD EMPLOYEE" buttonOnClick={()=>navigate('/bss-restaurant-app/admin/employee/employee-add')} />

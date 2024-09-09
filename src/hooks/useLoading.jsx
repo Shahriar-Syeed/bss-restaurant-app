@@ -5,7 +5,7 @@ export default function useLoading() {
 
   const [load, setLoad]= useState(false);
 
-  const loading =  {load ? <Loading/> : null};
+
 
   return (
     {

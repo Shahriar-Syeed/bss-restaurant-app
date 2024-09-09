@@ -5,12 +5,14 @@ import Button from "../UI/Button.jsx";
 // import apiUrl from "../../apiUrl/ApiUrl.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useLoading from "../../hooks/useLoading.jsx";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
     userName: "admin@mail.com",
     password: "Admin@123",
   });
+  const {loader, startLoader, stopLoader}=useLoading();
   const navigate = useNavigate();
   function handleChange(e) {
     const { name, value } = e.target;
@@ -23,8 +25,8 @@ export default function LoginForm() {
     // const fetchData =new FormData(event.target);
     // const loginData = Object.fromEntries(fetchData.entries());
     // console.log(loginData);
-    // const logtData = JSON.stringify(loginData);
-
+    // const logData = JSON.stringify(loginData);
+    startLoader;
     try {
       console.log(formData);
       const response = await axios.post(
@@ -38,10 +40,13 @@ export default function LoginForm() {
     } catch (error) {
       console.log(error);
     }
+    stopLoader;
+
   }
 
   return (
-    <div className="login__right__container">
+    <>
+      <div className="login__right__container">
       <header className="mb-5">
         <img src={Logo} alt="Logo" className=" mx-auto w-28" />
         <h1 className=" text-center text-white font-bold">BSS RESTAURANT</h1>
@@ -85,5 +90,7 @@ export default function LoginForm() {
         </Button>
       </form>
     </div>
+    {loader}
+    </>
   );
 }
