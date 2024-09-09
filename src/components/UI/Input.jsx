@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import PropTypes from "prop-types";
 import Button from "./Button";
-import defaultImage from "../../assets/default-image-preview.png";
+
 
 export default function Input({
   children,

@@ -1,7 +1,7 @@
 // CustomSelect.js
 import { useEffect, useRef, useState } from "react";
 
-const CustomSelect = ({ label, options, onChange }) => {
+const CustomSelect = ({ label, options, onChange, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -40,6 +40,7 @@ const CustomSelect = ({ label, options, onChange }) => {
 
   return (
     <div className="relative" ref={showOption}>
+      <input type="hidden"  value={selectedOption? selectedOption.value:''} {...props} />
       <div
         className={`border rounded cursor-pointer w-full  p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400
         ${isFocused ? "border-blue-500" : "border-gray-200"}`}

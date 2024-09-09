@@ -3,6 +3,7 @@ import Button from "../components/UI/Button";
 import Pagination from "../components/Pagination";
 import PageHeader from "../components/PageHeader";
 import HeadTable from "../components/HeadTable";
+import Loading from "../components/loader/Loading";
 
 const HEADING = [
   { id: 'image', label: 'Image', minWidth: 30 },
@@ -79,6 +80,10 @@ export default function EmployeePage() {
         </table>
       </div>
       <Pagination className="bg-white rounded-b-lg" />
+
+      <Loading/>
+
+
     </>
   );
 }

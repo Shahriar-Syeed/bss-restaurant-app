@@ -85,53 +85,54 @@ export default function EmployeeForm() {
                 required
                 id="employeeImage"
                 name="imageEmployee"
-                labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40"
+                labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
                 onChange={onSelectFile}
-              ></Input>
+               
+              >{''}</Input>
               <img src={preview ? preview : defaultImage} className="h-36" />
             </div>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1">
-            <InputFloating>First Name</InputFloating>
+            <InputFloating name='firstName'>First Name</InputFloating>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-2">
-            <InputFloating>Middle Name</InputFloating>
+            <InputFloating name='middleName'>Middle Name</InputFloating>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-3">
-            <InputFloating>Last Name</InputFloating>
+            <InputFloating name='lastName'>Last Name</InputFloating>
           </div>
           <div className="lg:col-span-4">
-            <InputFloating>Father Name</InputFloating>
+            <InputFloating name='fatherName'>Father Name</InputFloating>
           </div>
           <div className="lg:col-span-4">
-            <InputFloating>Mother Name</InputFloating>
+            <InputFloating name='motherName'>Mother Name</InputFloating>
           </div>
           <div className="lg:col-span-4">
-            <InputFloating>Spouse Name</InputFloating>
+            <InputFloating name='spouseName'>Spouse Name</InputFloating>
           </div>
           <div className="lg:col-span-4">
-            <InputFloating>Designation</InputFloating>
+            <InputFloating name='designation'>Designation</InputFloating>
           </div>
           <div className="lg:col-span-4">
-            <InputFloating>Email</InputFloating>
+            <InputFloating name='email'>Email</InputFloating>
           </div>
           <div className="lg:col-span-4">
-            <InputFloating>Phone Number</InputFloating>
+            <InputFloating name='phone'>Phone Number</InputFloating>
           </div>
           <div className="lg:col-span-3">
-          <CustomSelect label="Gender" options={genderOptions} onChange={handleGenderChange} />
+          <CustomSelect name='gender' label="Gender" options={genderOptions} onChange={handleGenderChange} />
           </div>
           <div className="lg:col-span-3">
-            <InputFloating type='date'>Date of Birth</InputFloating>
+            <InputFloating type='date' name='birthDay'>Date of Birth</InputFloating>
           </div>
           <div className="lg:col-span-3">
-            <InputFloating type='date'>Date of Join</InputFloating>
+            <InputFloating type='date' name='joinDate'>Date of Join</InputFloating>
           </div>
           <div className="lg:col-span-3">
-            <InputFloating type='number'>NID</InputFloating>
+            <InputFloating type='number' name='nid'>NID</InputFloating>
           </div>
           <div  className="lg:col-span-12">
-            <Button className='button-primary w-full py-2 text-white rounded '>SUBMIT</Button>
+            <Button type='submit' className='button-primary w-full py-2 text-white rounded '>SUBMIT</Button>
           </div>
         </div>
       </form>
