@@ -12,7 +12,7 @@ export default function LoginForm() {
     userName: "admin@mail.com",
     password: "Admin@123",
   });
-  const {loader, startLoader, stopLoader}=useLoading();
+  const {loader, startLoad, endLoad}=useLoading();
   const navigate = useNavigate();
   function handleChange(e) {
     const { name, value } = e.target;
@@ -26,7 +26,7 @@ export default function LoginForm() {
     // const loginData = Object.fromEntries(fetchData.entries());
     // console.log(loginData);
     // const logData = JSON.stringify(loginData);
-    startLoader;
+    startLoad();
     try {
       console.log(formData);
       const response = await axios.post(
@@ -34,13 +34,19 @@ export default function LoginForm() {
         formData
       );
       console.log(response);
-      // if()
-         navigate("admin");
+      if(response.status === 200){
+        const token = "Bearer " + response.data.token;
+        const user = response.data.user;
+        console.log(user,JSON.stringify(user));
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        navigate(user.fullName);
+      }
 
     } catch (error) {
       console.log(error);
     }
-    stopLoader;
+    endLoad();
 
   }
 

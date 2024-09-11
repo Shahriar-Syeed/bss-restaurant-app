@@ -26,9 +26,9 @@ export default function Sidebar() {
   function sidebarToggle() {
     setShowSidebar((prev) => !prev);
   }
-  
+
   return (
-    <div ref={sidebarRef} >
+    <div ref={sidebarRef}>
       <button
         aria-controls="defaultSidebar"
         type="button"
@@ -47,12 +47,7 @@ export default function Sidebar() {
         </svg>
       </button>
 
-      <aside
-        id="defaultSidebar"
-        className={sidebarCss}
-        aria-label="Sidebar"
-        
-      >
+      <aside id="defaultSidebar" className={sidebarCss} aria-label="Sidebar">
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 flex justify-between flex-col">
           <ul className="space-y-2 font-medium h-full">
             <li>
@@ -77,6 +72,29 @@ export default function Sidebar() {
                 </div>
               </a>
               <hr />
+            </li>
+            <li>
+              <NavLink
+                to="/bss-restaurant-app/admin/home"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                }
+                onClick={sidebarToggle}
+                end
+              >
+                <svg
+                  className="flex-shrink-0 w-5 h-5 text-primary transition duration-75 "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M21.66406,10.25244l-9-8a.99893.99893,0,0,0-1.32812,0l-9,8a.99991.99991,0,0,0,1.32812,1.49512L4,11.449V21a.99974.99974,0,0,0,1,1H19a.99974.99974,0,0,0,1-1V11.449l.33594.29859a.99991.99991,0,0,0,1.32812-1.49512ZM9.18427,20a2.98208,2.98208,0,0,1,5.63146,0ZM10.5,14.5A1.5,1.5,0,1,1,12,16,1.50164,1.50164,0,0,1,10.5,14.5ZM18,20H16.89893a5.00092,5.00092,0,0,0-2.25867-3.22821A3.46849,3.46849,0,0,0,15.5,14.5a3.5,3.5,0,0,0-7,0,3.46849,3.46849,0,0,0,.85974,2.27179A5.00092,5.00092,0,0,0,7.10107,20H6V9.6712l6-5.33331L18,9.6712Z" />
+                </svg>
+                <span className="flex-1 ms-3 whitespace-nowrap">Home</span>
+              </NavLink>
             </li>
             <li>
               <NavLink
