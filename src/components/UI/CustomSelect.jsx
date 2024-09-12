@@ -42,8 +42,8 @@ const CustomSelect = ({ label, options, onChange, ...props }) => {
     <div className="relative" ref={showOption}>
       <input type="hidden"  value={selectedOption? selectedOption.value:''} {...props} />
       <div
-        className={`border rounded cursor-pointer w-full  p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400
-        ${isFocused ? "border-blue-500" : "border-gray-200"}`}
+        className={`border rounded cursor-pointer w-full  p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
+        ${isFocused ? "border-blue-900" : "border-gray-200"}`}
         onClick={handleToggle}
         onBlur={handleBlur}
         role="combobox"

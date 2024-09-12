@@ -14,7 +14,7 @@ import RootAdminDashboardLayout from "./pages/RootAdminDashboardLayout.jsx";
 import TableAddPage from "./pages/TableAddPage.jsx";
 import RootLayout from "./pages/Root.jsx";
 import RootEmployeeLayout from "./pages/RootEmployee.jsx";
-import { employeeLoader } from "./components/employee/employeeLoader.js";
+// import { employeeLoader } from "./components/employee/employeeLoader.js";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <EmployeePage />,
-                loader: employeeLoader,
+                // loader: employeeLoader,
               },
               {
                 path: ":employeeId",

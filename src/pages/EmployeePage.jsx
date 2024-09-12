@@ -19,32 +19,32 @@ const HEADING = [
 ];
 
 export default function EmployeePage() {
-  // const [employeesRowData, setEmployeesRowData] = useState([]);
-  const employeesRowData = useLoaderData();
-  // const { loader, startLoad, endLoad } = useLoading();
+  const [employeesRowData, setEmployeesRowData] = useState([]);
+  // const employeesRowData = useLoaderData();
+  const { loader, startLoad, endLoad } = useLoading();
   const navigate = useNavigate();
 
 
-//   useEffect(() => {
+  useEffect(() => {
 
-//     const fetchData = async () => {
-//         startLoad();
-//         try {
-//             const response = await axios.get(`https://restaurantapi.bssoln.com/api/Employee/datatable`);
-//             console.log(response.data.data);
-//             setEmployeesRowData(response.data.data);
+    const fetchData = async () => {
+        startLoad();
+        try {
+            const response = await axios.get(`https://restaurantapi.bssoln.com/api/Employee/datatable`);
+            console.log(response.data.data);
+            setEmployeesRowData(response.data.data);
 
-//             endLoad();
-//         } catch (error) {
-//           console.log(error);
-//             setTimeout(() => {
-//               endLoad();
-//             }, 3000);
-//             }
-//               }
-//               fetchData();
+            endLoad();
+        } catch (error) {
+          console.log(error);
+            setTimeout(() => {
+              endLoad();
+            }, 3000);
+            }
+              }
+              fetchData();
 
-// }, []);
+}, []);
 
   return (
     <>
@@ -66,13 +66,12 @@ export default function EmployeePage() {
             </tr>
           </thead>
           <tbody>
-            {/* {empLoad.map(v=><li>{v.designation}</li>)} */}
             <RowTable employees={employeesRowData} />
           </tbody>
         </table>
       </div>
       <Pagination  className="bg-white rounded-b-lg" />
-      {/* {loader} */}
+      {loader}
     </>
   );
 }

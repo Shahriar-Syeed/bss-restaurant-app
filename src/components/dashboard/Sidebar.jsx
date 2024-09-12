@@ -6,6 +6,8 @@ export default function Sidebar() {
 
   const sidebarRef = useRef();
 
+  const userInfo = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     const handler = (e) => {
       if (!sidebarRef.current.contains(e.target)) {
@@ -56,6 +58,7 @@ export default function Sidebar() {
                 className="flex items-center p-2 text-primary rounded-lg text-primary"
               >
                 <div className="h-10 w-10 grid place-items-center rounded-full bg-stone-500 hover:bg-black ">
+                  {userInfo.image? <img src={`https://restaurantapi.bssoln.com/images/user/${userInfo.image}`} alt="User Image" className="w-3/4 rounded-full"/>:
                   <svg
                     focusable="false"
                     aria-hidden="true"
@@ -65,10 +68,11 @@ export default function Sidebar() {
                   >
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
                   </svg>
+                  }
                 </div>
                 <div className="ms-3 d">
-                  <h5>Admin</h5>
-                  <p>admin@gmail.com</p>
+                  <h5>{userInfo.fullName}</h5>
+                  <p>{userInfo.email}</p>
                 </div>
               </a>
               <hr />

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "./UI/Button";
 
-export default function RowTable({employees}) { // Accept employees as props
+export default function RowTable({employees=[]}) { // Accept employees as props
 
   return (
     <>
@@ -56,3 +56,4 @@ export default function RowTable({employees}) { // Accept employees as props
     </>
   );
 }
+

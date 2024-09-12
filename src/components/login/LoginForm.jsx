@@ -6,6 +6,9 @@ import Button from "../UI/Button.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useLoading from "../../hooks/useLoading.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { modalActions } from "../../store/modal-slice.js";
+import Modal from "../UI/Modal.jsx";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -44,15 +47,37 @@ export default function LoginForm() {
       }
 
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+    } else if (error.request) {
+        
+        console.log(error.request);
+    } else {
+        console.log('Error', error.message);
+    }
     }
     endLoad();
-
+  }
+  const isOpen = useSelector(state=> state.modal.open);
+  const dispatch = useDispatch();
+  function openModal (){
+    dispatch(modalActions.open());
+  }
+  function closeModal () {
+    dispatch(modalActions.close());
   }
 
   return (
     <>
       <div className="login__right__container">
+    <Modal open={isOpen} onClose={()=>{}} >
+      <h1>hi there</h1>
+      <div className="modal-action p-2">
+        <Button textOnly={true} onClick={closeModal}>Close</Button>
+      </div>
+    </Modal>
       <header className="mb-5">
         <img src={Logo} alt="Logo" className=" mx-auto w-28" />
         <h1 className=" text-center text-white font-bold">BSS RESTAURANT</h1>
@@ -91,6 +116,7 @@ export default function LoginForm() {
         <Button
           type="button"
           className="w-full text-red-600 px-4 font-medium rounded capitalize tracking-2px"
+          onClick={openModal}
         >
           Back To Home
         </Button>
