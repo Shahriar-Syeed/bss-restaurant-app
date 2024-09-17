@@ -61,6 +61,7 @@ export default function LoginForm() {
     endLoad();
   }
   const isOpen = useSelector(state=> state.modal.open);
+  console.log(isOpen);
   const dispatch = useDispatch();
   function openModal (){
     dispatch(modalActions.open());
@@ -75,7 +76,7 @@ export default function LoginForm() {
     <Modal open={isOpen} onClose={()=>{}} >
       <h1>hi there</h1>
       <div className="modal-action p-2">
-        <Button textOnly={true} onClick={closeModal}>Close</Button>
+        <Button className='float-end' onClick={closeModal}>Close</Button>
       </div>
     </Modal>
       <header className="mb-5">
