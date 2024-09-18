@@ -215,7 +215,7 @@ export default function Sidebar() {
           <ul>
             <li className="">
               <Link
-                to="/bss-restaurant-app/"
+                to="/bss-restaurant-app/login/"
                 className="w-full button__outline--primary rounded-full"
               >
                 <svg

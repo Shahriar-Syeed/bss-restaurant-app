@@ -4,7 +4,7 @@ import Logo from "../../assets/logo-icon.png";
 import Button from "../UI/Button.jsx";
 // import apiUrl from "../../apiUrl/ApiUrl.jsx";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLoading from "../../hooks/useLoading.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../store/modal-slice.js";
@@ -43,7 +43,7 @@ export default function LoginForm() {
         console.log(user,JSON.stringify(user));
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
-        navigate(user.fullName);
+        navigate(`/bss-restaurant-app/${user.fullName}`);
       }
 
     } catch (error) {
@@ -57,6 +57,12 @@ export default function LoginForm() {
     } else {
         console.log('Error', error.message);
     }
+    openModal();
+    setTimeout(()=>{
+      endLoad();
+      closeModal();
+      return;
+    },3000);
     }
     endLoad();
   }
@@ -73,10 +79,11 @@ export default function LoginForm() {
   return (
     <>
       <div className="login__right__container">
-    <Modal open={isOpen} onClose={()=>{}} >
-      <h1>hi there</h1>
+    <Modal open={isOpen} onClose={closeModal} >
+      <h1>Failed To Login</h1>
+      <p>Invalid Password or Username</p>
       <div className="modal-action p-2">
-        <Button className='float-end' onClick={closeModal}>Close</Button>
+        <Button className='float-end button-primary px-4 py-2 rounded-lg' onClick={closeModal}>Close</Button>
       </div>
     </Modal>
       <header className="mb-5">
@@ -114,13 +121,12 @@ export default function LoginForm() {
         >
           LOGIN
         </Button>
-        <Button
-          type="button"
+        <Link
+          to="/bss-restaurant-app/"
           className="w-full text-red-600 px-4 font-medium rounded capitalize tracking-2px"
-          onClick={openModal}
         >
           Back To Home
-        </Button>
+        </Link>
       </form>
     </div>
     {loader}

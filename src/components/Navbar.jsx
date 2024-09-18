@@ -1,7 +1,7 @@
 import Logo from '../assets/logo-icon.png';
 
 
-export default function Navbar() {
+export default function Navbar({children}) {
   return (
     <>
       <nav className="bg-primary sticky top-0 z-20">
@@ -14,8 +14,8 @@ export default function Navbar() {
             <h2 className=" text-center text-white font-semibold whitespace-nowrap">BSS RESTAURANT</h2>
             
           </div>
-          <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-            
+          <div className="me-8" id="navbar-default">
+            {children}
           </div>
         </div>
       </nav>

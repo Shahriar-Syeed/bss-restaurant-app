@@ -45,6 +45,24 @@ export default function EmployeePage() {
               fetchData();
 
 }, []);
+function handleDelete (employeeId){
+  async function deleteEmployee(employeeId) {
+    try{
+      startLoad();
+      const res = await axios.delete(`https://restaurantapi.bssoln.com/api/Employee/delete/${employeeId}`);
+
+      if(res.status === 204){
+        const updatedEmployeesRowData = employeesRowData.filter(emp => emp.id !== employeeId );
+        setEmployeesRowData(updatedEmployeesRowData);
+      }
+      endLoad();
+    }catch(error){
+      console.log(error);
+
+    }
+  }
+  deleteEmployee(employeeId);
+}
 
   return (
     <>
@@ -66,7 +84,7 @@ export default function EmployeePage() {
             </tr>
           </thead>
           <tbody>
-            <RowTable employees={employeesRowData} />
+            <RowTable employees={employeesRowData} deleteEmployee={handleDelete} />
           </tbody>
         </table>
       </div>

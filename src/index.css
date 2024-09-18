@@ -26,9 +26,9 @@ input {
   background: none;
 }
 
-.text-zinc-350 {
-  color: rgb(166, 173, 187);
-}
+
+
+/* Border */
 
 .border-slate-250 {
   border-color: rgb(220, 220, 220);
@@ -38,46 +38,23 @@ input {
   border-color: #cc080b;
 }
 
-.button-primary,
-.bg-primary {
-  background-color: #cc080b;
-}
-
-.button-primary:is(:hover, :active) {
-  background-color: rgb(155, 6, 8);
-}
-
-.text-primary {
-  color: #cc080b;
-}
-
-.fill-primary {
-  fill: #cc080b;
-}
-
 .border-slate-250:is(:hover, :focus-within, :focus, :active) {
 
   border-color: black;
 }
 
-.tracking-2px {
-  letter-spacing: 0.125em;
+
+/* Button */
+
+.button-primary,
+.bg-primary {
+  background-color: #cc080b;
+  color:#fff;
 }
 
-.w-min-percentage{
-  width:min(500px, 70%);
+.button-primary:is(:hover, :active) {
+  background-color: rgb(155, 6, 8);
 }
-
-
-
-.animation-duration-20000 {
-  animation-duration: 20s;
-
-  &:hover {
-    animation-play-state: paused;
-  }
-}
-
 .button__outline--primary {
   border: #cc080b solid 2px;
   color: #cc080b;
@@ -101,6 +78,44 @@ input {
 .rounded-50 {
   border-radius: 50%;
 }
+
+/* Text Color */
+
+.text-primary {
+  color: #cc080b;
+}
+
+.text-zinc-350 {
+  color: rgb(166, 173, 187);
+}
+
+.fill-primary {
+  fill: #cc080b;
+}
+
+
+
+.tracking-2px {
+  letter-spacing: 0.125em;
+}
+
+.w-min-percentage{
+  width:min(500px, 70%);
+}
+
+
+
+.animation-duration-20000 {
+  animation-duration: 20s;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+
+
+
 
 .bg--page {
 

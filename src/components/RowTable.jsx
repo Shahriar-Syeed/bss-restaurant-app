@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "./UI/Button";
 
-export default function RowTable({employees=[]}) { // Accept employees as props
+export default function RowTable({ employees = [], deleteEmployee }) {
 
   return (
     <>
@@ -39,21 +39,39 @@ export default function RowTable({employees=[]}) { // Accept employees as props
           <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
             {employee.designation}
           </td>
-          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
+          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 flex gap-1">
             <Link
               to={`/bss-restaurant-app/admin/employee/${employee.id}/employee-edit`}
-              className="font-medium text-green-600 hover:underline"
+              className="rounded-50 h-8 w-8 grid place-items-center hover:bg-stone-100 fill-green-700 hover:fill-green-600"
             >
-              Edit
+              <svg
+                focusable="false"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                width="20px"
+              >
+                <path d="M3 10h11v2H3zm0-2h11V6H3zm0 8h7v-2H3zm15.01-3.13.71-.71c.39-.39 1.02-.39 1.41 0l.71.71c.39.39.39 1.02 0 1.41l-.71.71zm-.71.71-5.3 5.3V21h2.12l5.3-5.3z"></path>
+              </svg>
             </Link>
-            <Button textOnly className="text-red-800">
-              Del
+            <Button
+              textOnly
+              className="rounded-50 h-8 w-8 grid place-items-center hover:bg-stone-100 fill-red-700 hover:fill-red-600"
+              onClick={()=> deleteEmployee(employee.id)}
+            >
+              <svg
+                focusable="false"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                className="fill-inherit"
+                width="20px"
+              >
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"></path>
+              </svg>
             </Button>
-            <Link to="">Det</Link>
           </td>
+          
         </tr>
       ))}
     </>
   );
 }
-
