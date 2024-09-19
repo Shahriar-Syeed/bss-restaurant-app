@@ -4,6 +4,9 @@ import defaultImage from "../../assets/default-image-preview.png";
 import InputFloating from "../UI/InputFloating.jsx";
 import CustomSelect from "../UI/CustomSelect.jsx";
 import Button from "../UI/Button.jsx";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+import useLoading from "../../hooks/useLoading.jsx";
 
 // import apiUrl from "../../apiUrl/ApiUrl.jsx";
 // import axios from "axios";
@@ -11,10 +14,31 @@ import Button from "../UI/Button.jsx";
 export default function EmployeeForm() {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
+  const [updateData, setUpdateData]= useState({
+    
+      designation: "",
+      joinDate: "",
+      email: "",
+      phoneNumber: "",
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      fatherName: "",
+      motherName: "",
+      spouseName: "",
+      dob: "",
+      nid: "",
+      genderId: 0,
+      image: "",
+      base64: ""
+    
+  });
+  const { loader, startLoad, endLoad } = useLoading();
+  
   const genderOptions = [
-    { value: 'male', label: 'Male' },
-    { value: 'female', label: 'Female' },
-    { value: 'other', label: 'Other' },
+    { value: 'male', label: 'Male', sendingValue: 1 },
+    { value: 'female', label: 'Female', sendingValue: 2 },
+    { value: 'other', label: 'Other', sendingValue: 0 },
   ];
 
   const handleGenderChange = (selectedOption) => {
@@ -52,10 +76,41 @@ export default function EmployeeForm() {
   }
   async function handleSubmit(event) {
     event.preventDefault();
+    startLoad();
+    
 
     const fetchData = new FormData(event.target);
     const data = Object.fromEntries(fetchData.entries());
-    console.log(data);
+    console.log(data); 
+  
+      const birthDate= (new Date(data.dob)).toISOString();
+      
+      const dateOfJoin = (new Date(data.joinDate)).toISOString();
+      console.log(dateOfJoin);
+      const reader = new FileReader();
+      console.log(selectedFile);
+      console.log(reader)
+      reader.readAsDataURL(selectedFile);
+      reader.onloadend = () =>{
+        const base64String = reader.result;
+        setUpdateData ({...data, image:data.image.name, base64: base64String, joinDate: dateOfJoin, dob: birthDate.toISOString() });
+     
+      }
+
+      try{
+        console.log("updateData",updateData);
+       const response = await axios.post('https://restaurantapi.bssoln.com/api/Employee/create', updateData);
+       if(response.status === 200){
+        endLoad();
+        Navigate('../');
+       }
+
+      }catch(error){
+        console.log(error);
+      }
+
+      endLoad();
+    
     // const logData = JSON.stringify(loginData);
 
     // try{
@@ -70,6 +125,7 @@ export default function EmployeeForm() {
 
   return (
     <div className="">
+      {loader}
       
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="grid lg:grid-cols-12 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
@@ -83,8 +139,8 @@ export default function EmployeeForm() {
                 type="file"
                 hidden
                 required
-                id="employeeImage"
-                name="imageEmployee"
+                id="image"
+                name="image"
                 labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
                 onChange={onSelectFile}
                
@@ -117,13 +173,13 @@ export default function EmployeeForm() {
             <InputFloating name='email'>Email</InputFloating>
           </div>
           <div className="lg:col-span-4">
-            <InputFloating name='phone'>Phone Number</InputFloating>
+            <InputFloating name='phoneNumber'>Phone Number</InputFloating>
           </div>
           <div className="lg:col-span-3">
-          <CustomSelect name='gender' label="Gender" options={genderOptions} onChange={handleGenderChange} />
+          <CustomSelect name='genderId' label="Gender" options={genderOptions} onChange={handleGenderChange} />
           </div>
           <div className="lg:col-span-3">
-            <InputFloating type='date' name='birthDay'>Date of Birth</InputFloating>
+            <InputFloating type='date' name='dob'>Date of Birth</InputFloating>
           </div>
           <div className="lg:col-span-3">
             <InputFloating type='date' name='joinDate'>Date of Join</InputFloating>
