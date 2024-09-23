@@ -4,6 +4,7 @@ import modalReducer from "./modal-slice.js";
 const store = configureStore({
   reducer: {
     modal: modalReducer,
+     
   },
 });
 

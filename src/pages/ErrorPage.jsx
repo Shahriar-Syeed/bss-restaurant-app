@@ -1,6 +1,6 @@
 import { useRouteError } from "react-router-dom";
 
-export default function ErrorPge() {
+export default function ErrorPage() {
   const error = useRouteError();
 
   let title = "An Error occurred!";

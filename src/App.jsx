@@ -2,10 +2,10 @@ import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom"
 
 import LoginPage from "./pages/LoginPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
-import EmployeePage from "./pages/EmployeePage.jsx";
-import EmployeeAddPage from "./pages/EmployeeAddPage.jsx";
-import EmployeeDetailPage from "./pages/EmployeeDetailPage.jsx";
-import EmployeeEditPage from "./pages/EmployeeEditPage.jsx";
+import EmployeeListPage from "./pages/EmployeeListPage.jsx";
+import EmployeeAddPage from "./components/employee/EmployeeAddPage.jsx";
+import EmployeeDetailPage from "./components/employee/EmployeeDetailPage.jsx";
+import EmployeeEditPage from "./components/employee/EmployeeEditPage.jsx";
 import FoodsPage from "./pages/FoodsPage.jsx";
 import TablePage from "./pages/TablePage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
@@ -14,7 +14,7 @@ import RootAdminDashboardLayout from "./pages/RootAdminDashboardLayout.jsx";
 import TableAddPage from "./pages/TableAddPage.jsx";
 import RootLayout from "./pages/Root.jsx";
 import RootEmployeeLayout from "./pages/RootEmployee.jsx";
-import ErrorPge from "./pages/ErrorPge.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 import MainPage from "./pages/MainPage.jsx";
 import UserInfoPage from "./pages/UserInfoPage.jsx";
 // import { employeeLoader } from "./components/employee/employeeLoader.js";
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
   {
     path: "/bss-restaurant-app",
     element: <RootLayout />,
-    errorElement: <ErrorPge/>,
+    errorElement: <ErrorPage/>,
     children: [
       {
         index: true,
@@ -51,16 +51,16 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <EmployeePage />,
+                element: <EmployeeListPage />,
                 // loader: employeeLoader,
-              },
-              {
-                path: ":employeeId",
-                element: <EmployeeDetailPage />,
               },
               {
                 path: "employee-add",
                 element: <EmployeeAddPage />,
+              },
+              {
+                path: ":employeeId",
+                element: <EmployeeDetailPage />,
               },
               {
                 path: ":employeeId/employee-edit",

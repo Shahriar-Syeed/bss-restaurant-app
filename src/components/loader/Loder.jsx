@@ -1,6 +1,9 @@
+import { useState } from "react";
 
 
-export default function Loading() {
+export default function Loading({show}) {
+  const [isloading, setIsLoading]=useState(false);
+  
   return (
     <>
     <div className="fixed w-dvw h-dvh bg-slate-400 opacity-50 z-20 top-0 left-0">

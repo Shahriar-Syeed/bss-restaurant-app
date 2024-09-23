@@ -18,7 +18,7 @@ const HEADING = [
   { id: "action", label: "Action", minWidth: 120 },
 ];
 
-export default function EmployeePage() {
+export default function EmployeeListPage() {
   const [employeesRowData, setEmployeesRowData] = useState([]);
   // const employeesRowData = useLoaderData();
   const { loader, startLoad, endLoad } = useLoading();

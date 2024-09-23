@@ -1,5 +1,5 @@
-import EmployeeForm from "../components/employee/EmployeeForm";
-import PageHeader from "../components/PageHeader";
+import EmployeeForm from "./EmployeeCreateForm.jsx";
+import PageHeader from "../PageHeader.jsx";
 
 
 export default function EmployeeAddPage() {
