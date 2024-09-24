@@ -1,71 +1,65 @@
-import {  useLoaderData, useNavigate } from "react-router-dom";
-import Pagination from "../components/Pagination";
-import PageHeader from "../components/PageHeader";
-import HeadTable from "../components/HeadTable";
-import RowTable from "../components/RowTable";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import useLoading from "../hooks/useLoading";
-// import Button from "../components/UI/Button";
+import { useNavigate } from "react-router-dom";
+import Pagination from "../components/Pagination.jsx";
+import PageHeader from "../components/PageHeader.jsx";
+import HeadTable from "../components/HeadTable.jsx";
+import RowTable from "../components/RowTable.jsx";
+import { useEffect } from "react";
+
+import Modal from "../components/UI/Modal.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { modalActions } from "../store/modal-slice";
+import Button from "../components/UI/Button.jsx";
+import { deleteEmployee, getEmployees } from "../store/employee-actions.js";
+import Loading from "../components/loader/Loading.jsx";
 
 const HEADING = [
-  { id: "image", label: "Image", minWidth: 30 },
-  { id: "name", label: "Name", minWidth: 230 },
-  { id: "email", label: "Email", minWidth: 170 },
-  { id: "phone", label: "Phone", minWidth: 100 },
-  { id: "joiningDate", label: "Join Date", minWidth: 100 },
-  { id: "designation", label: "Designation", minWidth: 120 },
-  { id: "action", label: "Action", minWidth: 120 },
+  { id: "image", label: "Image" },
+  { id: "name", label: "Name" },
+  { id: "email", label: "Email" },
+  { id: "phone", label: "Phone" },
+  { id: "joiningDate", label: "Join Date" },
+  { id: "designation", label: "Designation" },
+  { id: "action", label: "Action" },
 ];
 
 export default function EmployeeListPage() {
-  const [employeesRowData, setEmployeesRowData] = useState([]);
-  // const employeesRowData = useLoaderData();
-  const { loader, startLoad, endLoad } = useLoading();
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const employeesRowData = useSelector(
+    (state) => state.employees.employeesRowData
+  );
+  const loading = useSelector((state) => state.employees.loading);
 
   useEffect(() => {
-
-    const fetchData = async () => {
-        startLoad();
-        try {
-            const response = await axios.get(`https://restaurantapi.bssoln.com/api/Employee/datatable`);
-            console.log(response.data.data);
-            setEmployeesRowData(response.data.data);
-
-            endLoad();
-        } catch (error) {
-          console.log(error);
-            setTimeout(() => {
-              endLoad();
-            }, 3000);
-            }
-              }
-              fetchData();
-
-}, []);
-function handleDelete (employeeId){
-  async function deleteEmployee(employeeId) {
-    try{
-      startLoad();
-      const res = await axios.delete(`https://restaurantapi.bssoln.com/api/Employee/delete/${employeeId}`);
-
-      if(res.status === 204){
-        const updatedEmployeesRowData = employeesRowData.filter(emp => emp.id !== employeeId );
-        setEmployeesRowData(updatedEmployeesRowData);
-      }
-      endLoad();
-    }catch(error){
-      console.log(error);
-
-    }
+    dispatch(getEmployees());
+  }, []);
+  function handleDelete(employeeId) {
+    dispatch(deleteEmployee(employeeId));
   }
-  deleteEmployee(employeeId);
-}
+  // Modal
+
+  const isOpen = useSelector((state) => state.modal.open);
+  function closeModal() {
+    dispatch(modalActions.close());
+  }
+  const errorMess = useSelector((state) => state.employees.error);
 
   return (
     <>
+      <Modal open={isOpen} onClose={closeModal}>
+        <h1>Failed fetching data!</h1>
+        {errorMess ? <p>{errorMess}</p> : <p>Invalid Password or Username</p>}
+        <div className="modal-action p-2">
+          <Button
+            className="float-end button-primary px-4 py-2 rounded-lg"
+            onClick={closeModal}
+          >
+            Close
+          </Button>
+        </div>
+      </Modal>
       <PageHeader
         title="All Employee"
         buttonLabel="ADD EMPLOYEE"
@@ -84,12 +78,15 @@ function handleDelete (employeeId){
             </tr>
           </thead>
           <tbody>
-            <RowTable employees={employeesRowData} deleteEmployee={handleDelete} />
+            <RowTable
+              employees={employeesRowData}
+              deleteEmployee={handleDelete}
+            />
           </tbody>
         </table>
       </div>
-      <Pagination  className="bg-white rounded-b-lg" />
-      {loader}
+      <Pagination className="bg-white rounded-b-lg" />
+      {loading && <Loading />}
     </>
   );
 }

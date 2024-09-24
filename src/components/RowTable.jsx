@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Button from "./UI/Button";
 
 export default function RowTable({ employees = [], deleteEmployee }) {
-
   return (
     <>
       {employees.map((employee) => (
@@ -56,7 +55,14 @@ export default function RowTable({ employees = [], deleteEmployee }) {
             <Button
               textOnly
               className="rounded-50 h-8 w-8 grid place-items-center hover:bg-stone-100 fill-red-700 hover:fill-red-600"
-              onClick={()=> deleteEmployee(employee.id)}
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Are you sure you want to delete this employee?"
+                  )
+                )
+                  deleteEmployee(employee.id);
+              }}
             >
               <svg
                 focusable="false"
@@ -69,7 +75,6 @@ export default function RowTable({ employees = [], deleteEmployee }) {
               </svg>
             </Button>
           </td>
-          
         </tr>
       ))}
     </>

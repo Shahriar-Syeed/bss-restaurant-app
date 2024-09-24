@@ -6,18 +6,19 @@ import CustomSelect from "../UI/CustomSelect.jsx";
 import Button from "../UI/Button.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import useLoading from "../../hooks/useLoading.jsx";
 import Modal from "../UI/Modal.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../store/modal-slice.js";
+import Loading from "../loader/Loading.jsx";
+import { loaderActions } from "../../store/loader-slice.js";
 
 // import apiUrl from "../../apiUrl/ApiUrl.jsx";
 // import axios from "axios";
 
 function dateConvertToString(date) {
-  if (!date) return ""; // Return an empty string if date is not provided.
+  if (!date) return ""; 
   const newDate = new Date(date);
-  if (isNaN(newDate)) return ""; // Handle invalid dates.
+  if (isNaN(newDate)) return ""; 
   const dateString = newDate.toISOString();
   return dateString;
 }
@@ -26,24 +27,6 @@ export default function EmployeeCreateForm() {
   const [selectedEmployeeImage, setSelectedEmployeeImage] = useState();
   const [preview, setPreview] = useState();
   const navigate = useNavigate();
-  // const [updateData, setUpdateData] = useState({
-  //   designation: "",
-  //   joinDate: "",
-  //   email: "",
-  //   phoneNumber: "",
-  //   firstName: "",
-  //   middleName: "",
-  //   lastName: "",
-  //   fatherName: "",
-  //   motherName: "",
-  //   spouseName: "",
-  //   dob: "",
-  //   nid: "",
-  //   genderId: 0,
-  //   image: "",
-  //   base64: "",
-  // });
-  const { loader, startLoad, endLoad } = useLoading();
 
   const genderOptions = [
     { value: "male", label: "Male", sendingValue: 1 },
@@ -71,10 +54,6 @@ export default function EmployeeCreateForm() {
     }
     setSelectedEmployeeImage(event.target.files[0]);
   }
-  // function handleChange(e){
-  //   const {name, value} = e.target;
-  //   setFormData({...formData, [name]: value});
-  // };
   function handleDrop(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -86,7 +65,8 @@ export default function EmployeeCreateForm() {
   }
   async function handleSubmit(event) {
     event.preventDefault();
-    startLoad();
+
+    dispatch(loaderActions.show());
 
     const fetchData = new FormData(event.target);
     const data = Object.fromEntries(fetchData.entries());
@@ -94,11 +74,6 @@ export default function EmployeeCreateForm() {
 
     const birthDateString = dateConvertToString(data.dob);
   const dateOfJoinString = dateConvertToString(data.joinDate);
-  //  setUpdateData(() => ({
-  //     ...data,
-  //     joinDate: dateOfJoinString,
-  //     dob: birthDateString,
-  //   }));
   const updatedData = {
     ...data,
     joinDate: dateOfJoinString,
@@ -126,12 +101,14 @@ export default function EmployeeCreateForm() {
             finalData
           );
           if (response.status === 200) {
-            endLoad();
+
+            dispatch(loaderActions.hide());
             navigate("../");
           }
         } catch (error) {
           console.log(error);
-          endLoad();
+
+          dispatch(loaderActions.hide());
           openModal();
         }
       };
@@ -152,6 +129,8 @@ export default function EmployeeCreateForm() {
 
    // Modal
    const isOpen = useSelector(state=> state.modal.open);
+   const isLoading = useSelector(state => state.loader.isLoading);
+   
    const dispatch = useDispatch();
  function openModal (){
    dispatch(modalActions.open());
@@ -162,9 +141,10 @@ export default function EmployeeCreateForm() {
 
   return (
     <div className="">
-      {loader}
+
+      {isLoading && <Loading/>}
       <Modal open={isOpen} onClose={closeModal} >
-      <h1>Failed To Login</h1>
+      <h1>Failed sen</h1>
       <p>Invalid Password or Username</p>
       <div className="modal-action p-2">
         <Button className='float-end button-primary px-4 py-2 rounded-lg' onClick={closeModal}>Close</Button>
