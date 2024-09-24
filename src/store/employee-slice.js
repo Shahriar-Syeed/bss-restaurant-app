@@ -27,7 +27,7 @@ const employeeSlice = createSlice({
     },
     loading(state, action) {
       state.loading = action.payload;
-    },
+    },   
     errorMessage(state, action) {
       state.error = action.payload;
     },

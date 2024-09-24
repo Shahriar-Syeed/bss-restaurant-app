@@ -54,3 +54,10 @@ export const deleteEmployee =(employeeId) =>{
     }
   );
 }
+
+export const createEmployee = (formData, imageFile) =>{
+  return async (dispatch) =>{
+    dispatch(employeeActions.loading(true));
+  };
+}
+

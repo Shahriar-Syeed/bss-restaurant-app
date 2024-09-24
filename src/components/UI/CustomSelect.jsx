@@ -1,7 +1,7 @@
 // CustomSelect.js
 import { useEffect, useRef, useState } from "react";
 
-const CustomSelect = ({ label, options, onChange, ...props }) => {
+const CustomSelect = ({ label, options = [], onChange, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -23,12 +23,11 @@ const CustomSelect = ({ label, options, onChange, ...props }) => {
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
-    setIsFocused(!isOpen);
+    setIsFocused(!isFocused);
   };
 
   const handleSelect = (option) => {
     setSelectedOption(option);
-    onChange(option);
     setIsOpen(false);
     setIsFocused(true);
   };
@@ -40,7 +39,11 @@ const CustomSelect = ({ label, options, onChange, ...props }) => {
 
   return (
     <div className="relative" ref={showOption}>
-      <input type="hidden"  value={selectedOption? selectedOption.sendingValue:0} {...props} />
+      <input
+        type="hidden"
+        value={selectedOption ? selectedOption.sendingValue : 0}
+        {...props}
+      />
       <div
         className={`border rounded cursor-pointer w-full  p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
         ${isFocused ? "border-blue-900" : "border-gray-200"}`}
@@ -61,19 +64,15 @@ const CustomSelect = ({ label, options, onChange, ...props }) => {
           {label}
         </label>
 
-        <span className={`flex-1 ${selectedOption ? "text-xsm sm:text-sm md:text-base" : "text-gray-400"}`}>
+        <span
+          className={`flex-1 ${
+            selectedOption
+              ? "text-xsm sm:text-sm md:text-base"
+              : "text-gray-400"
+          }`}
+        >
           {selectedOption && selectedOption.label}
         </span>
-
-        {/* <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          >
-          <path d="M5 8L10 13L15 8H5Z" fill="black" />
-        </svg> */}
         <svg
           className={`transform transition-transform ${
             isOpen ? "rotate-180" : ""
