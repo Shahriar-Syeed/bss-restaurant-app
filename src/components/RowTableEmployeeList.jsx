@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "./UI/Button";
 
-export default function RowTable({ employees = [], deleteEmployee }) {
+export default function RowTableEmployeeList({ employees = [], deleteEmployee }) {
   return (
     <>
       {employees.map((employee) => (
