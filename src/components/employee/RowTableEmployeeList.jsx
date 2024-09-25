@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Button from "./UI/Button";
+import Button from "../UI/Button";
 
 export default function RowTableEmployeeList({ employees = [], deleteEmployee }) {
   return (

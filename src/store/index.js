@@ -8,6 +8,7 @@ const store = configureStore({
     modal: modalReducer,
     loader: loaderSlice,
     employees: employeeSlice,
+    
      
   },
 });

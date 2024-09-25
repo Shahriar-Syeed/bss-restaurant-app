@@ -92,7 +92,9 @@ input {
 .fill-primary {
   fill: #cc080b;
 }
-
+.fill-currentcolor{
+  fill:currentColor;
+}
 
 
 .tracking-2px {

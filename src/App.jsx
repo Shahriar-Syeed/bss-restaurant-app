@@ -7,7 +7,7 @@ import EmployeeAddPage from "./components/employee/EmployeeAddPage.jsx";
 import EmployeeDetailPage from "./components/employee/EmployeeDetailPage.jsx";
 import EmployeeEditPage from "./components/employee/EmployeeEditPage.jsx";
 import FoodsPage from "./pages/FoodsPage.jsx";
-import TablePage from "./pages/TablePage.jsx";
+import TableListPage from "./pages/TableListPage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 import NewOrderPage from "./pages/NewOrderPage.jsx";
 import RootAdminDashboardLayout from "./pages/RootAdminDashboardLayout.jsx";
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
               },
             ],
           },
-          { path: "table", element: <TablePage /> },
+          { path: "table", element: <TableListPage /> },
           { path: "table/table-add", element: <TableAddPage /> },
           { path: "foods", element: <FoodsPage /> },
           { path: "order", element: <OrderPage /> },

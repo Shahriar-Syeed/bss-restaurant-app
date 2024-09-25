@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination.jsx";
 import PageHeader from "../components/PageHeader.jsx";
 import HeadTable from "../components/HeadTable.jsx";
-import RowTableEmployeeList from "../components/RowTableEmployeeList.jsx";
+import RowTableEmployeeList from "../components/employee/RowTableEmployeeList.jsx";
 import { useEffect } from "react";
 
 import Modal from "../components/UI/Modal.jsx";
