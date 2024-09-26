@@ -124,7 +124,7 @@ export default function Sidebar() {
             </li>
             <li>
               <NavLink
-                to="/bss-restaurant-app/admin/table"
+                to="/bss-restaurant-app/admin/tables"
                 className={({ isActive }) =>
                   isActive
                     ? "flex items-center p-2 text-primary rounded-lg  bg-rose-100 text-primary group"

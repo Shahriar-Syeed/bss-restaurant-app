@@ -1,33 +1,16 @@
-import { useEffect, useState } from "react";
-import Input from "../UI/Input.jsx";
-import defaultImage from "../../assets/default-image-preview.png";
-import InputFloating from "../UI/InputFloating.jsx";
-import CustomSelect from "../UI/CustomSelect.jsx";
+
 import Button from "../UI/Button.jsx";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Modal from "../UI/Modal.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../store/modal-slice.js";
 import Loading from "../loader/Loading.jsx";
-import { loaderActions } from "../../store/loader-slice.js";
 import { employeeActions } from "../../store/employee-slice.js";
 import EmployeeForm from "./EmployeeForm.jsx";
 import { createEmployee } from "../../store/employee-actions.js";
 
-// import apiUrl from "../../apiUrl/ApiUrl.jsx";
-// import axios from "axios";
-
-// function dateConvertToString(date) {
-//   if (!date) return "";
-//   const newDate = new Date(date);
-//   if (isNaN(newDate)) return "";
-//   const dateString = newDate.toISOString();
-//   return dateString;
-// }
-
 export default function EmployeeCreateForm() {
-  // const [selectedEmployeeImage, setSelectedEmployeeImage] = useState();
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -66,9 +49,7 @@ export default function EmployeeCreateForm() {
     console.log("result",result)
     if (result === 200) {
       navigate("../");
-    }
-
-    
+    }    
   }
 
   // Modal

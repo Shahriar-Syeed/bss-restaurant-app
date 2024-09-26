@@ -1,4 +1,8 @@
-import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 
 import LoginPage from "./pages/LoginPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
@@ -7,13 +11,14 @@ import EmployeeAddPage from "./components/employee/EmployeeAddPage.jsx";
 import EmployeeDetailPage from "./components/employee/EmployeeDetailPage.jsx";
 import EmployeeEditPage from "./components/employee/EmployeeEditPage.jsx";
 import FoodsPage from "./pages/FoodsPage.jsx";
-import TableListPage from "./pages/TableListPage.jsx";
+import EmployeeTablesListPage from "./pages/EmployeeTablesListPage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 import NewOrderPage from "./pages/NewOrderPage.jsx";
 import RootAdminDashboardLayout from "./pages/RootAdminDashboardLayout.jsx";
 import TableAddPage from "./pages/TableAddPage.jsx";
 import RootLayout from "./pages/Root.jsx";
 import RootEmployeeLayout from "./pages/RootEmployee.jsx";
+import RootEmployeeTables from "./pages/RootEmployeeTables.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import MainPage from "./pages/MainPage.jsx";
 import UserInfoPage from "./pages/UserInfoPage.jsx";
@@ -23,14 +28,14 @@ const router = createBrowserRouter([
   {
     path: "/bss-restaurant-app",
     element: <RootLayout />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
-        element: <MainPage/>,
+        element: <MainPage />,
       },
       {
-        path:'login',
+        path: "login",
         element: <LoginPage />,
       },
       // {
@@ -43,7 +48,7 @@ const router = createBrowserRouter([
         path: "admin",
         element: <RootAdminDashboardLayout />,
         children: [
-          {index:true, element:<UserInfoPage/>},
+          { index: true, element: <UserInfoPage /> },
           { path: "home", element: <HomePage /> },
           {
             path: "employee",
@@ -68,8 +73,15 @@ const router = createBrowserRouter([
               },
             ],
           },
-          { path: "table", element: <TableListPage /> },
-          { path: "table/table-add", element: <TableAddPage /> },
+
+          {
+            path: "tables",
+            element: <RootEmployeeTables />,
+            children: [
+              { index: true, element: <EmployeeTablesListPage /> },
+              { path: "add-table", element: <TableAddPage /> },
+            ],
+          },
           { path: "foods", element: <FoodsPage /> },
           { path: "order", element: <OrderPage /> },
           {
