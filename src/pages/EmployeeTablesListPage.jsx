@@ -9,6 +9,9 @@ import { useEffect } from "react";
 import { deleteEmployeeTable, getEmployeeTables } from "../store/employee-tables-actions";
 import Loading from "../components/loader/Loading";
 import Modal from "../components/UI/Modal";
+import { modalActions } from "../store/modal-slice";
+import { employeeTablesActions } from "../store/employee-tables-slice";
+import Button from "../components/UI/Button";
 
 const HEADING = [
   { id: "tableNumber", label: "Table Number" },
@@ -30,6 +33,17 @@ export default function EmployeeTablesListPage() {
     (state) => state.employeeTables.employeeTableRowData
   );
 
+  const errorMessage = useSelector(
+    (state) => state.employeeTables.error
+    
+  );
+
+
+  const isOpen = useSelector((state)=>state.modal.open);
+  function closeModal() {
+    dispatch(modalActions.close());
+    dispatch(employeeTablesActions.setErrorMessage(undefined));
+  }
 
   useEffect(() => {
     dispatch(getEmployeeTables());
@@ -44,6 +58,22 @@ export default function EmployeeTablesListPage() {
 
   return (
     <>
+    {errorMessage && <Modal open={isOpen}>
+    <h1>Failed!</h1>
+    {errorMessage ? (
+          <p>{errorMessage}</p>
+        ) : (
+          <p>Something went wrong</p>
+        )}
+    <div className="modal-action p-2">
+          <Button
+            className="float-end button-primary px-4 py-2 rounded-lg"
+            onClick={closeModal}
+          >
+            Close
+          </Button>
+        </div>
+    </Modal>}
     {isLoading && <Loading/>}
       <PageHeader
         title="All Table List"

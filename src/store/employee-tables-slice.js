@@ -6,6 +6,7 @@ const initialEmployeeTables = {
   preview: undefined,
   loading: false,
   error: null,
+  selectedTableImage:undefined,
 };
 
 const employeeTablesSlice = createSlice({
@@ -21,17 +22,17 @@ const employeeTablesSlice = createSlice({
     showPreview(state, action) {
       state.preview = action.payload;
     },
-    setEmployeeInTable(state, action){
+    setEmployeeInTable(state, action) {
       state.employeesOnTable = action.payload;
     },
 
     setLoading(state, action) {
       state.loading = action.payload;
     },
-    errorMessage(state, action) {
+    setErrorMessage(state, action) {
       state.error = action.payload;
     },
-    
+
     removeEmployeeTable(state, action) {
       state.employeeTableRowData = state.employeeTableRowData.filter(
         (employeeTable) => employeeTable.id !== action.payload
@@ -39,9 +40,13 @@ const employeeTablesSlice = createSlice({
       state.employeeTablesDataTable = {
         ...state.employeeTablesDataTable,
         data: state.employeeTablesDataTable.data.filter(
-        (employeeTable) => employeeTable.id !== action.payload
-      )};
+          (employeeTable) => employeeTable.id !== action.payload
+        ),
+      };
     },
+    setSelectedTableImage(state, action){
+      state.selectedTableImage = action.payload;
+    }
   },
 });
 export const employeeTablesActions = employeeTablesSlice.actions;

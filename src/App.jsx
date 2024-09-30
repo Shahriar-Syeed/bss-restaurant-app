@@ -15,7 +15,7 @@ import EmployeeTablesListPage from "./pages/EmployeeTablesListPage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 import NewOrderPage from "./pages/NewOrderPage.jsx";
 import RootAdminDashboardLayout from "./pages/RootAdminDashboardLayout.jsx";
-import TableAddPage from "./pages/TableAddPage.jsx";
+import TableAddPage from "./components/employee-table/TableAddPage.jsx";
 import RootLayout from "./pages/Root.jsx";
 import RootEmployeeLayout from "./pages/RootEmployee.jsx";
 import RootEmployeeTables from "./pages/RootEmployeeTables.jsx";

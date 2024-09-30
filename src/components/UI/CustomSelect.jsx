@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 const CustomSelect = ({ label, options = [], onChange, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState();
   const [isFocused, setIsFocused] = useState(false);
 
   const showOption = useRef();

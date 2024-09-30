@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { employeeActions } from "../../store/employee-slice.js";
 
 export default function EmployeeForm({ handleSubmit, handleDrop, onSelectFile, selectedEmployeeImage }) {
-  // const [preview, setPreview] = useState();
+
   const dispatch = useDispatch();
   const previewImage = useSelector((state) => state.employees.preview);
 
@@ -18,9 +18,6 @@ export default function EmployeeForm({ handleSubmit, handleDrop, onSelectFile, s
     { value: "other", label: "Other", sendingValue: 0 },
   ];
 
-  // const handleGenderChange = (selectedOption) => {
-  //   console.log("Selected Gender:", selectedOption);
-  // };
 
   useEffect(() => {
     if (!selectedEmployeeImage) {
