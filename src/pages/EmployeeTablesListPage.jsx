@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { deleteEmployeeTable, getEmployeeTables } from "../store/employee-tables-actions";
 import Loading from "../components/loader/Loading";
+import Modal from "../components/UI/Modal";
 
 const HEADING = [
   { id: "tableNumber", label: "Table Number" },
@@ -29,14 +30,15 @@ export default function EmployeeTablesListPage() {
     (state) => state.employeeTables.employeeTableRowData
   );
 
+
   useEffect(() => {
     dispatch(getEmployeeTables());
     console.log(employeeTablesData);
     console.log('employeeTableRow',employeeTableRow);
-  }, []);
-  function handleDelete(id){
-    dispatch(deleteEmployeeTable(id));
+  }, [dispatch]);
 
+  function handleDelete(id){
+    dispatch(deleteEmployeeTable(id)); 
   }
 
 

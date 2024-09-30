@@ -12,12 +12,10 @@ export default function RowEmployeeTableList({
   employees = [],
   handleDelete=()=>{}
 }) {
-  const dispatch= useDispatch();
+
   const newEmployee = [...employees];
 
- function handleTableDelete (tableId){
-  dispatch(deleteEmployeeTable(tableId));
- }
+
 
 
 
@@ -59,7 +57,7 @@ export default function RowEmployeeTableList({
             onClick={() => {
               if (window.confirm("Are you sure you want to delete this table?"))
                 console.log("delete");
-              handleTableDelete(tableInfoData.id);
+              handleDelete(tableInfoData.id);
             }}
           >
             <svg

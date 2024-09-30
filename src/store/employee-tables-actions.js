@@ -33,10 +33,9 @@ export const deleteEmployeeTable = (employeeTableId) => {
       const res = await axios.delete(
         `https://restaurantapi.bssoln.com/api/Table/delete/${employeeTableId}`
       );
-
-      if (res.status === 200) {
-        dispatch(employeeTablesActions.removeEmployee(employeeTableId));
-        dispatch(employeeTablesActions.getEmployeeTablesDataTable(res.data));
+        console.log("delete res", res)
+      if (res.status === 204) {
+        dispatch(employeeTablesActions.removeEmployeeTable(employeeTableId));
       }
       dispatch(employeeTablesActions.setLoading(false));
     } catch (error) {

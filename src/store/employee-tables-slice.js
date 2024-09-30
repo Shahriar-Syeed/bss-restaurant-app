@@ -31,15 +31,16 @@ const employeeTablesSlice = createSlice({
     errorMessage(state, action) {
       state.error = action.payload;
     },
-
     
     removeEmployeeTable(state, action) {
       state.employeeTableRowData = state.employeeTableRowData.filter(
         (employeeTable) => employeeTable.id !== action.payload
       );
-      state.employeeTablesDataTable.data = state.employeeTablesDataTable.data.filter(
+      state.employeeTablesDataTable = {
+        ...state.employeeTablesDataTable,
+        data: state.employeeTablesDataTable.data.filter(
         (employeeTable) => employeeTable.id !== action.payload
-      );
+      )};
     },
   },
 });
