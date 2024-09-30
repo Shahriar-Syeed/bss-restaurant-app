@@ -36,7 +36,7 @@ export default function EmployeeTablesListPage() {
   }, []);
   function handleDelete(id){
     dispatch(deleteEmployeeTable(id));
-    dispatch(getEmployeeTables());
+
   }
 
 

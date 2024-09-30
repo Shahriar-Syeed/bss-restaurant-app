@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import Button from "../UI/Button";
 import EmployeesInTable from "./EmployeesInTable";
 import { deleteEmployeeTable } from "../../store/employee-tables-actions";
+import { employeeActions } from "../../store/employee-slice";
+
 
 
 export default function RowEmployeeTableList({
@@ -13,7 +15,9 @@ export default function RowEmployeeTableList({
   const dispatch= useDispatch();
   const newEmployee = [...employees];
 
- 
+ function handleTableDelete (tableId){
+  dispatch(deleteEmployeeTable(tableId));
+ }
 
 
 
@@ -55,7 +59,7 @@ export default function RowEmployeeTableList({
             onClick={() => {
               if (window.confirm("Are you sure you want to delete this table?"))
                 console.log("delete");
-              handleDelete(tableInfoData.id);
+              handleTableDelete(tableInfoData.id);
             }}
           >
             <svg

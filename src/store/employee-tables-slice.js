@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialEmployeeTables = {
   employeeTablesDataTable: {},
   employeeTableRowData: [],
-  employeesOnTable: [],
   preview: undefined,
   loading: false,
   error: null,
@@ -33,13 +32,12 @@ const employeeTablesSlice = createSlice({
       state.error = action.payload;
     },
 
-    setEmployeeTableRowData(state, action) {
-      state.employeeTableRowData = state.employeeTablesDataTable.filter(
-        (employeeTable) => employeeTable.id !== action.payload
-      );
-    },
+    
     removeEmployeeTable(state, action) {
       state.employeeTableRowData = state.employeeTableRowData.filter(
+        (employeeTable) => employeeTable.id !== action.payload
+      );
+      state.employeeTablesDataTable.data = state.employeeTablesDataTable.data.filter(
         (employeeTable) => employeeTable.id !== action.payload
       );
     },
