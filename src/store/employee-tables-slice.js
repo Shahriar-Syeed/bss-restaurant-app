@@ -7,6 +7,7 @@ const initialEmployeeTables = {
   loading: false,
   error: null,
   selectedTableImage:undefined,
+  nonAssignedEmployee: [],
 };
 
 const employeeTablesSlice = createSlice({
@@ -46,6 +47,9 @@ const employeeTablesSlice = createSlice({
     },
     setSelectedTableImage(state, action){
       state.selectedTableImage = action.payload;
+    },
+    setNonAssignEmployee(state,action){
+      state.nonAssignedEmployee = action.payload;
     }
   },
 });

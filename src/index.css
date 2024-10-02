@@ -101,6 +101,10 @@ input {
   letter-spacing: 0.125em;
 }
 
+.overflow-unset{
+  overflow: unset;
+}
+
 .w-min-percentage{
   width:min(500px, 70%);
 }

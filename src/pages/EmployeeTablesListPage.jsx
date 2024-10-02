@@ -6,12 +6,16 @@ import HeadTable from "../components/HeadTable";
 import RowTableList from "../components/employee-table/RowTableList";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { deleteEmployeeTable, getEmployeeTables } from "../store/employee-tables-actions";
+import {
+  deleteEmployeeTable,
+  getEmployeeTables,
+} from "../store/employee-tables-actions";
 import Loading from "../components/loader/Loading";
 import Modal from "../components/UI/Modal";
 import { modalActions } from "../store/modal-slice";
 import { employeeTablesActions } from "../store/employee-tables-slice";
 import Button from "../components/UI/Button";
+
 
 const HEADING = [
   { id: "tableNumber", label: "Table Number" },
@@ -33,13 +37,11 @@ export default function EmployeeTablesListPage() {
     (state) => state.employeeTables.employeeTableRowData
   );
 
-  const errorMessage = useSelector(
-    (state) => state.employeeTables.error
-    
-  );
+  const errorMessage = useSelector((state) => state.employeeTables.error);
+
+  const isOpen = useSelector((state) => state.modal.open);
 
 
-  const isOpen = useSelector((state)=>state.modal.open);
   function closeModal() {
     dispatch(modalActions.close());
     dispatch(employeeTablesActions.setErrorMessage(undefined));
@@ -48,33 +50,30 @@ export default function EmployeeTablesListPage() {
   useEffect(() => {
     dispatch(getEmployeeTables());
     console.log(employeeTablesData);
-    console.log('employeeTableRow',employeeTableRow);
+    console.log("employeeTableRow", employeeTableRow);
   }, [dispatch]);
 
-  function handleDelete(id){
-    dispatch(deleteEmployeeTable(id)); 
+  function handleDelete(id) {
+    dispatch(deleteEmployeeTable(id));
   }
-
 
   return (
     <>
-    {errorMessage && <Modal open={isOpen}>
-    <h1>Failed!</h1>
-    {errorMessage ? (
-          <p>{errorMessage}</p>
-        ) : (
-          <p>Something went wrong</p>
-        )}
-    <div className="modal-action p-2">
-          <Button
-            className="float-end button-primary px-4 py-2 rounded-lg"
-            onClick={closeModal}
-          >
-            Close
-          </Button>
-        </div>
-    </Modal>}
-    {isLoading && <Loading/>}
+      {errorMessage && (
+        <Modal open={isOpen}>
+          <h1>Failed!</h1>
+          {errorMessage ? <p>{errorMessage}</p> : <p>Something went wrong</p>}
+          <div className="modal-action p-2">
+            <Button
+              className="float-end button-primary px-4 py-2 rounded-lg"
+              onClick={closeModal}
+            >
+              Close
+            </Button>
+          </div>
+        </Modal>
+      )}
+      {isLoading && <Loading />}
       <PageHeader
         title="All Table List"
         buttonLabel="ADD TABLE"
@@ -93,7 +92,12 @@ export default function EmployeeTablesListPage() {
           </thead>
           <tbody>
             {employeeTableRow.map((row) => (
-              <RowTableList key={row.id} tableInfoData={row} employees={row.employees} handleDelete={handleDelete}/>
+              <RowTableList
+                key={row.id}
+                tableInfoData={row}
+                employees={row.employees}
+                handleDelete={handleDelete}
+              />
             ))}
           </tbody>
         </table>

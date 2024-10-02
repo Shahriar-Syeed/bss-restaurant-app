@@ -95,16 +95,30 @@ export const createTable = (formData, imageFile) => {
   };
 };
 
-// export const convertBase64 = (file) => {
-//   return new Promise((resolve, reject) => {
-//     const fileReader = new FileReader();
-//     fileReader.readAsDataURL(file);
+export const getNonAssignEmployee = (tableId) => {
+  return async (dispatch) => {
+    dispatch(employeeTablesActions.setLoading(true));
+    try {
+      const res = await axios.delete(
+        `'https://restaurantapi.bssoln.com/api/Employee/non-assigned-employees/${tableId}`
+      );
+      console.log("nonAssign res", res);
+      if (res.status === 200) {
+        dispatch(employeeTablesActions.setNonAssignEmployee(res.data));
+      }
+      dispatch(employeeTablesActions.setLoading(false));
+    } catch (error) {
+      dispatch(employeeTablesActions.setLoading(false));
+      dispatch(employeeTablesActions.setErrorMessage(error.message));
+      dispatch(modalActions.open());
+      console.log(error);
+      setTimeout(() => {
+        dispatch(modalActions.close());
+        dispatch(employeeTablesActions.setErrorMessage(undefined));
+      }, 3000);
+    }
+  };
+};
 
-//     fileReader.onload = () => {
-//       resolve(fileReader.result);
-//     };
-//     fileReader.onerror = (error) => {
-//       reject(error);
-//     };
-//   });
-// };
+
+

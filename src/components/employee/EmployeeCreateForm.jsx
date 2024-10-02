@@ -44,7 +44,7 @@ export default function EmployeeCreateForm() {
     const data = Object.fromEntries(fetchData.entries());
     console.log(data);
 
-    // dispatch(createEmployee(data, selectedEmployeeImage));
+ 
     const result = await dispatch(createEmployee(data, selectedEmployeeImage));
     console.log("result",result)
     if (result === 200) {
