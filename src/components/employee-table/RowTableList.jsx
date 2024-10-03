@@ -1,14 +1,12 @@
-// import { useDispatch, useSelector } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../UI/Button";
 import EmployeesInTable from "./EmployeesInTable";
 import { modalActions } from "../../store/modal-slice";
 import Modal from "../UI/Modal";
 import Loading from "../loader/Loading";
-import defaultImage from "../../assets/default-image-preview.png";
-import CustomSelect from "../UI/CustomSelect";
-import Input from "../UI/Input";
-import { useState } from "react";
+import AssignEmployeeModal from "./AssignEmployeeModal";
+import { getEmployees } from "../../store/employee-actions";
+import { getNonAssignEmployees } from "../../store/employee-tables-actions";
 
 export default function RowEmployeeTableList({
   tableInfoData = {},
@@ -59,9 +57,14 @@ export default function RowEmployeeTableList({
   // Modal
   const isLoading = useSelector((state) => state.employeeTables.loading);
   const isOpen = useSelector((state) => state.modal.open);
+  const modalTableId = useSelector((state)=>state.modal.tableId);
+ 
 
-  function openModal() {
+  function openModal(tableId) {
     dispatch(modalActions.open());
+    dispatch(modalActions.setTableId(tableId));
+    dispatch(getNonAssignEmployees(tableId));
+    console.log(tableId);
   }
   function closeModal() {
     dispatch(modalActions.close());
@@ -70,12 +73,7 @@ export default function RowEmployeeTableList({
     dispatch(modalActions.close());
   }
 
-  async function handleAssignEmployee(event) {
-    event.preventDefault();
-    const fetchData = new FormData(event.target);
-    const data = Object.fromEntries(fetchData.entries());
-    console.log('employee data',data);
-  }
+
 
   return (
     <>
@@ -94,46 +92,9 @@ export default function RowEmployeeTableList({
           </div>
         </Modal>
       )}
-      {!errorMessage && (
-        <Modal open={isOpen} onClose={closeModal} className=" relative overflow-unset">
-          <Button
-            className="button-primary px-3 py-1.5 rounded-lg absolute right-3 top-3"
-            onClick={closeModal}
-          >
-            Close
-          </Button>
-
-          <h1 className=" text-center text-xl font-bold mb-3">
-            Assign Employee To a Table
-          </h1>
-          <form action="post">
-            <div className="grid lg:grid-col-6 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5">
-              <div className="flex items-center justify-center lg:col-start-1 lg:col-end-3">
-                <img
-                  src={defaultImage}
-                  alt=""
-                  className=" min-h-36 max-w-full object-cover rounded"
-                />
-              </div>
-              <div className="lg:col-start-4 lg:col-end-7 flex flex-col justify-center gap-3">
-                <h2 className=" text-xl font-semibold mb-3">
-                  Table Number: {tableInfoData.tableNumber}
-                </h2>
-                <h2 className=" text-xl font-semibold">
-                  Seats Number: {tableInfoData.numberOfSeats}
-                </h2>
-              </div>
-
-              <div className="col-start-1 col-end-5">
-                <CustomSelect name="employeeId" label='Select Employee' options={employeesToAssign} selectOptionHandle initialSelectedOption={[]} />
-              </div>
-              <Button className="button-primary px-4 py-2 rounded-lg col-start-5 col-end-7 self-center">
-                Assign
-              </Button>
-            </div>
-          </form>
-        </Modal>
-      )}
+     
+      {(!errorMessage && (modalTableId === tableInfoData.id)) && (
+        <AssignEmployeeModal open={isOpen} closeModal={closeModal} tableInfoData={{...tableInfoData}}/> )}
       <tr className="odd:bg-white  even:bg-gray-50  border-b border-gray-700 ">
         <th
           scope="row"
@@ -152,7 +113,7 @@ export default function RowEmployeeTableList({
           </ul>
           <Button
             className="rounded-50 h-7 w-7 grid place-items-center  text-teal-300 hover:text-teal-500 hover:bg-stone-200 p-0.5 mt-0.5"
-            onClick={openModal}
+            onClick={()=>openModal(tableInfoData.id)}
           >
             <svg
               className="fill-current"

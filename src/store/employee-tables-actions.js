@@ -95,12 +95,12 @@ export const createTable = (formData, imageFile) => {
   };
 };
 
-export const getNonAssignEmployee = (tableId) => {
+export const getNonAssignEmployees = (tableId) => {
   return async (dispatch) => {
     dispatch(employeeTablesActions.setLoading(true));
     try {
-      const res = await axios.delete(
-        `'https://restaurantapi.bssoln.com/api/Employee/non-assigned-employees/${tableId}`
+      const res = await axios.get(
+        `https://restaurantapi.bssoln.com/api/Employee/non-assigned-employees/${tableId}`
       );
       console.log("nonAssign res", res);
       if (res.status === 200) {
