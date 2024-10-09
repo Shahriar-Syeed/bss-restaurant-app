@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../UI/Button";
-import EmployeesInTable from "./EmployeesInTable";
 import { modalActions } from "../../store/modal-slice";
 import Modal from "../UI/Modal";
 import Loading from "../loader/Loading";
 import AssignEmployeeModal from "./AssignEmployeeModal";
-import { getEmployees } from "../../store/employee-actions";
 import { getNonAssignEmployees } from "../../store/employee-tables-actions";
+import { customSelectActions } from "../../store/custom-select-slice";
+import EmployeesInATable from "./EmployeesInATable";
 
 export default function RowEmployeeTableList({
   tableInfoData = {},
@@ -14,51 +14,13 @@ export default function RowEmployeeTableList({
   handleDelete = () => {},
 }) {
   const dispatch = useDispatch();
-  const newEmployee = [...employees];
+  console.log("tableInfoData", tableInfoData);
   const errorMessage = useSelector((state) => state.employeeTables.error);
-
-  const employeesToAssign = [
-    {
-      value: "d7f3a235-5c67-4c4d-ea96-08dcdbadfd4b",
-      label: "Alif",
-      sendingValue: {
-        employeeId: "d7f3a235-5c67-4c4d-ea96-08dcdbadfd4b",
-        name: "Alif",
-      },
-      
-    },
-    {
-      value: "d7f3a235-5c67-4c4d-ea96-0dcjkhid2l",
-      label: "Saat",
-      sendingValue: {
-        employeeId: "d7f3a235-5c67-4c4d-ea96-0dcjkhid2l",
-        name: "Saat",
-      },
-
-    },
-    {
-      value: "d7f3a235-5c67-4c4d-er84-08dcdbadfd4b",
-      label: "Safat",
-      sendingValue: {
-        employeeId: "d7f3a235-5c67-5dfg-ea96-08dcdbadfd4b",
-        name: "Safat",
-      },
-    },
-    {
-      value: "o14744g-5c67-4c4d-er84-08dcdbadfd4b",
-      label: "Bel",
-      sendingValue: {
-        employeeId: "o14744g-5c67-4c4d-er84-08dcdbadfd4b",
-        name: "Bel",
-      },
-    },
-  ];
 
   // Modal
   const isLoading = useSelector((state) => state.employeeTables.loading);
   const isOpen = useSelector((state) => state.modal.open);
-  const modalTableId = useSelector((state)=>state.modal.tableId);
- 
+  const modalTableId = useSelector((state) => state.modal.tableId);
 
   function openModal(tableId) {
     dispatch(modalActions.open());
@@ -67,13 +29,12 @@ export default function RowEmployeeTableList({
     console.log(tableId);
   }
   function closeModal() {
+    dispatch(customSelectActions.setSelectedOption(null));
     dispatch(modalActions.close());
   }
   function closeErrorModal() {
     dispatch(modalActions.close());
   }
-
-
 
   return (
     <>
@@ -92,9 +53,14 @@ export default function RowEmployeeTableList({
           </div>
         </Modal>
       )}
-     
-      {(!errorMessage && (modalTableId === tableInfoData.id)) && (
-        <AssignEmployeeModal open={isOpen} closeModal={closeModal} tableInfoData={{...tableInfoData}}/> )}
+
+      {!errorMessage && modalTableId === tableInfoData.id && (
+        <AssignEmployeeModal
+          open={isOpen}
+          closeModal={closeModal}
+          tableInfoData={{ ...tableInfoData }}
+        />
+      )}
       <tr className="odd:bg-white  even:bg-gray-50  border-b border-gray-700 ">
         <th
           scope="row"
@@ -107,13 +73,14 @@ export default function RowEmployeeTableList({
         </td>
         <td className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
           <ul>
-            {newEmployee.map((emp) => (
+            {/* {newEmployee.map((emp) => (
               <EmployeesInTable key={emp.employeeId} employees={emp} />
-            ))}
+            ))} */}
+            <EmployeesInATable idOfTable={tableInfoData["id"]} key={isOpen} />
           </ul>
           <Button
             className="rounded-50 h-7 w-7 grid place-items-center  text-teal-300 hover:text-teal-500 hover:bg-stone-200 p-0.5 mt-0.5"
-            onClick={()=>openModal(tableInfoData.id)}
+            onClick={() => openModal(tableInfoData.id)}
           >
             <svg
               className="fill-current"

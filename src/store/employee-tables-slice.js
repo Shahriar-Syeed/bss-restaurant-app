@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialEmployeeTables = {
   employeeTablesDataTable: {},
   employeeTableRowData: [],
+  assignEmployeeAndTableDetails:[],
+  testDetails:{},
   preview: undefined,
   loading: false,
   error: null,
@@ -22,10 +24,11 @@ const employeeTablesSlice = createSlice({
     },
     showPreview(state, action) {
       state.preview = action.payload;
-    },
-    setEmployeeInTable(state, action) {
-      state.employeesOnTable = action.payload;
-    },
+    },    
+
+    setAssignEmployeeAndTableDetails(state, action) {
+      state.assignEmployeeAndTableDetails = action.payload;
+    },  
 
     setLoading(state, action) {
       state.loading = action.payload;
@@ -50,7 +53,7 @@ const employeeTablesSlice = createSlice({
     },
     setNonAssignEmployee(state,action){
       state.nonAssignedEmployee = action.payload;
-    }
+    },
   },
 });
 export const employeeTablesActions = employeeTablesSlice.actions;

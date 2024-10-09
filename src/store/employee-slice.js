@@ -14,7 +14,7 @@ const employeeSlice = createSlice({
   initialState: initialEmployees,
   reducers: {
     getEmployeesDataTable(state, action) {
-      state.getEmployeesDataTable = action.payload;
+      state.employeeDataTable = action.payload;
     },
     getEmployeesRow(state, action) {
       state.employeesRowData = action.payload;

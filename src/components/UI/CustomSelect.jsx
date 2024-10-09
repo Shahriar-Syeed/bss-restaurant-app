@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { customSelectActions } from "../../store/custom-select-slice";
 
@@ -11,9 +11,6 @@ const CustomSelect = ({
   initialSelectedOption,
   ...props
 }) => {
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [selectedOption, setSelectedOption] = useState(initialSelectedOption);
-  // const [isFocused, setIsFocused] = useState(false);
   const isOpen = useSelector((state) => state.customSelect.isOpen);
   const isFocused = useSelector((state) => state.customSelect.isFocused);
   const selectedOption = useSelector(
@@ -22,9 +19,12 @@ const CustomSelect = ({
   const dispatch = useDispatch();
   const showOption = useRef();
   useEffect(() => {
-    if(initialSelectedOption) dispatch(customSelectActions.setSelectedOption([]));
-      console.log('selectedOption',selectedOption);
-    
+    if (initialSelectedOption) {
+      dispatch(customSelectActions.setSelectedOption([]));
+    } else {
+      dispatch(customSelectActions.setSelectedOption(null));
+    }
+    console.log("selectedOption", selectedOption);
   }, []);
 
   useEffect(() => {
@@ -42,15 +42,13 @@ const CustomSelect = ({
   }, []);
 
   const handleToggle = () => {
-    // setIsOpen(!isOpen);
     dispatch(customSelectActions.setIsOpen(!isOpen));
-    console.log(isOpen);
+
     if (
       !initialSelectedOption ||
       !selectedOption ||
       (selectedOption && selectedOption.length === 0)
     ) {
-      // setIsFocused(!isFocused);
       dispatch(customSelectActions.setIsFocused(!isFocused));
     }
   };
@@ -58,42 +56,23 @@ const CustomSelect = ({
   const selectOptionHandleWithCheckbox = (option) => {
     console.log(option);
     dispatch(customSelectActions.setIsFocused(true));
-    // setIsFocused(true);
-    const updatedSelected = selectedOption.some()
+
+    const updatedSelected = selectedOption.some(
+      (selectedValue) =>
+        selectedValue.employeeId === option.sendingValue.employeeId
+    )
       ? selectedOption.filter(
-          (selected) => selected.employeeId === option.sendingValue.employeeId
+          (selected) => selected.employeeId !== option.sendingValue.employeeId
         )
-      : [...selectedOption, option.employeeId];
+      : [...selectedOption, option.sendingValue];
+    console.log("updatedSelected", updatedSelected);
     dispatch(customSelectActions.setSelectedOption(updatedSelected));
     if (updatedSelected.length === 0) {
-      // setIsFocused(false);
       dispatch(customSelectActions.setIsFocused(false));
     }
     if (onChange) {
       onChange(updatedSelected);
     }
-    // setSelectedOption((prevSelected) => {
-    //   const isAlreadySelected = prevSelected.some(
-    //     (selected) => selected.employeeId === option.sendingValue.employeeId
-    //   );
-
-    //   let updatedSelected;
-    //   if (isAlreadySelected) {
-    //     updatedSelected = prevSelected.filter(
-    //       (selected) => selected.employeeId !== option.sendingValue.employeeId
-    //     );
-    //   } else {
-    //     updatedSelected = [...prevSelected, option.sendingValue];
-    //   }
-    //   if (onChange) {
-    //     onChange(updatedSelected);
-    //   }
-    //   if (updatedSelected.length === 0) {
-    //     // setIsFocused(false);
-    //     dispatch(customSelectActions.setIsFocused(false));
-    //   }
-    //   return updatedSelected;
-    // });
   };
 
   const handleSelect = (option) => {
@@ -113,6 +92,7 @@ const CustomSelect = ({
       // setIsFocused(true);
     }
   };
+  console.log("selectedOption", selectedOption);
 
   return (
     <div className={`relative ${className && className}`} ref={showOption}>
@@ -163,7 +143,7 @@ const CustomSelect = ({
         >
           {!initialSelectedOption && selectedOption && selectedOption.label}
           {initialSelectedOption &&
-            selectedOption &&
+            selectedOption !== null &&
             selectedOption.map((employee) => (
               <p key={employee.employeeId}>{employee.name}</p>
             ))}
@@ -199,6 +179,7 @@ const CustomSelect = ({
               <li
                 key={option.value}
                 className="p-2 hover:bg-gray-100 cursor-pointer flex items-center"
+                // onClick={() => selectOptionHandleWithCheckbox(option)}
               >
                 <input
                   type="checkbox"
@@ -210,7 +191,10 @@ const CustomSelect = ({
                   onChange={() => selectOptionHandleWithCheckbox(option)}
                   id={option.value}
                 />
-                <label htmlFor={option.value} className="flex-grow">
+                <label
+                  htmlFor={option.value}
+                  className="flex-grow cursor-pointer"
+                >
                   {option.label}
                 </label>
               </li>

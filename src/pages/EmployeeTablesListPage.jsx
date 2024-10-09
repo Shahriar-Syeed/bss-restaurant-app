@@ -1,6 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
-
 import Pagination from "../components/Pagination";
 import HeadTable from "../components/HeadTable";
 import RowTableList from "../components/employee-table/RowTableList";
@@ -16,7 +15,6 @@ import { modalActions } from "../store/modal-slice";
 import { employeeTablesActions } from "../store/employee-tables-slice";
 import Button from "../components/UI/Button";
 
-
 const HEADING = [
   { id: "tableNumber", label: "Table Number" },
   { id: "tableSeats", label: "Table Seats" },
@@ -28,19 +26,13 @@ const HEADING = [
 export default function EmployeeTablesListPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const employeeTablesData = useSelector(
-    (state) => state.employeeTables.employeeTablesDataTable
-  );
   const isLoading = useSelector((state) => state.employeeTables.loading);
-
   const employeeTableRow = useSelector(
     (state) => state.employeeTables.employeeTableRowData
   );
 
   const errorMessage = useSelector((state) => state.employeeTables.error);
-
   const isOpen = useSelector((state) => state.modal.open);
-
 
   function closeModal() {
     dispatch(modalActions.close());
@@ -49,8 +41,6 @@ export default function EmployeeTablesListPage() {
 
   useEffect(() => {
     dispatch(getEmployeeTables());
-    console.log(employeeTablesData);
-    console.log("employeeTableRow", employeeTableRow);
   }, [dispatch]);
 
   function handleDelete(id) {
