@@ -150,7 +150,29 @@ export const getAssignEmployeeAndTableDetails = (id) => {
   };
 };
 
-
+export const unassignEmployeeFromTable = (employeeTableId) => {
+  return async (dispatch) => {
+    dispatch(employeeTablesActions.setLoading(true));
+    try {
+      const res = await axios.delete(
+        `https://restaurantapi.bssoln.com/api/EmployeeTable/delete/${employeeTableId}`
+      );
+      if (res.status === 204) {
+        dispatch(employeeTablesActions.removeEmployeeAndTableDetail(employeeTableId));
+        dispatch(employeeTablesActions.setLoading(false));
+      }
+    } catch (error) {
+      dispatch(employeeTablesActions.setLoading(false));
+      dispatch(employeeTablesActions.setErrorMessage(error.message));
+      dispatch(modalActions.open());
+      console.log(error);
+      setTimeout(() => {
+        dispatch(modalActions.close());
+        dispatch(employeeTablesActions.setErrorMessage(undefined));
+      }, 3000);
+    }
+  };
+};
 
 
 export const postAssignEmployeesTable = (data) => {

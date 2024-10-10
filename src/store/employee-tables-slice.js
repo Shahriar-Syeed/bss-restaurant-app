@@ -28,7 +28,13 @@ const employeeTablesSlice = createSlice({
 
     setAssignEmployeeAndTableDetails(state, action) {
       state.assignEmployeeAndTableDetails = action.payload;
-    },  
+    },
+    
+    removeEmployeeAndTableDetail(state, action) {
+      state.assignEmployeeAndTableDetails = state.employeeTableRowData.filter(
+        (employeeTableDetail) => employeeTableDetail.id !== action.payload
+      );
+    },
 
     setLoading(state, action) {
       state.loading = action.payload;

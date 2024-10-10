@@ -35,7 +35,6 @@ export default function RowEmployeeTableList({
   function closeErrorModal() {
     dispatch(modalActions.close());
   }
-
   return (
     <>
       {isLoading && <Loading />}

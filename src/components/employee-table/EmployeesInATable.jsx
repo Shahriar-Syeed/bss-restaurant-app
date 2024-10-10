@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Button from '../UI/Button.jsx';
 import { useDispatch } from 'react-redux';
-import { getAssignEmployeeAndTableDetails } from '../../store/employee-tables-actions.js';
+import { getAssignEmployeeAndTableDetails, unassignEmployeeFromTable } from '../../store/employee-tables-actions.js';
 
 export default function EmployeesInATable({idOfTable}) {
   const [updatedEmpTabDetails, setUpdatedEmpTabDetails] = useState([]);
@@ -20,6 +20,10 @@ export default function EmployeesInATable({idOfTable}) {
     gettingData();
   }, [dispatch, idOfTable]);
 
+  function handleDeleteEmployeeFromTable(id){
+    dispatch(unassignEmployeeFromTable(id));
+    setUpdatedEmpTabDetails(prevValue=>prevValue.filter(value=> value.employeeTableId !== id));
+  }
 
   return (
     <>
@@ -36,6 +40,8 @@ export default function EmployeesInATable({idOfTable}) {
               )
             )
               console.log("remove employee this table");
+              
+            handleDeleteEmployeeFromTable(empAndTabDetail.employeeTableId);
           }}
         >
           <svg
