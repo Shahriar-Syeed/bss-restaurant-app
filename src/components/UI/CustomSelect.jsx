@@ -21,8 +21,6 @@ const CustomSelect = ({
   useEffect(() => {
     if (initialSelectedOption) {
       dispatch(customSelectActions.setSelectedOption([]));
-    } else {
-      dispatch(customSelectActions.setSelectedOption(null));
     }
     console.log("selectedOption", selectedOption);
   }, []);
@@ -183,7 +181,7 @@ const CustomSelect = ({
               >
                 <input
                   type="checkbox"
-                  checked={selectedOption.some(
+                  checked={selectedOption?.some(
                     (selectedValue) =>
                       selectedValue.employeeId ===
                       option.sendingValue.employeeId

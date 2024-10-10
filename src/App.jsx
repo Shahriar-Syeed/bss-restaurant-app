@@ -10,7 +10,6 @@ import EmployeeListPage from "./pages/EmployeeListPage.jsx";
 import EmployeeAddPage from "./components/employee/EmployeeAddPage.jsx";
 import EmployeeDetailPage from "./components/employee/EmployeeDetailPage.jsx";
 import EmployeeEditPage from "./components/employee/EmployeeEditPage.jsx";
-import FoodsPage from "./pages/FoodsPage.jsx";
 import EmployeeTablesListPage from "./pages/EmployeeTablesListPage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 import NewOrderPage from "./pages/NewOrderPage.jsx";
@@ -22,6 +21,7 @@ import RootEmployeeTables from "./pages/RootEmployeeTables.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import MainPage from "./pages/MainPage.jsx";
 import UserInfoPage from "./pages/UserInfoPage.jsx";
+import FoodsListPage from "./pages/FoodsListPage.jsx";
 // import { employeeLoader } from "./components/employee/employeeLoader.js";
 
 const router = createBrowserRouter([
@@ -57,7 +57,6 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <EmployeeListPage />,
-                // loader: employeeLoader,
               },
               {
                 path: "employee-add",
@@ -82,7 +81,7 @@ const router = createBrowserRouter([
               { path: "add-table", element: <TableAddPage /> },
             ],
           },
-          { path: "foods", element: <FoodsPage /> },
+          { path: "foods", element: <FoodsListPage /> },
           { path: "order", element: <OrderPage /> },
           {
             path: "new-order",

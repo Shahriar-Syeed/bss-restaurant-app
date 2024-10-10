@@ -7,6 +7,7 @@ import AssignEmployeeModal from "./AssignEmployeeModal";
 import { getNonAssignEmployees } from "../../store/employee-tables-actions";
 import { customSelectActions } from "../../store/custom-select-slice";
 import EmployeesInATable from "./EmployeesInATable";
+import { employeeSelectActions } from "../../store/employee-select-slice";
 
 export default function RowEmployeeTableList({
   tableInfoData = {},
@@ -16,6 +17,8 @@ export default function RowEmployeeTableList({
   const dispatch = useDispatch();
   console.log("tableInfoData", tableInfoData);
   const errorMessage = useSelector((state) => state.employeeTables.error);
+  const assignEmployeeAndTableDetails = useSelector((state) => state.employeeTables.assignEmployeeAndTableDetails);
+
 
   // Modal
   const isLoading = useSelector((state) => state.employeeTables.loading);
@@ -29,7 +32,7 @@ export default function RowEmployeeTableList({
     console.log(tableId);
   }
   function closeModal() {
-    dispatch(customSelectActions.setSelectedOption(null));
+    dispatch(employeeSelectActions.setSelectedOption([]));
     dispatch(modalActions.close());
   }
   function closeErrorModal() {

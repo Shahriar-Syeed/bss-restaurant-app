@@ -30,9 +30,10 @@ const employeeTablesSlice = createSlice({
       state.assignEmployeeAndTableDetails = action.payload;
     },
     
-    removeEmployeeAndTableDetail(state, action) {
-      state.assignEmployeeAndTableDetails = state.employeeTableRowData.filter(
-        (employeeTableDetail) => employeeTableDetail.id !== action.payload
+    removeEmployeeFromTable(state, action) {
+      console.log('before state',JSON.stringify(state.assignEmployeeAndTableDetails));
+      state.assignEmployeeAndTableDetails = state.assignEmployeeAndTableDetails.filter(
+        (employeeTableDetail) => employeeTableDetail.employeeTableId !== action.payload
       );
     },
 

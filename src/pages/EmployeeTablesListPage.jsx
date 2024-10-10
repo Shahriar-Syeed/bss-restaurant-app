@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   deleteEmployeeTable,
+  getAssignEmployeeAndTableDetails,
   getEmployeeTables,
 } from "../store/employee-tables-actions";
 import Loading from "../components/loader/Loading";
@@ -41,7 +42,8 @@ export default function EmployeeTablesListPage() {
 
   useEffect(() => {
     dispatch(getEmployeeTables());
-  }, [dispatch]);
+    dispatch(getAssignEmployeeAndTableDetails());
+  }, []);
 
   function handleDelete(id) {
     dispatch(deleteEmployeeTable(id));

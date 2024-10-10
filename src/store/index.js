@@ -4,6 +4,8 @@ import loaderSlice from "./loader-slice.js";
 import employeeSlice from "./employee-slice.js";
 import employeeTablesSlice from "./employee-tables-slice.js";
 import customSelectSlice from "./custom-select-slice.js";
+import employeeSelectSlice from "./employee-select-slice.js";
+import foodSlice from "./food-slice.js";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ const store = configureStore({
     employees: employeeSlice,
     employeeTables: employeeTablesSlice,
     customSelect: customSelectSlice,     
+    employeeSelect: employeeSelectSlice,  
+    foods: foodSlice,   
   },
 });
 

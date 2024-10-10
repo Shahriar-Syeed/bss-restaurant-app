@@ -12,7 +12,7 @@ export const getEmployeeTables = () => {
       // console.log('get whole tables',response);
       dispatch(employeeTablesActions.getEmployeeTablesDataTable(response.data));
       dispatch(employeeTablesActions.getEmployeeTablesRow(response.data.data));
-      // console.log('mainData',response.data.data);
+      console.log("mainData", response.data.data);
       dispatch(employeeTablesActions.setLoading(false));
     } catch (error) {
       dispatch(employeeTablesActions.setLoading(false));
@@ -105,7 +105,7 @@ export const getNonAssignEmployees = (tableId) => {
       );
       // console.log("nonAssign res", res);
       if (res.status === 200) {
-        dispatch(employeeTablesActions.setNonAssignEmployee(res.data));  
+        dispatch(employeeTablesActions.setNonAssignEmployee(res.data));
         dispatch(employeeTablesActions.setLoading(false));
       }
     } catch (error) {
@@ -121,21 +121,50 @@ export const getNonAssignEmployees = (tableId) => {
   };
 };
 
-export const getAssignEmployeeAndTableDetails = (id) => {
+export const getAssignEmployeeAndTableDetails = () => {
   return async (dispatch) => {
     dispatch(employeeTablesActions.setLoading(true));
     try {
       const response = await axios.get(
         `https://restaurantapi.bssoln.com/api/EmployeeTable/get`
       );
-      // console.log('EmployeesListOfTables',response,updateData);
-      if(response.status === 200){
-        const updateData = response.data.filter(empAndTab => empAndTab['table']['tableId'] === id);
-
-        dispatch(employeeTablesActions.setAssignEmployeeAndTableDetails(updateData));
-        console.log('updateData',updateData)
+      // console.log('EmployeesListOfTables',JSON.stringify(response.data));
+      if (response.status === 200) {
+        const updatedData = response.data.map((value) => ({
+          tableId: value["table"]["tableId"],
+          employeeTableId: value["employeeTableId"],
+          name: value["employee"]["name"],
+        }));
+        dispatch(
+          employeeTablesActions.setAssignEmployeeAndTableDetails(updatedData)
+        );
         dispatch(employeeTablesActions.setLoading(false));
-        return updateData;
+      }
+    } catch (error) {
+      dispatch(employeeTablesActions.setLoading(false));
+      dispatch(employeeTablesActions.setErrorMessage(error.message));
+      dispatch(modalActions.open());
+      console.log(error);
+      setTimeout(() => {
+        dispatch(modalActions.close());
+        dispatch(employeeTablesActions.setErrorMessage(undefined));
+      }, 3000);
+    }
+  };
+};
+
+export const deleteEmployeeFromTableDetail = (employeeTableId) => {
+  return async (dispatch) => {
+    dispatch(employeeTablesActions.setLoading(true));
+    try {
+      const res = await axios.delete(
+        `https://restaurantapi.bssoln.com/api/EmployeeTable/delete/${employeeTableId}`
+      );
+      if (res.status === 204) {
+        dispatch(
+          employeeTablesActions.removeEmployeeFromTable(employeeTableId)
+        );
+        dispatch(employeeTablesActions.setLoading(false));
       }
     } catch (error) {
       dispatch(employeeTablesActions.setLoading(false));
@@ -158,7 +187,9 @@ export const unassignEmployeeFromTable = (employeeTableId) => {
         `https://restaurantapi.bssoln.com/api/EmployeeTable/delete/${employeeTableId}`
       );
       if (res.status === 204) {
-        dispatch(employeeTablesActions.removeEmployeeAndTableDetail(employeeTableId));
+        dispatch(
+          employeeTablesActions.removeEmployeeAndTableDetail(employeeTableId)
+        );
         dispatch(employeeTablesActions.setLoading(false));
       }
     } catch (error) {
@@ -174,14 +205,13 @@ export const unassignEmployeeFromTable = (employeeTableId) => {
   };
 };
 
-
 export const postAssignEmployeesTable = (data) => {
   return async (dispatch) => {
     dispatch(employeeTablesActions.setLoading(true));
-    console.log('data', data)
+    console.log("data", data);
     try {
-     const updatedData = [...data]
-      
+      const updatedData = [...data];
+
       const response = await axios.post(
         "https://restaurantapi.bssoln.com/api/EmployeeTable/create-range",
         updatedData
@@ -201,5 +231,3 @@ export const postAssignEmployeesTable = (data) => {
     }
   };
 };
-
-

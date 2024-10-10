@@ -1,22 +1,25 @@
-import Button from "../UI/Button";
-import CustomSelect from "../UI/CustomSelect";
-import Modal from "../UI/Modal";
+import Button from "../UI/Button.jsx";
+// import CustomSelect from "../UI/CustomSelect.jsx";
+import EmployeeSelect from "../UI/EmployeeSelect.jsx";
+import Modal from "../UI/Modal.jsx";
 import defaultImage from "../../assets/default-image-preview.png";
 import { useDispatch, useSelector } from "react-redux";
-import { postAssignEmployeesTable } from "../../store/employee-tables-actions";
+import { getAssignEmployeeAndTableDetails, postAssignEmployeesTable } from "../../store/employee-tables-actions";
 import Loading from "../loader/Loading";
+// import { customSelectActions } from "../../store/custom-select-slice";
+import { employeeSelectActions } from "../../store/employee-select-slice.js";
 
 export default function AssignEmployeeModal({
-  open,
+  // open,
   closeModal,
   tableInfoData,
 }) {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.employeeTables.loading);
   const selectedEmployees = useSelector(
-    (state) => state.customSelect.selectedOption
+    (state) => state.employeeSelect.selectedOption
   );
-
+  const assignEmployeeAndTableDetails = useSelector(state=>state.employeeTables.assignEmployeeAndTableDetails)
   const isOpen = useSelector((state) => state.modal.open);
   const employeesList = useSelector(
     (state) => state.employeeTables.nonAssignedEmployee
@@ -24,7 +27,7 @@ export default function AssignEmployeeModal({
 
   const error = useSelector((state) => state.employeeTables.error);
 
-  console.log(tableInfoData);
+  // console.log(tableInfoData);
   const info = { ...tableInfoData };
   console.log("info", info);
 
@@ -38,11 +41,14 @@ export default function AssignEmployeeModal({
   );
 
   function handleAssignEmployee(id) {
-    const updatedSelected = selectedEmployees.map(
+    const updatedSelected = selectedEmployees?.map(
       (employee) =>
         (employee = { employeeId: employee.employeeId, tableId: id })
     );
     dispatch(postAssignEmployeesTable(updatedSelected));
+    dispatch(employeeSelectActions.setSelectedOption([]));
+    dispatch(getAssignEmployeeAndTableDetails());
+    console.log('in assign modal',assignEmployeeAndTableDetails);
     closeModal();
   }
 
@@ -84,12 +90,19 @@ export default function AssignEmployeeModal({
           </div>
 
           <div className="col-start-1 lg:col-end-5 col-end-6">
-            <CustomSelect
+            {/* <CustomSelect
               name="employeeId"
               label="Select Employee"
               options={employeesToAssign}
               selectOptionHandle
               initialSelectedOption={[]}
+            /> */}
+            <EmployeeSelect
+              name="employeeId"
+              label="Select Employee"
+              options={employeesToAssign}
+              selectOptionHandle
+
             />
           </div>
           <Button
