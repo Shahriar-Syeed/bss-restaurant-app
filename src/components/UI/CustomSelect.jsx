@@ -5,10 +5,8 @@ import { customSelectActions } from "../../store/custom-select-slice";
 const CustomSelect = ({
   label,
   options = [],
-  onChange,
   className,
-  selectOptionHandle,
-  initialSelectedOption,
+  onChanged,
   ...props
 }) => {
   const isOpen = useSelector((state) => state.customSelect.isOpen);
@@ -18,17 +16,12 @@ const CustomSelect = ({
   );
   const dispatch = useDispatch();
   const showOption = useRef();
-  useEffect(() => {
-    if (initialSelectedOption) {
-      dispatch(customSelectActions.setSelectedOption([]));
-    }
-    console.log("selectedOption", selectedOption);
-  }, []);
+  
+
 
   useEffect(() => {
     const handler = (e) => {
       if (!showOption.current.contains(e.target)) {
-        // setIsOpen(false);
         dispatch(customSelectActions.setIsOpen(false));
       }
     };
@@ -43,7 +36,6 @@ const CustomSelect = ({
     dispatch(customSelectActions.setIsOpen(!isOpen));
 
     if (
-      !initialSelectedOption ||
       !selectedOption ||
       (selectedOption && selectedOption.length === 0)
     ) {
@@ -51,63 +43,39 @@ const CustomSelect = ({
     }
   };
 
-  const selectOptionHandleWithCheckbox = (option) => {
-    console.log(option);
-    dispatch(customSelectActions.setIsFocused(true));
-
-    const updatedSelected = selectedOption.some(
-      (selectedValue) =>
-        selectedValue.employeeId === option.sendingValue.employeeId
-    )
-      ? selectedOption.filter(
-          (selected) => selected.employeeId !== option.sendingValue.employeeId
-        )
-      : [...selectedOption, option.sendingValue];
-    console.log("updatedSelected", updatedSelected);
-    dispatch(customSelectActions.setSelectedOption(updatedSelected));
-    if (updatedSelected.length === 0) {
-      dispatch(customSelectActions.setIsFocused(false));
-    }
-    if (onChange) {
-      onChange(updatedSelected);
-    }
-  };
 
   const handleSelect = (option) => {
-    // setSelectedOption(option);
+
     dispatch(customSelectActions.setSelectedOption(option));
-    // setIsOpen(false);
-    dispatch(customSelectActions.setIsOpen(true));
-    // setIsFocused(true);
+
+    dispatch(customSelectActions.setIsOpen(false));
+
     dispatch(customSelectActions.setIsFocused(true));
+    // Trigger the onChanged function passed from parent
+    if (onChanged) {
+      onChanged(option); // Pass the selected option to the parent
+    }
   };
 
   const handleBlur = () => {
-    // setIsFocused(false);
     dispatch(customSelectActions.setIsFocused(false));
     if (selectedOption) {
       dispatch(customSelectActions.setIsFocused(true));
-      // setIsFocused(true);
     }
   };
   console.log("selectedOption", selectedOption);
 
   return (
     <div className={`relative ${className && className}`} ref={showOption}>
-      {!selectOptionHandle && (
+      
         <input
-          type="hidden"
+          // type="hidden"
           value={selectedOption ? selectedOption.sendingValue : 0}
+          onChange={(e)=>onChanged(e)}
           {...props}
+          className="hidden"
         />
-      )}
-      {selectOptionHandle && (
-        <input
-          type="hidden"
-          value={selectedOption ? selectedOption : []}
-          {...props}
-        />
-      )}
+
       <div
         className={`border rounded cursor-pointer w-full  p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
         ${isFocused ? "border-blue-900" : "border-gray-200"}`}
@@ -139,12 +107,7 @@ const CustomSelect = ({
               : "text-gray-400 "
           }`}
         >
-          {!initialSelectedOption && selectedOption && selectedOption.label}
-          {initialSelectedOption &&
-            selectedOption !== null &&
-            selectedOption.map((employee) => (
-              <p key={employee.employeeId}>{employee.name}</p>
-            ))}
+          { selectedOption?.label}
         </span>
         <svg
           className={`transform transition-transform ${
@@ -162,39 +125,13 @@ const CustomSelect = ({
 
       {isOpen && (
         <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-60 overflow-y-auto">
-          {!selectOptionHandle &&
-            options.map((option) => (
+          {options.map((option) => (
               <li
                 key={option.value}
                 className="p-2 hover:bg-gray-100 cursor-pointer"
                 onClick={() => handleSelect(option)}
               >
                 {option.label}
-              </li>
-            ))}
-          {selectOptionHandle &&
-            options.map((option) => (
-              <li
-                key={option.value}
-                className="p-2 hover:bg-gray-100 cursor-pointer flex items-center"
-                // onClick={() => selectOptionHandleWithCheckbox(option)}
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedOption?.some(
-                    (selectedValue) =>
-                      selectedValue.employeeId ===
-                      option.sendingValue.employeeId
-                  )}
-                  onChange={() => selectOptionHandleWithCheckbox(option)}
-                  id={option.value}
-                />
-                <label
-                  htmlFor={option.value}
-                  className="flex-grow cursor-pointer"
-                >
-                  {option.label}
-                </label>
               </li>
             ))}
         </ul>

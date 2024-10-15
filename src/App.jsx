@@ -22,6 +22,8 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import MainPage from "./pages/MainPage.jsx";
 import UserInfoPage from "./pages/UserInfoPage.jsx";
 import FoodsListPage from "./pages/FoodsListPage.jsx";
+import RootFood from "./pages/RootFood.jsx";
+import FoodAddPage from "./components/food/FoodAddPage.jsx";
 // import { employeeLoader } from "./components/employee/employeeLoader.js";
 
 const router = createBrowserRouter([
@@ -81,7 +83,15 @@ const router = createBrowserRouter([
               { path: "add-table", element: <TableAddPage /> },
             ],
           },
-          { path: "foods", element: <FoodsListPage /> },
+          {
+            path: "foods",
+            element: <RootFood />,
+            children: [
+              { index: true, element: <FoodsListPage /> },
+              { path: "add-food", element: <FoodAddPage /> },
+            ],
+          },
+          // { path: "foods", element: <FoodsListPage /> },
           { path: "order", element: <OrderPage /> },
           {
             path: "new-order",

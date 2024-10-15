@@ -52,6 +52,14 @@ input {
   color:#fff;
 }
 
+.button-primary--dark,
+.bg-primary--dark {
+  background-color: #8f0709 ;
+  color:#fff;
+}
+
+
+
 .button-primary:is(:hover, :active) {
   background-color: rgb(155, 6, 8);
 }
@@ -67,6 +75,9 @@ input {
   justify-content: center;
   gap: 12px;
   transition: 0.3s;
+}
+.button-primary--dark:is(:hover, :active){
+  background-color: #800608 ;
 }
 
 .button__outline--primary:hover {

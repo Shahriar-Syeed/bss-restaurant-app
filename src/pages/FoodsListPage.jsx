@@ -64,7 +64,7 @@ export default function FoodsListPage() {
         title="All Food"
         buttonLabel="ADD FOOD"
         buttonOnClick={() =>
-          navigate("/bss-restaurant-app/admin/food/food-add")
+          navigate("/bss-restaurant-app/admin/foods/add-food")
         }
       />
 
