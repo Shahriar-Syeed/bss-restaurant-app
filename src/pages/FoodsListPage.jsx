@@ -19,6 +19,7 @@ const HEADING = [
   { id: "price", label: "Price" },
   { id: "discountType", label: "Discount Type" },
   { id: "discount", label: "Discount" },
+  { id: "discountPrice", label: "Discount Price" },
   { id: "foodAction", label: "Action" },
 ];
 

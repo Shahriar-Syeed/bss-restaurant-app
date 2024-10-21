@@ -53,35 +53,45 @@ export const deleteFood = (foodId) => {
 
 export const createFood = (formData, imageFile) => {
   return async (dispatch) => {
-    dispatch(loaderActions.show());
+    dispatch(foodActions.loading(true));
+    console.log('discount price NAN',formData);
    
     const updatedData = {
       ...formData,
-
+      discount: Number(formData.discount),
+      discountPrice: Number(formData.discountPrice),
+      price: Number(formData.price),
+      discountType: Number(formData.discountType),
     };
+    delete updatedData.foodImage;
     try {
   
       if (imageFile) {
         const base64String = await convertBase64(imageFile);
-        console.log(base64String);
-        const finalData = {
+        const finalData = formData.discountPrice ? {
           ...updatedData,
           image: imageFile?.name || "",
           base64: base64String ? base64String : "",
+        }:{
+          ...updatedData,
+          image: imageFile?.name || "",
+          base64: base64String ? base64String : "",
+          discount:0,
         };
+        console.log("finalData",finalData)
         const response = await axios.post(
           "https://restaurantapi.bssoln.com/api/Food/create",
           finalData
         );
         if (response.status === 200) {
-          dispatch(loaderActions.hide());
+          dispatch(foodActions.loading(false));
           dispatch(foodActions.showPreview(undefined));
           dispatch(foodActions.selectedFoodImage(undefined));
           return 200;
         }
       }
     } catch (error) {
-      dispatch(loaderActions.hide());
+      dispatch(foodActions.loading(false));
       dispatch(foodActions.errorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);

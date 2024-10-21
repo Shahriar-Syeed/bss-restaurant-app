@@ -6,6 +6,7 @@ const CustomSelect = ({
   label,
   options = [],
   className,
+  id,
   onChanged,
   ...props
 }) => {
@@ -26,6 +27,8 @@ const CustomSelect = ({
       }
     };
     document.addEventListener("mousedown", handler);
+    dispatch(customSelectActions.setSelectedOption(null));
+    dispatch(customSelectActions.setIsFocused(false));
 
     return () => {
       document.removeEventListener("mousedown", handler);
@@ -69,11 +72,11 @@ const CustomSelect = ({
     <div className={`relative ${className && className}`} ref={showOption}>
       
         <input
-          // type="hidden"
+          type="hidden"
           value={selectedOption ? selectedOption.sendingValue : 0}
           onChange={(e)=>onChanged(e)}
           {...props}
-          className="hidden"
+
         />
 
       <div

@@ -54,13 +54,13 @@ export default function FoodAddPage() {
       return;
     }
     // setSelectedEmployeeImage(event.target.files[0]);
-    dispatch(foodActions.setSelectedFoodImage(event.target.files[0]));
+    dispatch(foodActions.selectedFoodImage(event.target.files[0]));
   }
   function handleDrop (event){
     event.preventDefault();
     event.stopPropagation();
     if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
-      dispatch(foodActions.selectedEmployeeImage(event.dataTransfer.files[0]));
+      dispatch(foodActions.selectedFoodImage(event.dataTransfer.files[0]));
       event.dataTransfer.clearData();
     } 
   }
@@ -89,7 +89,7 @@ export default function FoodAddPage() {
 
 
     const fetchData = new FormData(event.target);
-    const data = Object.fromEntries(fetchData.entries());
+    const data = {...Object.fromEntries(fetchData.entries()), discountPrice: discountPrice};
     console.log('food data', data);
     const result = await dispatch(createFood(data, selectedFoodImage));
     console.log("result",result)
@@ -99,9 +99,9 @@ export default function FoodAddPage() {
   }
   useEffect(()=>{
     if(selectedOption?.sendingValue === 1){
-      setDiscountPrice(()=>(price-discount));
+      setDiscountPrice(()=>(price - discount));
     }else if ( selectedOption?.sendingValue === 2 ){
-      setDiscountPrice(()=> (price-(price * (discount / 100))));
+      setDiscountPrice(()=> (price - (price * (discount / 100))));
     } 
     
   },[discount, price, selectedOption])
@@ -147,7 +147,7 @@ export default function FoodAddPage() {
             <Input
               type="file"
               hidden
-              id="image"
+              id="foodImage"
               name="image"
               labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
               onChange={onSelectFile}
@@ -156,17 +156,18 @@ export default function FoodAddPage() {
           </div>
         </div>
         <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1">
-          <InputFloating name="name">Food Name</InputFloating>
+          <InputFloating id="FoodName" name="name" >Food Name</InputFloating>
         </div>
         <div className="lg:col-start-1 lg:col-end-9 row-start-2 row-end-5">
-          <TextAreaFloating name="description">Description</TextAreaFloating>
+          <TextAreaFloating id="descriptionOfFood" name="description">Description</TextAreaFloating>
         </div>
         <div className="lg:col-start-1 lg:col-end-4 lg:row-start-5">
-          <InputFloating name="price" onChange={(e)=>setPrice(e.target.value)}>Price</InputFloating>
+          <InputFloating id="foodPrice" name="price" onChange={(e)=>setPrice(e.target.value)}>Price</InputFloating>
         </div>
 
         <div className="lg:col-start-4 lg:col-end-7 lg:row-start-5">
           <CustomSelect
+            id="foodDiscountType"
             name="discountType"
             label="Select Discount Type"
             options={discountOption}
@@ -175,12 +176,12 @@ export default function FoodAddPage() {
         </div>
         
         <div className="lg:col-start-7 lg:col-end-10 lg:row-start-5">
-          <InputFloating name="discount" type='number' disabled={disableDiscountFields} value={ discount} onChange={(e)=>setDiscount(e.target.value)}>Discount in (&#2547;) </InputFloating>
+          <InputFloating id="foodDiscount" name="discount" type='number' disabled={disableDiscountFields} value={ discount} onChange={(e)=>setDiscount(e.target.value)}>Discount in (&#2547;) </InputFloating>
         </div>
         
        
         <div className="lg:col-start-10 lg:col-end-13 lg:row-start-5">
-          <InputFloating name="discountPrice" type='number' disabled={true} value={discountPrice}  >Discount Price</InputFloating>
+          <InputFloating id="foodDiscountPrice" name="discountPrice" type='number' disabled={true} value={discountPrice}  >Discount Price</InputFloating>
         </div>
        
         <div className="lg:col-start-1 lg:-col-end-1">

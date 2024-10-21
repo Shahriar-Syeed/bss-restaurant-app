@@ -33,6 +33,9 @@ export default function RowTableFoodList({ foods = [], deleteFood }) {
             {food.discountType}
           </td>
           <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
+            {food.discount}
+          </td>
+          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
             {food.discountPrice}
           </td>
           <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 flex gap-1">
