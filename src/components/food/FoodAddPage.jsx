@@ -29,7 +29,6 @@ export default function FoodAddPage() {
   const selectedOption = useSelector(
     (state) => state.customSelect.selectedOption
   );
-  console.log(selectedOption,'dfsaf',)
   const errorMessage = useSelector((state) => state.foods.error);
   const previewImage = useSelector((state)=> state.foods.preview);
 
@@ -52,8 +51,7 @@ export default function FoodAddPage() {
   function onSelectFile(event){
     if (!event.target.files || event.target.files.length === 0) {
       return;
-    }
-    // setSelectedEmployeeImage(event.target.files[0]);
+    };
     dispatch(foodActions.selectedFoodImage(event.target.files[0]));
   }
   function handleDrop (event){
@@ -74,16 +72,7 @@ export default function FoodAddPage() {
       setDisableDiscountFields(()=>false);
     }
   }
-  // function handleDiscount (event){
-  //   setDiscount(()=>event);
-  //   console.log('ouside',discount);
-  //   console.log('event', event);
-  //   if(selectedOption.sendingValue === 1){
-  //     setDiscountPrice(()=>(price-discount));
-  //     console.log('inside',selectedOption,price,discount,discountPrice,'jho');
-  //   }
-  
-  // }
+
   async function handleSubmit(event) {
     event.preventDefault();
 

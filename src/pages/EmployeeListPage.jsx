@@ -3,7 +3,7 @@ import Pagination from "../components/Pagination.jsx";
 import PageHeader from "../components/PageHeader.jsx";
 import HeadTable from "../components/HeadTable.jsx";
 import RowTableEmployeeList from "../components/employee/RowTableEmployeeList.jsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Modal from "../components/UI/Modal.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,8 @@ const HEADING = [
 ];
 
 export default function EmployeeListPage() {
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,11 +32,14 @@ export default function EmployeeListPage() {
   const employeesRowData = useSelector(
     (state) => state.employees.employeesRowData
   );
+  const employeesDataTable = useSelector(
+    (state) => state.employees.employeeDataTable
+  );
   const loading = useSelector((state) => state.employees.loading);
 
   useEffect(() => {
-    dispatch(getEmployees());
-  }, []);
+    dispatch(getEmployees(pageNumber, itemsPerPage));
+  }, [pageNumber, itemsPerPage, dispatch]);
   function handleDelete(employeeId) {
     dispatch(deleteEmployee(employeeId));
   }
@@ -85,7 +90,13 @@ export default function EmployeeListPage() {
           </tbody>
         </table>
       </div>
-      <Pagination className="bg-white rounded-b-lg" />
+      <Pagination
+        className="bg-white rounded-b-lg"
+        totalPages={employeesDataTable.totalPages}
+        totalRecord={employeesDataTable.totalRecords}
+        onChangePageNumber={setPageNumber}
+        onChangeItemsPerPage={setItemsPerPage}
+      />
       {loading && <Loading />}
     </>
   );

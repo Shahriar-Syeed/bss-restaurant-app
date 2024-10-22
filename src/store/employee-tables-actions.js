@@ -2,12 +2,12 @@ import axios from "axios";
 import { employeeTablesActions } from "./employee-tables-slice.js";
 import { modalActions } from "./modal-slice.js";
 import { convertBase64 } from "./employee-actions.js";
-export const getEmployeeTables = () => {
+export const getEmployeeTables = (page, perPage) => {
   return async (dispatch) => {
     dispatch(employeeTablesActions.setLoading(true));
     try {
       const response = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Table/datatable`
+        `https://restaurantapi.bssoln.com/api/Table/datatable?Page=${page}&Per_Page=${perPage}`
       );
       // console.log('get whole tables',response);
       dispatch(employeeTablesActions.getEmployeeTablesDataTable(response.data));

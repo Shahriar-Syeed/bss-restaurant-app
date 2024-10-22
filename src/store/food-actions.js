@@ -1,14 +1,13 @@
 import axios from "axios";
 import { foodActions } from "./food-slice.js";
 import { modalActions } from "./modal-slice.js";
-import { loaderActions } from "./loader-slice.js";
 import { convertBase64 } from "./employee-actions.js";
-export const getFoods = () => {
+export const getFoods = (page, perPage) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
     try {
       const response = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Food/datatable`
+        `https://restaurantapi.bssoln.com/api/Food/datatable?Page=${page}&Per_Page=${perPage}`
       );
       console.log(response);
       dispatch(foodActions.getFoodsDataTable(response.data));

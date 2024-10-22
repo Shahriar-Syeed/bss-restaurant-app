@@ -3,7 +3,7 @@ import Pagination from "../components/Pagination.jsx";
 import PageHeader from "../components/PageHeader.jsx";
 import HeadTable from "../components/HeadTable.jsx";
 import RowTableEmployeeList from "../components/employee/RowTableEmployeeList.jsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Modal from "../components/UI/Modal.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,17 +25,22 @@ const HEADING = [
 
 export default function FoodsListPage() {
 
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [pageNumber, setPageNumber] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const foodsRowData = useSelector(
     (state) => state.foods.foodsRowData
   );
+  const foodDataTable = useSelector(
+    (state) => state.foods.foodDataTable
+  );
   const loading = useSelector((state) => state.foods.loading);
 
   useEffect(() => {
-    dispatch(getFoods());
-  }, []);
+    dispatch(getFoods(pageNumber, itemsPerPage));
+  }, [pageNumber, itemsPerPage, dispatch]);
   function handleDelete(foodId) {
     dispatch(deleteFood(foodId));
   }
@@ -86,7 +91,13 @@ export default function FoodsListPage() {
           </tbody>
         </table>
       </div>
-      <Pagination className="bg-white rounded-b-lg" />
+      <Pagination
+        className="bg-white rounded-b-lg"
+        totalPages={foodDataTable.totalPages}
+        totalRecord={foodDataTable.totalRecords}
+        onChangePageNumber={setPageNumber}
+        onChangeItemsPerPage={setItemsPerPage}
+      />
       {loading && <Loading />}
     </>
   );
