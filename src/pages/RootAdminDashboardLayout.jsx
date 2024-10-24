@@ -13,7 +13,7 @@ export default function RootAdminDashboardLayout() {
           <div className="items-stretch self-stretch flex-grow flex gap-2">
             <Link
               to="/bss-restaurant-app/admin"
-              className="button-primary--dark cursor-pointer py-3 rounded-md px-6"
+              className="button-primary--dark cursor-pointer py-3 rounded-md px-6 hidden sm:block"
             >
               Admin
             </Link>

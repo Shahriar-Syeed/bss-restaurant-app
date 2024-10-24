@@ -72,7 +72,7 @@ const EmployeeSelect = ({
     <div className={`relative ${className && className}`} ref={showOption}>
       <input
         type="hidden"
-        value={selectedOption ? selectedOption : []}
+        value={selectedOption ?? []}
         {...props}
       />
       <div
