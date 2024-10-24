@@ -91,11 +91,14 @@ const router = createBrowserRouter([
               { path: "add-food", element: <FoodAddPage /> },
             ],
           },
-          // { path: "foods", element: <FoodsListPage /> },
-          { path: "order", element: <OrderPage /> },
+
+          { path: "order", 
+            
+            element: <NewOrderPage />,
+          },
           {
             path: "new-order",
-            element: <NewOrderPage />,
+            element: <OrderPage /> 
           },
         ],
       },

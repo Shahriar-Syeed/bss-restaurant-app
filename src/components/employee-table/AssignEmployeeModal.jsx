@@ -4,8 +4,8 @@ import EmployeeSelect from "../UI/EmployeeSelect.jsx";
 import Modal from "../UI/Modal.jsx";
 import defaultImage from "../../assets/default-image-preview.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getAssignEmployeeAndTableDetails, postAssignEmployeesTable } from "../../store/employee-tables-actions";
-import Loading from "../loader/Loading";
+import { postAssignEmployeesTable } from "../../store/employee-tables-actions";
+
 // import { customSelectActions } from "../../store/custom-select-slice";
 import { employeeSelectActions } from "../../store/employee-select-slice.js";
 
@@ -19,7 +19,7 @@ export default function AssignEmployeeModal({
   const selectedEmployees = useSelector(
     (state) => state.employeeSelect.selectedOption
   );
-  const assignEmployeeAndTableDetails = useSelector(state=>state.employeeTables.assignEmployeeAndTableDetails)
+  // const assignEmployeeAndTableDetails = useSelector(state=>state.employeeTables.assignEmployeeAndTableDetails)
   const isOpen = useSelector((state) => state.modal.open);
   const employeesList = useSelector(
     (state) => state.employeeTables.nonAssignedEmployee
@@ -29,7 +29,7 @@ export default function AssignEmployeeModal({
 
   // console.log(tableInfoData);
   const info = { ...tableInfoData };
-  console.log("info", info);
+  // console.log("info", info);
 
   const employeesToAssign = employeesList.map(
     (employee) =>
@@ -40,26 +40,25 @@ export default function AssignEmployeeModal({
       })
   );
 
-  function handleAssignEmployee(id) {
+  function handleAssignEmployee(info) {
+    console.log('selectedEmployees', selectedEmployees);
     const updatedSelected = selectedEmployees?.map(
       (employee) =>
-        (employee = { employeeId: employee.employeeId, tableId: id })
+        (employee = { employeeId: employee.employeeId, tableId: info.id })
     );
-    dispatch(postAssignEmployeesTable(updatedSelected));
+    console.log('info', info)
+    dispatch(postAssignEmployeesTable(updatedSelected, info.id));
     dispatch(employeeSelectActions.setSelectedOption([]));
-    dispatch(getAssignEmployeeAndTableDetails());
-    console.log('in assign modal',assignEmployeeAndTableDetails);
     closeModal();
   }
 
   return (
     <>
-      {loading && <Loading />}
       {error && <p>{error.message}</p>}
       <Modal
         open={isOpen}
         onClose={closeModal}
-        className=" relative overflow-unset"
+        className=" overflow-unset"
       >
         <Button
           className="button-primary px-3 py-1.5 rounded-lg absolute right-3 top-3 font-extrabold"
@@ -90,13 +89,7 @@ export default function AssignEmployeeModal({
           </div>
 
           <div className="col-start-1 lg:col-end-5 col-end-6">
-            {/* <CustomSelect
-              name="employeeId"
-              label="Select Employee"
-              options={employeesToAssign}
-              selectOptionHandle
-              initialSelectedOption={[]}
-            /> */}
+            
             <EmployeeSelect
               name="employeeId"
               label="Select Employee"
@@ -107,7 +100,7 @@ export default function AssignEmployeeModal({
           </div>
           <Button
             className="button-primary lg:px-4 lg:py-2 px-3 py-1.5 rounded-lg lg:col-start-5 col-start-6 col-end-7 self-center"
-            onClick={() => handleAssignEmployee(info.id)}
+            onClick={() => handleAssignEmployee(info)}
           >
             Assign
           </Button>

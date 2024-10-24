@@ -153,7 +153,7 @@ export const getAssignEmployeeAndTableDetails = () => {
   };
 };
 
-export const deleteEmployeeFromTableDetail = (employeeTableId) => {
+export const deleteEmployeeFromTableDetail = (id,employeeTableId) => {
   return async (dispatch) => {
     dispatch(employeeTablesActions.setLoading(true));
     try {
@@ -161,8 +161,9 @@ export const deleteEmployeeFromTableDetail = (employeeTableId) => {
         `https://restaurantapi.bssoln.com/api/EmployeeTable/delete/${employeeTableId}`
       );
       if (res.status === 204) {
+        console.log(dispatch(employeeTablesActions.removeEmployeeFromTable(id,employeeTableId)));
         dispatch(
-          employeeTablesActions.removeEmployeeFromTable(employeeTableId)
+          employeeTablesActions.removeEmployeeFromTable({id,employeeTableId})
         );
         dispatch(employeeTablesActions.setLoading(false));
       }
@@ -205,7 +206,7 @@ export const unassignEmployeeFromTable = (employeeTableId) => {
   };
 };
 
-export const postAssignEmployeesTable = (data) => {
+export const postAssignEmployeesTable = (data,id) => {
   return async (dispatch) => {
     dispatch(employeeTablesActions.setLoading(true));
     console.log("data", data);
@@ -218,6 +219,17 @@ export const postAssignEmployeesTable = (data) => {
       );
       console.log(response);
       if (response.status === 200) {
+        const employeeTableRes= await axios.get(
+          "https://restaurantapi.bssoln.com/api/EmployeeTable/get");
+          const employeeIds = data.map(item => item.employeeId);
+          const employeeInfo = employeeTableRes.data.filter(value => (employeeIds.includes(value.employee.employeeId)) && value.table.tableId === id).map(item =>({
+            employeeTableId: item.employeeTableId,
+            employeeId: item.employee.employeeId,
+            name: item.employee.name,
+          }));
+
+        dispatch(employeeTablesActions.addEmployeeInTable({id,employeeInfo}));
+        
         dispatch(employeeTablesActions.setLoading(false));
       }
     } catch (error) {

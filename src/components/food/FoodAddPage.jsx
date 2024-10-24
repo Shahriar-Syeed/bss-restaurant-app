@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../UI/Button.jsx";
 import PageHeader from "../PageHeader.jsx";
 import { modalActions } from "../../store/modal-slice.js";
-import Loading from "../loader/Loading.jsx";
 import Modal from "../UI/Modal.jsx";
 import { useNavigate } from "react-router-dom";
 import { foodActions } from "../../store/food-slice.js";
@@ -40,7 +39,6 @@ export default function FoodAddPage() {
   ];
   // Modal
   const isOpen = useSelector((state) => state.modal.open);
-  const isLoading = useSelector((state) => state.foods.loading);
 
   function openModal() {
     dispatch(modalActions.open());
@@ -107,7 +105,7 @@ export default function FoodAddPage() {
 
   return (
     <>
-    {isLoading && <Loading />}
+
       <Modal open={isOpen} onClose={closeModal}>
         <h1>Failed!</h1>
         {errorMessage ? (

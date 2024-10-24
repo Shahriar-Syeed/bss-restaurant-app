@@ -2,13 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialEmployeeTables = {
   employeeTablesDataTable: {},
-  employeeTableRowData: [],
-  assignEmployeeAndTableDetails:[],
-  testDetails:{},
   preview: undefined,
   loading: false,
   error: null,
-  selectedTableImage:undefined,
+  selectedTableImage: undefined,
   nonAssignedEmployee: [],
 };
 
@@ -24,17 +21,49 @@ const employeeTablesSlice = createSlice({
     },
     showPreview(state, action) {
       state.preview = action.payload;
-    },    
+    },
 
     setAssignEmployeeAndTableDetails(state, action) {
       state.assignEmployeeAndTableDetails = action.payload;
     },
-    
+
     removeEmployeeFromTable(state, action) {
-      console.log('before state',JSON.stringify(state.assignEmployeeAndTableDetails));
-      state.assignEmployeeAndTableDetails = state.assignEmployeeAndTableDetails.filter(
-        (employeeTableDetail) => employeeTableDetail.employeeTableId !== action.payload
-      );
+
+      state.employeeTablesDataTable = {
+        ...state.employeeTablesDataTable,
+        data: state.employeeTablesDataTable.data.map((table) => {
+          if (table.id === action.payload.id) {
+            return {
+              ...table,
+              employees: table.employees.filter(
+                (employee) =>
+                  employee.employeeTableId !== action.payload.employeeTableId
+              ),
+            };
+          } else {
+            return table;
+          }
+        }),
+      };
+    },
+    addEmployeeInTable(state, action) {
+
+      state.employeeTablesDataTable = {
+        ...state.employeeTablesDataTable,
+        data: state.employeeTablesDataTable.data.map((table) => {
+          if (table.id === action.payload.id) {
+            return {
+              ...table,
+              employees: table.employees.concat(
+                action.payload.employeeInfo
+              ),
+            };
+          } else {
+            return table;
+          }
+        }),
+      };
+      console.log(state.employeeTablesDataTable, action.payload);
     },
 
     setLoading(state, action) {
@@ -55,10 +84,10 @@ const employeeTablesSlice = createSlice({
         ),
       };
     },
-    setSelectedTableImage(state, action){
+    setSelectedTableImage(state, action) {
       state.selectedTableImage = action.payload;
     },
-    setNonAssignEmployee(state,action){
+    setNonAssignEmployee(state, action) {
       state.nonAssignedEmployee = action.payload;
     },
   },

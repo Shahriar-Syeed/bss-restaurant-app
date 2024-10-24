@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../UI/Modal.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../store/modal-slice.js";
-import Loading from "../loader/Loading.jsx";
+
 import { employeeActions } from "../../store/employee-slice.js";
 import EmployeeForm from "./EmployeeForm.jsx";
 import { createEmployee } from "../../store/employee-actions.js";
@@ -54,7 +54,7 @@ export default function EmployeeCreateForm() {
 
   // Modal
   const isOpen = useSelector((state) => state.modal.open);
-  const isLoading = useSelector((state) => state.loader.isLoading);
+  
 
   function openModal() {
     dispatch(modalActions.open());
@@ -65,7 +65,7 @@ export default function EmployeeCreateForm() {
 
   return (
     <div className="">
-      {isLoading && <Loading />}
+
       <Modal open={isOpen} onClose={closeModal}>
         <h1>Failed!</h1>
         {errorMessage ? (

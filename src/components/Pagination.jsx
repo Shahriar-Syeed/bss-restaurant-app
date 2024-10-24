@@ -15,12 +15,14 @@ export default function Pagination({
   const [pageOption, setPageOption]= useState([ { value: 10, label: "10" },]);
 
   useEffect(()=>{
+    console.log(totalRecord)
     if(totalRecord>10){
-      let option=[ { value: 10, label: "10" },];
-      for(let i=20; i<=totalRecord;i+=10){
-        option.push({value: i, label:`${i}`});
+      let option=[];
+      for(let i=10; i<=totalRecord;i+=10){
+        console.log(i);
+        option.push({value: i+10, label:`${i+10}`});
       }
-      setPageOption(option);
+      setPageOption(prev=> prev.concat(option));
       console.log('option',pageOption,option, totalRecord)
     }
   },[totalRecord])

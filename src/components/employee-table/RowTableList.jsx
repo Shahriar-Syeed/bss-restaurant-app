@@ -2,26 +2,23 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../UI/Button";
 import { modalActions } from "../../store/modal-slice";
 import Modal from "../UI/Modal";
-import Loading from "../loader/Loading";
 import AssignEmployeeModal from "./AssignEmployeeModal";
-import { getNonAssignEmployees } from "../../store/employee-tables-actions";
-import { customSelectActions } from "../../store/custom-select-slice";
-import EmployeesInATable from "./EmployeesInATable";
+import { deleteEmployeeFromTableDetail, getNonAssignEmployees } from "../../store/employee-tables-actions";
 import { employeeSelectActions } from "../../store/employee-select-slice";
 
 export default function RowEmployeeTableList({
   tableInfoData = {},
-  employees = [],
   handleDelete = () => {},
 }) {
   const dispatch = useDispatch();
   console.log("tableInfoData", tableInfoData);
   const errorMessage = useSelector((state) => state.employeeTables.error);
-  const assignEmployeeAndTableDetails = useSelector((state) => state.employeeTables.assignEmployeeAndTableDetails);
 
+  function handleDeleteEmployeeFromTable(id, employeeTableId) {    
+    dispatch(deleteEmployeeFromTableDetail(id, employeeTableId));
+  }
 
   // Modal
-  const isLoading = useSelector((state) => state.employeeTables.loading);
   const isOpen = useSelector((state) => state.modal.open);
   const modalTableId = useSelector((state) => state.modal.tableId);
 
@@ -33,6 +30,7 @@ export default function RowEmployeeTableList({
   }
   function closeModal() {
     dispatch(employeeSelectActions.setSelectedOption([]));
+    dispatch(employeeSelectActions.setIsFocused(false));
     dispatch(modalActions.close());
   }
   function closeErrorModal() {
@@ -40,7 +38,6 @@ export default function RowEmployeeTableList({
   }
   return (
     <>
-      {isLoading && <Loading />}
       {errorMessage && (
         <Modal open={isOpen}>
           <h1>Failed!</h1>
@@ -58,7 +55,6 @@ export default function RowEmployeeTableList({
 
       {!errorMessage && modalTableId === tableInfoData.id && (
         <AssignEmployeeModal
-          open={isOpen}
           closeModal={closeModal}
           tableInfoData={{ ...tableInfoData }}
         />
@@ -78,7 +74,35 @@ export default function RowEmployeeTableList({
             {/* {newEmployee.map((emp) => (
               <EmployeesInTable key={emp.employeeId} employees={emp} />
             ))} */}
-            <EmployeesInATable idOfTable={tableInfoData["id"]} key={isOpen} />
+            {tableInfoData.employees.map(emp=>  <li key={emp["employeeTableId"]}>
+          <div className="inline-flex items-center whitespace-nowrap bg-gray-100 hover:bg-gray-200 rounded-2xl p-1 mb-1 ">
+            <span className="sm:me-1">{emp.name}</span>
+            <Button
+              textOnly={true}
+              className="rounded-50 h-6 w-6 grid place-items-center text-stone-400 hover:text-stone-500 stroke-transparent"
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Are you sure you want to remove this employee from this table?"
+                  )
+                )
+                console.log('rowtable id and ',tableInfoData.id,emp.employeeTableId)
+                handleDeleteEmployeeFromTable(tableInfoData.id,emp.employeeTableId);
+              }}
+            >
+              <svg
+                className="fill-current stroke-inherit"
+                focusable="false"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                width="24px"
+              >
+                <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path>
+              </svg>
+            </Button>
+          </div>
+        </li>)}
+
           </ul>
           <Button
             className="rounded-50 h-7 w-7 grid place-items-center  text-teal-300 hover:text-teal-500 hover:bg-stone-200 p-0.5 mt-0.5"

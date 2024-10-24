@@ -32,6 +32,7 @@ export default function EmployeeListPage() {
   const employeesRowData = useSelector(
     (state) => state.employees.employeesRowData
   );
+ 
   const employeesDataTable = useSelector(
     (state) => state.employees.employeeDataTable
   );
@@ -53,6 +54,7 @@ export default function EmployeeListPage() {
 
   return (
     <>
+
       <Modal open={isOpen} onClose={closeModal}>
         <h1>Failed fetching data!</h1>
         {errorMess ? <p>{errorMess}</p> : <p>Invalid Password or Username</p>}

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { employeeActions } from "./employee-slice";
 import { modalActions } from "./modal-slice";
-import { loaderActions } from "./loader-slice";
 export const getEmployees = (page, perPage) => {
   return async (dispatch) => {
     dispatch(employeeActions.loading(true));
@@ -52,7 +51,7 @@ export const deleteEmployee = (employeeId) => {
 
 export const createEmployee = (formData, imageFile) => {
   return async (dispatch) => {
-    dispatch(loaderActions.show());
+    dispatch(employeeActions.loading(true));
     const birthDateString = dateConvertToString(formData.dob);
     const dateOfJoinString = dateConvertToString(formData.joinDate);
     const updatedData = {
@@ -75,14 +74,14 @@ export const createEmployee = (formData, imageFile) => {
           finalData
         );
         if (response.status === 200) {
-          dispatch(loaderActions.hide());
           dispatch(employeeActions.showPreview(undefined));
           dispatch(employeeActions.selectedEmployeeImage(undefined));
+          dispatch(employeeActions.loading(false));
           return 200;
         }
       }
     } catch (error) {
-      dispatch(loaderActions.hide());
+      dispatch(employeeActions.loading(false));
       dispatch(employeeActions.errorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);

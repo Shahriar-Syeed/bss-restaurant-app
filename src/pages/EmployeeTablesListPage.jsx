@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   deleteEmployeeTable,
-  getAssignEmployeeAndTableDetails,
   getEmployeeTables,
 } from "../store/employee-tables-actions";
 import Loading from "../components/loader/Loading";
@@ -30,12 +29,10 @@ export default function EmployeeTablesListPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.employeeTables.loading);
-  const employeeTableRow = useSelector(
-    (state) => state.employeeTables.employeeTableRowData
-  );
   const employeeTablesDataTable = useSelector(
     (state) => state.employeeTables.employeeTablesDataTable
   );
+
 
   const errorMessage = useSelector((state) => state.employeeTables.error);
   const isOpen = useSelector((state) => state.modal.open);
@@ -47,9 +44,9 @@ export default function EmployeeTablesListPage() {
 
   useEffect(() => {
     dispatch(getEmployeeTables(pageNumber, itemsPerPage));
-    dispatch(getAssignEmployeeAndTableDetails());
+    // dispatch(getAssignEmployeeAndTableDetails());
   }, [pageNumber, itemsPerPage, dispatch]);
-
+  console.log('ohyihnihihnikhih',employeeTablesDataTable.data);
   function handleDelete(id) {
     dispatch(deleteEmployeeTable(id));
   }
@@ -88,11 +85,10 @@ export default function EmployeeTablesListPage() {
             </tr>
           </thead>
           <tbody>
-            {employeeTableRow.map((row) => (
+            {employeeTablesDataTable?.data?.map((row) => (
               <RowTableList
                 key={row.id}
                 tableInfoData={row}
-                employees={row.employees}
                 handleDelete={handleDelete}
               />
             ))}
