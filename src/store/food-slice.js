@@ -7,6 +7,7 @@ const initialFoods = {
   preview: undefined,
   loading: false,
   error: null,
+  lastPage: "",
 };
 
 const foodSlice = createSlice({
@@ -30,6 +31,9 @@ const foodSlice = createSlice({
     },   
     errorMessage(state, action) {
       state.error = action.payload;
+    },
+    setLastPag(state, action) {
+      state.lastPage = action.payload;
     },
 
     removeFood(state, action) {
