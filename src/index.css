@@ -11,8 +11,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 a {
   text-decoration: none;
   color: inherit;
@@ -23,7 +21,6 @@ input {
   border: none;
   background: none;
 }
-
 
 
 /* Border */
@@ -52,18 +49,19 @@ input {
 .button-primary,
 .bg-primary {
   background-color: #cc080b;
-  color:#fff;
+  color: #fff;
 }
 
 .button-primary--dark,
 .bg-primary--dark {
-  background-color: #8f0709 ;
-  color:#fff;
+  background-color: #8f0709;
+  color: #fff;
 }
 
 .button-primary:is(:hover, :active) {
   background-color: rgb(155, 6, 8);
 }
+
 .button__outline--primary {
   border: #cc080b solid 2px;
   color: #cc080b;
@@ -77,8 +75,9 @@ input {
   gap: 12px;
   transition: 0.3s;
 }
-.button-primary--dark:is(:hover, :active){
-  background-color: #800608 ;
+
+.button-primary--dark:is(:hover, :active) {
+  background-color: #800608;
 }
 
 .button__outline--primary:hover {
@@ -102,8 +101,9 @@ input {
 .fill-primary {
   fill: #cc080b;
 }
-.fill-currentcolor{
-  fill:currentColor;
+
+.fill-currentcolor {
+  fill: currentColor;
 }
 
 
@@ -112,13 +112,13 @@ input {
 }
 
 /* overflow */
-.overflow-unset{
+.overflow-unset {
   overflow: unset;
 }
 
 /* width */
-.w-min-percentage{
-  width:min(500px, 70%);
+.w-min-percentage {
+  width: min(500px, 70%);
 }
 
 
@@ -132,9 +132,9 @@ input {
 }
 
 
-.viewport-hight{
+.viewport-hight {
   @media (min-width:1024px) {
-    
+
     height: calc(100svh - 16.875rem);
   }
 }
