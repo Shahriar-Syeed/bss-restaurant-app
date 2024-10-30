@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import Navbar from "../components/Navbar";
-import CartWithDrawer from "../components/dashboard/CartWithDrawer";
+import CartWithDrawer from "../components/new-order/CartWithDrawer";
 
 export default function RootAdminDashboardLayout() {
   return (
@@ -15,11 +15,11 @@ export default function RootAdminDashboardLayout() {
             >
               Admin
             </Link>
-            <CartWithDrawer />
             <Sidebar />
+            <CartWithDrawer />
           </div>
         </Navbar>
-        <div className="xl:p-10 lg:p-8 md:p-6 sm:p-4 p-2">
+        <div className="xl:p-10 lg:p-8 md:p-6 sm:p-4 p-2 pb-1 xl:pb-1 lg:pb-1 md:pb-1 sm:pb-1">
           <Outlet />
         </div>
       </div>

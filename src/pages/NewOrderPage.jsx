@@ -38,6 +38,18 @@ const menuItems = [
     discountPrice: 0,
   },
 ];
+const TABLE_DETAILS = [
+  { tableId: 123, tableName: "TB001" },
+  { tableId: 124, tableName: "TB002" },
+  { tableId: 125, tableName: "TB003" },
+  { tableId: 126, tableName: "TB004" },
+  { tableId: 127, tableName: "TB005" },
+  { tableId: 128, tableName: "TB006" },
+  { tableId: 129, tableName: "TB007" },
+  { tableId: 130, tableName: "TB008" },
+  { tableId: 131, tableName: "TB009" },
+  { tableId: 132, tableName: "TB010" },
+];
 export default function NewOrderPage() {
   const [isSelected, setIsSelected] = useState(null);
 
@@ -82,128 +94,21 @@ export default function NewOrderPage() {
               SELECT A TABLE{` ${10}`}
             </h2>
           </header>
-          <div className="flex lg:flex-col gap-3 viewport-hight overflow-x-auto lg:overflow-x-visible lg:overflow-y-auto lg:[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2 lg:[&::-webkit-scrollbar]:h-auto [&::-webkit-scrollbar-track]:bg-gray-300  [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded px-2 lg:px-0 ">
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 lg:border-collapse shadow-md ${
-                isSelected === "TB001" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB001")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB001
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB002" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB002")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB002
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB003" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB003")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB003
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB004" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB004")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB004
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB005" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB005")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB005
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB006" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB006")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB006
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB006" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB006")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB006
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB007" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB007")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB007
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB008" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB008")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB008
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB009" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB009")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB009
-              </span>
-            </div>
-            <div
-              className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 shadow-md ${
-                isSelected === "TB010" && "bg-red-600 text-white"
-              }`}
-              onClick={() => handleSelection("TB010")}
-            >
-              <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
-              <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                TB010
-              </span>
-            </div>
+          <div className="flex lg:flex-col gap-3 viewport-hight overflow-x-auto lg:overflow-x-visible lg:overflow-y-auto lg:[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2 lg:[&::-webkit-scrollbar]:h-auto [&::-webkit-scrollbar-track]:bg-gray-300  [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded px-2 lg:px-0 pb-3 lg:pb-0">
+            {TABLE_DETAILS.map((table) => (
+              <div
+                className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 lg:border-collapse shadow-md ${
+                  isSelected === table.tableId && "bg-red-600 text-white"
+                }`}
+                key={table.id}
+                onClick={() => handleSelection(table.tableId)}
+              >
+                <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
+                <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
+                  {table.tableName}
+                </span>
+              </div>
+            ))}
           </div>
         </section>
         <section className="lg:col-start-2 lg:col-end-5 p-3 bg-white rounded-lg relative">

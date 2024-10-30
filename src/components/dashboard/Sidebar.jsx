@@ -34,7 +34,7 @@ export default function Sidebar() {
       <button
         aria-controls="defaultSidebar"
         type="button"
-        className="inline-flex items-center p-2 text-sm text-primary rounded-50 xl:hidden hover:bg-red-800 focus:outline-none outline-none "
+        className="flex items-center p-1 text-sm text-primary rounded-lg xl:hidden hover:bg-red-800 focus:outline-none outline-none "
         onClick={sidebarToggle}
       >
         <span className="sr-only">Open sidebar</span>
