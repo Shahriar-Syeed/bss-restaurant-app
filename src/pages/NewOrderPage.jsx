@@ -7,6 +7,7 @@ import Button from "../components/UI/Button";
 import { modalActions } from "../store/modal-slice";
 import { useEffect, useState } from "react";
 import { getFoods } from "../store/food-actions";
+import { getEmployeeTables } from "../store/employee-tables-actions";
 
 const menuItems = [
   {
@@ -58,9 +59,13 @@ export default function NewOrderPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // useEffect(()=>{
-  //   dispatch(getFoods(1,10))
-  // },[])
+  const tableInfo = useSelector(state=> state.employeeTables.employeeTablesDataTable );
+  const foodInfo =  useSelector(state=> state.foods.foodDataTable);
+
+  useEffect(()=>{
+    dispatch(getFoods(1,10));
+    dispatch(getEmployeeTables(1,10));
+  },[])
 
   function handleSelection(tableId) {
     setIsSelected((prev) => (prev === tableId ? null : tableId));
@@ -95,17 +100,17 @@ export default function NewOrderPage() {
             </h2>
           </header>
           <div className="flex lg:flex-col gap-3 viewport-hight overflow-x-auto lg:overflow-x-visible lg:overflow-y-auto lg:[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2 lg:[&::-webkit-scrollbar]:h-auto [&::-webkit-scrollbar-track]:bg-gray-300  [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded px-2 lg:px-0 pb-3 lg:pb-0">
-            {TABLE_DETAILS.map((table) => (
+            {tableInfo.data.map((table) => (
               <div
                 className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 lg:border-collapse shadow-md ${
-                  isSelected === table.tableId && "bg-red-600 text-white"
+                  isSelected === table.tableNumber && "bg-red-600 text-white"
                 }`}
                 key={table.id}
-                onClick={() => handleSelection(table.tableId)}
+                onClick={() => handleSelection(table.id)}
               >
-                <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
+                <img src={table.image ?? defaultImage} alt="" className="w-24 lg:rounded-lg" />
                 <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                  {table.tableName}
+                  {table.tableNumber}
                 </span>
               </div>
             ))}
