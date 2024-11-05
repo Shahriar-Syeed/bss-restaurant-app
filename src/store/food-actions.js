@@ -11,8 +11,6 @@ export const getFoods = (page, perPage) => {
       );
       console.log(response);
       dispatch(foodActions.getFoodsDataTable(response.data));
-      dispatch(foodActions.getFoodsRow(response.data.data));
-      dispatch(foodActions.getFoodsRow(response.data.next_page_url));
       dispatch(foodActions.loading(false));
     } catch (error) {
       dispatch(foodActions.loading(false));

@@ -7,6 +7,7 @@ import customSelectSlice from "./custom-select-slice.js";
 import employeeSelectSlice from "./employee-select-slice.js";
 import foodSlice from "./food-slice.js";
 import newOrderSlice from "./newOrder-slice.js";
+import cartSlice from "./cart-slice.js";
 
 const store = configureStore({
   reducer: {
@@ -14,10 +15,11 @@ const store = configureStore({
     loader: loaderSlice,
     employees: employeeSlice,
     employeeTables: employeeTablesSlice,
-    customSelect: customSelectSlice,     
-    employeeSelect: employeeSelectSlice,  
+    customSelect: customSelectSlice,
+    employeeSelect: employeeSelectSlice,
     foods: foodSlice,
-    newOrder: newOrderSlice,  
+    newOrder: newOrderSlice,
+    cart: cartSlice,
   },
 });
 
