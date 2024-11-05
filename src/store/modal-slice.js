@@ -17,6 +17,7 @@ const modalSlice = createSlice({
     },
     setTableId(state, action){
       state.tableId = action.payload;
+      
     }
   },
 });

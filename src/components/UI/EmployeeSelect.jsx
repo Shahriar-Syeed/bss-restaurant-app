@@ -106,7 +106,7 @@ const EmployeeSelect = ({
               : "text-gray-400 "
           }`}
         >
-          {selectedOption.map((employee) => (
+          {selectedOption?.map((employee) => (
             <p key={employee.employeeId}>{employee.name}</p>
           ))}
         </span>
@@ -126,7 +126,7 @@ const EmployeeSelect = ({
 
       {isOpen && (
         <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-60 overflow-y-auto">
-          {options.map((option) => (
+          {options?.map((option) => (
             <li
               key={option.value}
               className="p-2 hover:bg-gray-100 cursor-pointer flex items-center"

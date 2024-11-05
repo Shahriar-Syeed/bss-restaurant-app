@@ -5,8 +5,10 @@ import Modal from "../components/UI/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/UI/Button";
 import { modalActions } from "../store/modal-slice";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getFoods } from "../store/food-actions";
+import { getEmployeeTables } from "../store/employee-tables-actions";
+import Loading from "../components/loader/Loading";
 
 const menuItems = [
   {
@@ -39,32 +41,49 @@ const menuItems = [
   },
 ];
 const TABLE_DETAILS = [
-  { tableId: 123, tableName: "TB001" },
-  { tableId: 124, tableName: "TB002" },
-  { tableId: 125, tableName: "TB003" },
-  { tableId: 126, tableName: "TB004" },
-  { tableId: 127, tableName: "TB005" },
-  { tableId: 128, tableName: "TB006" },
-  { tableId: 129, tableName: "TB007" },
-  { tableId: 130, tableName: "TB008" },
-  { tableId: 131, tableName: "TB009" },
-  { tableId: 132, tableName: "TB010" },
+  { tableId: 123, tableNumber: "TB001" },
+  { tableId: 124, tableNumber: "TB002" },
+  { tableId: 125, tableNumber: "TB003" },
+  { tableId: 126, tableNumber: "TB004" },
+  { tableId: 127, tableNumber: "TB005" },
+  { tableId: 128, tableNumber: "TB006" },
+  { tableId: 129, tableNumber: "TB007" },
+  { tableId: 130, tableNumber: "TB008" },
+  { tableId: 131, tableNumber: "TB009" },
+  { tableId: 132, tableNumber: "TB010" },
 ];
 export default function NewOrderPage() {
   const [isSelected, setIsSelected] = useState(null);
+  const [tableCount, setTableCount] = useState(10);
+  const [menuCount, setMenuCount] = useState(10);
 
   // const menuItems = useSelector((state)=>state.foods.foodsRowData);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // useEffect(()=>{
-  //   dispatch(getFoods(1,10))
-  // },[])
+  const tableInfo = useSelector(
+    (state) => state.employeeTables.employeeTablesDataTable
+  );
+  const foodInfo = useSelector((state) => state.foods.foodDataTable);
 
+  const tableLoading = useSelector(state=>state.employeeTables.loading);
+  const foodLoading = useSelector(state=>state.foods.loading);
+
+  useEffect(() => {
+    dispatch(getEmployeeTables(1, tableCount));
+    dispatch(getFoods(1, menuCount));
+  }, [tableCount,menuCount,dispatch]);
+  console.log(tableInfo);
   function handleSelection(tableId) {
     setIsSelected((prev) => (prev === tableId ? null : tableId));
   }
+
+  // const observer = new IntersectionObserver()
+  const tableObserver = useRef();
+  const lastTableElement = useCallback( node =>{
+    console.log('node',node);
+  });
 
   // Modal
 
@@ -86,6 +105,7 @@ export default function NewOrderPage() {
           </Button>
         </div>
       </Modal>
+      {(tableLoading || foodLoading) && <Loading/>}
       <PageHeader title="Order Food" />
       <div className="grid lg:grid-cols-4 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5">
         <section className="lg:col-end-2 pt-3 lg:pb-3 bg-white rounded-lg overflow-hidden">
@@ -95,20 +115,50 @@ export default function NewOrderPage() {
             </h2>
           </header>
           <div className="flex lg:flex-col gap-3 viewport-hight overflow-x-auto lg:overflow-x-visible lg:overflow-y-auto lg:[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2 lg:[&::-webkit-scrollbar]:h-auto [&::-webkit-scrollbar-track]:bg-gray-300  [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded px-2 lg:px-0 pb-3 lg:pb-0">
-            {TABLE_DETAILS.map((table) => (
-              <div
+            {tableInfo?.data?.map((table, tableIndex) => tableInfo.data.length !== tableIndex+1 ?
+              (<div
                 className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 lg:border-collapse shadow-md ${
-                  isSelected === table.tableId && "bg-red-600 text-white"
+                  isSelected === table.id && "bg-red-600 text-white"
                 }`}
                 key={table.id}
-                onClick={() => handleSelection(table.tableId)}
+                onClick={() => handleSelection(table.id)}                 
               >
-                <img src={defaultImage} alt="" className="w-24 lg:rounded-lg" />
+                <img
+                  src={
+                    table.image === ""
+                    ? defaultImage
+                    : `https://restaurantapi.bssoln.com/images/table/${table.image}`
+                  }
+                  alt="table"
+                  className="w-24 lg:rounded-lg"
+                />
                 <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
-                  {table.tableName}
+                  {table.tableNumber}
                 </span>
-              </div>
-            ))}
+              </div>)
+               :  (<div
+                  className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600 hover:text-white lg:border-dotted lg:border-b-2 lg:border-collapse shadow-md ${
+                    isSelected === table.id && "bg-red-600 text-white"
+                  }`}
+                  key={table.id}
+                  onClick={() => handleSelection(table.id)}
+                   ref = {lastTableElement}
+                >
+                  <img
+                    src={
+                      table.image === ""
+                      ? defaultImage
+                      : `https://restaurantapi.bssoln.com/images/table/${table.image}`
+                    }
+                    alt="table"
+                    className="w-24 lg:rounded-lg"
+                  />
+                  <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
+                    {table.tableNumber}
+                  </span>
+                </div>)
+              
+            )}
           </div>
         </section>
         <section className="lg:col-start-2 lg:col-end-5 p-3 bg-white rounded-lg relative">
@@ -133,7 +183,7 @@ export default function NewOrderPage() {
           )}
           <h1>Add foods to the selected table.</h1>
           <div className="flex flex-col gap-2 viewport-hight pb-3 lg:pb-0 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300  [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded">
-            {menuItems.map((menuItem) => (
+            {foodInfo?.data?.map((menuItem) => (
               <div
                 key={menuItem.id}
                 className="food-card p-3 shadow-md grid lg:grid-cols-4 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5 border hover:border-red-900 rounded-sm"
@@ -145,7 +195,7 @@ export default function NewOrderPage() {
                         ? `https://restaurantapi.bssoln.com/images/food/${menuItem.image}`
                         : defaultImage
                     }
-                    alt=""
+                    alt={menuItem.name}
                     className="w-full object-cover rounded-lg"
                   />
                 </div>
@@ -160,9 +210,9 @@ export default function NewOrderPage() {
                     price: &nbsp;
                     <span
                       className={
-                        menuItem.discountPrice
-                          ? `line-through text-gray-500`
-                          : `text-green-950`
+                        menuItem.discountPrice === 0
+                          ? `text-green-950`
+                          : `line-through text-gray-500`
                       }
                     >
                       {menuItem.price} &#2547;

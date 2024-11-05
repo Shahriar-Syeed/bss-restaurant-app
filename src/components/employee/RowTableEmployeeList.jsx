@@ -4,7 +4,7 @@ import Button from "../UI/Button";
 export default function RowTableEmployeeList({ employees = [], deleteEmployee }) {
   return (
     <>
-      {employees.map((employee) => (
+      {employees?.map((employee) => (
         <tr
           className="odd:bg-white even:bg-gray-50 border-b border-gray-700"
           key={employee.id}

@@ -71,10 +71,7 @@ export default function RowEmployeeTableList({
         </td>
         <td className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
           <ul>
-            {/* {newEmployee.map((emp) => (
-              <EmployeesInTable key={emp.employeeId} employees={emp} />
-            ))} */}
-            {tableInfoData.employees.map(emp=>  <li key={emp["employeeTableId"]}>
+            {tableInfoData?.employees?.map(emp=>  <li key={emp["employeeTableId"]}>
           <div className="inline-flex items-center whitespace-nowrap bg-gray-100 hover:bg-gray-200 rounded-2xl p-1 mb-1 ">
             <span className="sm:me-1">{emp.name}</span>
             <Button

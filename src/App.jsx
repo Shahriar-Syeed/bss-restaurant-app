@@ -26,6 +26,29 @@ import RootFood from "./pages/RootFood.jsx";
 import FoodAddPage from "./components/food/FoodAddPage.jsx";
 // import { employeeLoader } from "./components/employee/employeeLoader.js";
 
+
+
+const requireAuth = async () => {
+  const user = await JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+
+  // Check if user is Admin and token starts with "Bearer"
+  if (user?.id === "eb87aaa2-bf85-48d5-56a4-08d906dd12b1" && token?.startsWith("Bearer")) {
+    return null; // Allow access
+  } else {
+    return redirect("/bss-restaurant-app/login"); 
+  }
+};
+const checkAlreadyLogin = async () => {
+  const userName = await JSON.parse(localStorage.getItem("user"));
+  const saveToken = localStorage.getItem("token");
+  if (userName?.id === "eb87aaa2-bf85-48d5-56a4-08d906dd12b1" && saveToken?.startsWith("Bearer")) {
+    return redirect("/bss-restaurant-app/admin");
+  } else {
+    return null;
+  }
+}
+
 const router = createBrowserRouter([
   {
     path: "/bss-restaurant-app",
@@ -39,16 +62,12 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+        loader: checkAlreadyLogin,
       },
-      // {
-      //   path: '/logout',
-      //   loader: () => {
-      //     return redirect('/bss-restaurant-app')
-      //   },
-      // },
       {
         path: "admin",
         element: <RootAdminDashboardLayout />,
+        loader: requireAuth,
         children: [
           { index: true, element: <UserInfoPage /> },
           { path: "home", element: <HomePage /> },

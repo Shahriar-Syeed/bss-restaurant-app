@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import Button from "../UI/Button";
 
-export default function RowTableFoodList({ foods = [], deleteFood }) {
+export default function RowTableFoodList({ food, deleteFood }) {
   return (
     <>
-      {foods.map((food) => (
         <tr
           className="odd:bg-white even:bg-gray-50 border-b border-gray-700"
-          key={food.id}
+          
         >
           <th
             scope="row"
@@ -75,8 +74,7 @@ export default function RowTableFoodList({ foods = [], deleteFood }) {
               </svg>
             </Button>
           </td>
-        </tr>
-      ))}
+        </tr>      
     </>
   );
 }

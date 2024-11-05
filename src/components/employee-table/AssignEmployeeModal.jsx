@@ -31,7 +31,7 @@ export default function AssignEmployeeModal({
   const info = { ...tableInfoData };
   // console.log("info", info);
 
-  const employeesToAssign = employeesList.map(
+  const employeesToAssign = employeesList?.map(
     (employee) =>
       (employee = {
         value: employee.employeeId,

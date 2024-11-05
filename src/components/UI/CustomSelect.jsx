@@ -128,7 +128,7 @@ const CustomSelect = ({
 
       {isOpen && (
         <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-60 overflow-y-auto">
-          {options.map((option) => (
+          {options?.map((option) => (
               <li
                 key={option.value}
                 className="p-2 hover:bg-gray-100 cursor-pointer"

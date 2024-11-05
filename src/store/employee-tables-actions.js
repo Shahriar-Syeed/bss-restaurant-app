@@ -130,7 +130,7 @@ export const getAssignEmployeeAndTableDetails = () => {
       );
       // console.log('EmployeesListOfTables',JSON.stringify(response.data));
       if (response.status === 200) {
-        const updatedData = response.data.map((value) => ({
+        const updatedData = response?.data?.map((value) => ({
           tableId: value["table"]["tableId"],
           employeeTableId: value["employeeTableId"],
           name: value["employee"]["name"],
@@ -222,7 +222,7 @@ export const postAssignEmployeesTable = (data,id) => {
         const employeeTableRes= await axios.get(
           "https://restaurantapi.bssoln.com/api/EmployeeTable/get");
           const employeeIds = data.map(item => item.employeeId);
-          const employeeInfo = employeeTableRes.data.filter(value => (employeeIds.includes(value.employee.employeeId)) && value.table.tableId === id).map(item =>({
+          const employeeInfo = employeeTableRes.data.filter(value => (employeeIds.includes(value.employee.employeeId)) && value.table.tableId === id)?.map(item =>({
             employeeTableId: item.employeeTableId,
             employeeId: item.employee.employeeId,
             name: item.employee.name,

@@ -79,7 +79,7 @@ export default function EmployeeListPage() {
         <table className="w-full text-left rtl:text-right text-gray-900 text-xs sm:text-sm ">
           <thead className="text-xs text-primary uppercase bg-gray-50">
             <tr>
-              {HEADING.map((heading) => (
+              {HEADING?.map((heading) => (
                 <HeadTable key={heading.id}>{heading.label}</HeadTable>
               ))}
             </tr>

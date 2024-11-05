@@ -142,7 +142,7 @@ export default function CartWithDrawer() {
           <span className="sr-only">Close menu</span>
         </Button>
         <div className="grid">
-          {DUMMY_DATA.map((item) => (
+          {DUMMY_DATA?.map((item) => (
             <OrderDetails key={item.id} cartItem={item} />
           ))}
         </div>

@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialFoods = {
   foodDataTable:{},
-  foodsRowData: [],
   selectedFoodImage: undefined,
   preview: undefined,
   loading: false,
@@ -16,9 +15,6 @@ const foodSlice = createSlice({
   reducers: {
     getFoodsDataTable(state, action) {
       state.foodDataTable = action.payload;
-    },
-    getFoodsRow(state, action) {
-      state.foodsRowData = action.payload;
     },
     showPreview(state, action) {
       state.preview = action.payload;
@@ -37,9 +33,9 @@ const foodSlice = createSlice({
     },
 
     removeFood(state, action) {
-      state.foodsRowData = state.foodsRowData.filter(
+      state.foodDataTable = {...state.foodDataTable, data: state.foodDataTable.data.filter(
         (food) => food.id !== action.payload
-      );
+      )};
     },
   },
 });
