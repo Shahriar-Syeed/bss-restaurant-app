@@ -6,7 +6,11 @@ export default function OrderDetails({ cartItem }) {
     <div className="flex items-center gap-1 lg:gap-3 sm-gap-2 py-2.5">
       <div className="h-16 w-16 overflow-clip rounded-lg">
         <img
-          src={cartItem.image === "" ? defaultImage : cartItem.image}
+          src={
+            cartItem.image
+              ? `https://restaurantapi.bssoln.com/images/food/${cartItem.image}`
+              : defaultImage
+          }
           alt=""
           className="h-full w-full object-cover"
         />

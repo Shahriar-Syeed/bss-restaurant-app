@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getFoods } from "../store/food-actions";
 import { getEmployeeTables } from "../store/employee-tables-actions";
 import Loading from "../components/loader/Loading";
+import { setTableIdInCart } from "../store/cart-actions";
 
 export default function NewOrderPage() {
   const [isSelected, setIsSelected] = useState(null);
@@ -28,7 +29,8 @@ export default function NewOrderPage() {
   const tableLoading = useSelector((state) => state.employeeTables.loading);
   const foodLoading = useSelector((state) => state.foods.loading);
 
-  const cartItems=useSelector((state)=>state.cart.cartItem);
+  const cartItems = useSelector((state) => state.cart.cartItem);
+  const selectedTableId = useSelector((state) => state.cart.selectedTableId);
 
   const hasMoreTable = tableInfo.totalRecords - tableCount;
   const hasMoreMenu = foodInfo.totalRecords - menuCount;
@@ -46,7 +48,9 @@ export default function NewOrderPage() {
   console.log(tableInfo);
   function handleSelection(tableId) {
     setIsSelected((prev) => (prev === tableId ? null : tableId));
+    dispatch(setTableIdInCart(tableId));
 
+    console.log('cartItems',cartItems,'selectedTableId',selectedTableId)
   }
 
   // const observer = new IntersectionObserver()
