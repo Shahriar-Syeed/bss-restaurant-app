@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Input from "../UI/Input.jsx";
-import Logo from "assets/logo-icon.png";
+import Logo from "../../assets/logo-icon.png";
 import Button from "../UI/Button.jsx";
 // import apiUrl from "../../apiUrl/ApiUrl.jsx";
 import axios from "axios";
