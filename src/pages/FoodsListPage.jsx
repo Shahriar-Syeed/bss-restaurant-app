@@ -24,15 +24,12 @@ const HEADING = [
 ];
 
 export default function FoodsListPage() {
-
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [pageNumber, setPageNumber] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const foodDataTable = useSelector(
-    (state) => state.foods.foodDataTable
-  );
+  const foodDataTable = useSelector((state) => state.foods.foodDataTable);
   const loading = useSelector((state) => state.foods.loading);
 
   useEffect(() => {
@@ -44,6 +41,7 @@ export default function FoodsListPage() {
   // Modal
 
   const isOpen = useSelector((state) => state.modal.open);
+  const foodListId = useSelector(state=>state.modal.id);
   function closeModal() {
     dispatch(modalActions.close());
   }
@@ -51,7 +49,7 @@ export default function FoodsListPage() {
 
   return (
     <>
-      <Modal open={isOpen} onClose={closeModal}>
+     {errorMess && foodListId === 'foodList' && <Modal open={isOpen} onClose={closeModal}>
         <h1>Failed fetching data!</h1>
         {errorMess ? <p>{errorMess}</p> : <p>Invalid Password or Username</p>}
         <div className="modal-action p-2">
@@ -62,7 +60,7 @@ export default function FoodsListPage() {
             Close
           </Button>
         </div>
-      </Modal>
+      </Modal>}
       <PageHeader
         title="All Food"
         buttonLabel="ADD FOOD"
@@ -81,11 +79,13 @@ export default function FoodsListPage() {
             </tr>
           </thead>
           <tbody>
-           {foodDataTable?.data?.map(food=><RowTableFoodList
-              food={food}
-              deleteFood={handleDelete}
-              key={food.id}
-            />)}
+            {foodDataTable?.data?.map((food) => (
+              <RowTableFoodList
+                food={food}
+                deleteFood={handleDelete}
+                key={food.id}
+              />
+            ))}
           </tbody>
         </table>
       </div>
@@ -100,6 +100,3 @@ export default function FoodsListPage() {
     </>
   );
 }
-
-
-

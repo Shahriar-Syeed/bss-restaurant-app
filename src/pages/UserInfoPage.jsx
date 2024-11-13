@@ -4,7 +4,7 @@ export default function UserInfoPage() {
   const [user, setUser] = useState({});
   useEffect(() => {
     const fetchInfo = () => {
-      const userInfo = localStorage.getItem("user");
+      const userInfo = sessionStorage.getItem("user");
 
       setUser(JSON.parse(userInfo));
       console.log(user);

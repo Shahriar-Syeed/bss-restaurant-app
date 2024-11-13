@@ -11,7 +11,7 @@ import EmployeeAddPage from "./components/employee/EmployeeAddPage.jsx";
 import EmployeeDetailPage from "./components/employee/EmployeeDetailPage.jsx";
 import EmployeeEditPage from "./components/employee/EmployeeEditPage.jsx";
 import EmployeeTablesListPage from "./pages/EmployeeTablesListPage.jsx";
-import OrderPage from "./pages/OrderPage.jsx";
+import OrderListPage from "./pages/OrderListPage.jsx";
 import NewOrderPage from "./pages/NewOrderPage.jsx";
 import RootAdminDashboardLayout from "./pages/RootAdminDashboardLayout.jsx";
 import TableAddPage from "./components/employee-table/TableAddPage.jsx";
@@ -29,8 +29,8 @@ import FoodAddPage from "./components/food/FoodAddPage.jsx";
 
 
 const requireAuth = async () => {
-  const user = await JSON.parse(localStorage.getItem("user"));
-  const token = localStorage.getItem("token");
+  const user = await JSON.parse(sessionStorage.getItem("user"));
+  const token = sessionStorage.getItem("token");
 
   // Check if user is Admin and token starts with "Bearer"
   if (user?.id === "eb87aaa2-bf85-48d5-56a4-08d906dd12b1" && token?.startsWith("Bearer")) {
@@ -40,8 +40,8 @@ const requireAuth = async () => {
   }
 };
 const checkAlreadyLogin = async () => {
-  const userName = await JSON.parse(localStorage.getItem("user"));
-  const saveToken = localStorage.getItem("token");
+  const userName = await JSON.parse(sessionStorage.getItem("user"));
+  const saveToken = sessionStorage.getItem("token");
   if (userName?.id === "eb87aaa2-bf85-48d5-56a4-08d906dd12b1" && saveToken?.startsWith("Bearer")) {
     return redirect("/bss-restaurant-app/admin");
   } else {
@@ -117,7 +117,7 @@ const router = createBrowserRouter([
           },
           {
             path: "new-order",
-            element: <OrderPage /> 
+            element: <OrderListPage /> 
           },
         ],
       },

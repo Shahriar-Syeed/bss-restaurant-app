@@ -9,7 +9,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getFoods } from "../store/food-actions";
 import { getEmployeeTables } from "../store/employee-tables-actions";
 import Loading from "../components/loader/Loading";
-import { setTableIdInCart } from "../store/cart-actions";
+import {
+  addFood,
+  setTableIdInCart,
+  toggleCartDrawer,
+} from "../store/cart-actions";
 
 export default function NewOrderPage() {
   const [isSelected, setIsSelected] = useState(null);
@@ -49,8 +53,21 @@ export default function NewOrderPage() {
   function handleSelection(tableId) {
     setIsSelected((prev) => (prev === tableId ? null : tableId));
     dispatch(setTableIdInCart(tableId));
-
-    console.log('cartItems',cartItems,'selectedTableId',selectedTableId)
+  }
+  function addFoodItemInCart(food) {
+    const foodUnitPrice =
+      food.discountPrice === 0 ? food.price : food.discountPrice;
+    dispatch(addFood(food.id, foodUnitPrice, food.name, food.image));
+    console.log(
+      "cartItems",
+      cartItems,
+      JSON.stringify(cartItems),
+      "food",
+      food
+    );
+  }
+  function toggleCart() {
+    dispatch(toggleCartDrawer());
   }
 
   // const observer = new IntersectionObserver()
@@ -141,7 +158,7 @@ export default function NewOrderPage() {
                         : `https://restaurantapi.bssoln.com/images/table/${table.image}`
                     }
                     alt="table"
-                    className="w-24 lg:rounded-lg"
+                    className="w-24 lg:rounded-lg "
                   />
                   <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
                     {table.tableNumber}
@@ -174,7 +191,7 @@ export default function NewOrderPage() {
           </div>
         </section>
         <section className="lg:col-start-2 lg:col-end-5 p-3 bg-white rounded-lg relative">
-          {!isSelected && (
+          {!selectedTableId && (
             <div className="absolute bg-white bg-opacity-80 inset-0 rounded-lg">
               <div className="font-bold p-4 border-4 border-dashed border-red-700 text-red-950 rounded-t-lg h-40 text-center text-2xl flex items-center justify-center flex-col bg-white gap-3">
                 <svg
@@ -218,7 +235,7 @@ export default function NewOrderPage() {
                   <p className="lg:col-start-2 lg:col-end-5 max-h-16 line-clamp-3 text-ellipsis ">
                     Description: {menuItem.description}
                   </p>
-                  <div className="flex flex-wrap justify-between items-center gap-y-3 lg:col-start-2 lg:col-end-5">
+                  <div className="flex flex-col sm:flex-row flex-wrap sm:justify-between sm:items-center gap-y-3 lg:col-start-2 lg:col-end-5">
                     <h3 className="text-lg font-semibold text-nowrap min-w-44">
                       price: &nbsp;
                       <span
@@ -228,18 +245,33 @@ export default function NewOrderPage() {
                             : `line-through text-gray-500`
                         }
                       >
-                        {menuItem.price} &#2547;
+                        {menuItem.price}&#2547;
                       </span>{" "}
                       &nbsp;
                       {menuItem.discountPrice !== 0 && (
                         <span className="text-green-950">
-                          {menuItem.discountPrice} &#2547;
+                          {menuItem.discountPrice}&#2547;
                         </span>
                       )}
                     </h3>
-                    <Button className="button button-primary py-2 px-4 text-white rounded self-">
-                      ADD TO CART
-                    </Button>
+                    <div className="flex gap-1 flex-wrap">
+                      {cartItems.items.some(
+                        (item) => item.foodId === menuItem.id
+                      ) && (
+                        <Button
+                          className="button button__outline--primary py-2 px-4 text-white rounded"
+                          onClick={toggleCart}
+                        >
+                          GO TO CART
+                        </Button>
+                      )}
+                      <Button
+                        className="button button-primary py-2 px-4 text-white rounded"
+                        onClick={() => addFoodItemInCart(menuItem)}
+                      >
+                        ADD TO CART
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -275,18 +307,33 @@ export default function NewOrderPage() {
                             : `line-through text-gray-500`
                         }
                       >
-                        {menuItem.price} &#2547;
+                        {menuItem.price}&#2547;
                       </span>{" "}
                       &nbsp;
                       {menuItem.discountPrice !== 0 && (
                         <span className="text-green-950">
-                          {menuItem.discountPrice} &#2547;
+                          {menuItem.discountPrice}&#2547;
                         </span>
                       )}
                     </h3>
-                    <Button className="button button-primary py-2 px-4 text-white rounded">
-                      ADD TO CART
-                    </Button>
+                    <div className="flex gap-1 flex-wrap">
+                      {cartItems.items.some(
+                        (item) => item.foodId === menuItem.id
+                      ) && (
+                        <Button
+                          className="button button__outline--primary py-2 px-4 text-white rounded"
+                          onClick={toggleCartDrawer}
+                        >
+                          GO TO CART
+                        </Button>
+                      )}
+                      <Button
+                        className="button button-primary py-2 px-4 text-white rounded"
+                        onClick={() => addFoodItemInCart(menuItem)}
+                      >
+                        ADD TO CART
+                      </Button>
+                    </div>
                   </div>
                 </div>
               )

@@ -14,10 +14,9 @@ export const getFoods = (page, perPage) => {
       dispatch(foodActions.loading(false));
     } catch (error) {
       dispatch(foodActions.loading(false));
-      console.log(error);
       dispatch(foodActions.errorMessage(error.message));
+      dispatch(modalActions.id('foodList'));
       dispatch(modalActions.open());
-      console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
       }, 3000);

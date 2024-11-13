@@ -20,11 +20,11 @@ export default function RowEmployeeTableList({
 
   // Modal
   const isOpen = useSelector((state) => state.modal.open);
-  const modalTableId = useSelector((state) => state.modal.tableId);
+  const modalTableId = useSelector((state) => state.modal.id);
 
   function openModal(tableId) {
     dispatch(modalActions.open());
-    dispatch(modalActions.setTableId(tableId));
+    dispatch(modalActions.id(tableId));
     dispatch(getNonAssignEmployees(tableId));
     console.log(tableId);
   }

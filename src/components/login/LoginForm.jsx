@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Input from "../UI/Input.jsx";
-import Logo from "assets/logo-icon.png";
+import Logo from "../../assets/logo-icon.png";
 import Button from "../UI/Button.jsx";
 // import apiUrl from "../../apiUrl/ApiUrl.jsx";
 import axios from "axios";
@@ -41,8 +41,8 @@ export default function LoginForm() {
         const token = "Bearer " + response.data.token;
         const user = response.data.user;
         console.log(user,JSON.stringify(user));
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", JSON.stringify(user));
         navigate(`/bss-restaurant-app/${user.fullName}`);
       }
 

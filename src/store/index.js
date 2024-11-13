@@ -6,7 +6,7 @@ import employeeTablesSlice from "./employee-tables-slice.js";
 import customSelectSlice from "./custom-select-slice.js";
 import employeeSelectSlice from "./employee-select-slice.js";
 import foodSlice from "./food-slice.js";
-import newOrderSlice from "./newOrder-slice.js";
+import orderSlice from "./order-slice.js";
 import cartSlice from "./cart-slice.js";
 
 const store = configureStore({
@@ -18,8 +18,9 @@ const store = configureStore({
     customSelect: customSelectSlice,
     employeeSelect: employeeSelectSlice,
     foods: foodSlice,
-    newOrder: newOrderSlice,
+    order: orderSlice,
     cart: cartSlice,
+    
   },
 });
 
