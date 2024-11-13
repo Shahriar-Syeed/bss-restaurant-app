@@ -18,6 +18,7 @@ export const getEmployeeTables = (page, perPage) => {
       dispatch(employeeTablesActions.setLoading(false));
       console.log(error);
       dispatch(employeeTablesActions.setErrorMessage(error.message));
+      dispatch(modalActions.id('tableList'))
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {

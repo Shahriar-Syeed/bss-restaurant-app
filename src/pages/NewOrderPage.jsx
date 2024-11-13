@@ -32,7 +32,12 @@ export default function NewOrderPage() {
 
   const tableLoading = useSelector((state) => state.employeeTables.loading);
   const foodLoading = useSelector((state) => state.foods.loading);
+  const foodErrorMessage = useSelector((state) => state.foods.error);
+  const tableErrorMessage = useSelector((state) => state.employeeTables.error);
+  const cartErrorMessage = useSelector((state) => state.cart.error);
+  const cartSuccess = useSelector((state) => state.cart.success);
 
+  const errorModalId = useSelector((state) => state.modal.id);
   const cartItems = useSelector((state) => state.cart.cartItem);
   const selectedTableId = useSelector((state) => state.cart.selectedTableId);
 
@@ -120,19 +125,34 @@ export default function NewOrderPage() {
   }
   return (
     <>
-      <Modal open={isOpen} onClose={closeModal}>
-        <h1>Failed fetching data!</h1>
-        {/* {errorMess ? <p>{errorMess}</p> : <p>Invalid Password or Username</p>} */}
-        <div className="modal-action p-2">
-          <Button
-            className="float-end button-primary px-4 py-2 rounded-lg"
-            onClick={closeModal}
-          >
-            Close
-          </Button>
-        </div>
-      </Modal>
-      {(tableLoading || foodLoading) && <Loading />}
+      {(((foodErrorMessage || tableErrorMessage || cartErrorMessage) &&
+        (errorModalId === "foodList" ||
+          errorModalId === "tableList" ||
+          errorModalId === "cart-error")) ||
+        cartSuccess) && (
+        <Modal open={isOpen} onClose={closeModal}>
+          <h1>Failed fetching data!</h1>
+          {cartSuccess ? (
+            <p>Order Create Success!</p>
+          ) : (
+            <p>
+              {foodErrorMessage ||
+                tableErrorMessage ||
+                cartErrorMessage ||
+                `Something went wrong! ${errorModalId}`}
+            </p>
+          )}
+          <div className="modal-action p-2">
+            <Button
+              className="float-end button-primary px-4 py-2 rounded-lg"
+              onClick={closeModal}
+            >
+              Close
+            </Button>
+          </div>
+        </Modal>
+      )}
+      {(tableLoading || foodLoading) && <Loading absolute={true} />}
       <PageHeader title="Order Food" />
       <div className="grid lg:grid-cols-4 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5">
         <section className="lg:col-end-2 pt-3 lg:pb-3 bg-white rounded-lg overflow-hidden">

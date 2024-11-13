@@ -96,7 +96,7 @@ export default function FoodsListPage() {
         onChangePageNumber={setPageNumber}
         onChangeItemsPerPage={setItemsPerPage}
       />
-      {loading && <Loading />}
+      {loading && <Loading absolute={true} />}
     </>
   );
 }

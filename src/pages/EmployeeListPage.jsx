@@ -99,7 +99,8 @@ export default function EmployeeListPage() {
         onChangePageNumber={setPageNumber}
         onChangeItemsPerPage={setItemsPerPage}
       />
-      {loading && <Loading />}
+      {loading && <Loading absolute={true}/>}
+      {/* { <Loading absolute={true}/>} */}
     </>
   );
 }

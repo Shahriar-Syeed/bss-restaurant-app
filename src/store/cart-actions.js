@@ -1,7 +1,7 @@
 import axios from "axios";
 import { cartActions } from "./cart-slice.js";
 import { modalActions } from "./modal-slice.js";
-import { convertBase64 } from "./employee-actions.js";
+
 export const setTableIdInCart = (tableId) => {
   return async (dispatch) => {
     const res = await dispatch(cartActions.setSelectedTableId(tableId));
@@ -64,16 +64,26 @@ export const createOrder = (data) => {
       if (res.status === 204 || res.status === 200) {
         dispatch(cartActions.setCartItem({items:[]}));
         dispatch(cartActions.setSelectedTableId(null));
+        dispatch(cartActions.setSuccess(true));
+        dispatch(modalActions.id("Success"));
+        dispatch(modalActions.open());
+        setTimeout(() => {
+          dispatch(modalActions.close());
+          dispatch(modalActions.id(null));
+          dispatch(cartActions.setSuccess(false));
+
+        }, 3000);
       }
       dispatch(cartActions.loading(false));
     } catch (error) {
       dispatch(cartActions.loading(false));
       dispatch(cartActions.errorMessage(error.message));
-      // dispatch(modalActions.open());
-      // console.log(error);
-      // setTimeout(() => {
-      //   dispatch(modalActions.close());
-      // }, 3000);
+      dispatch(modalActions.id('cart-error'));
+      dispatch(modalActions.open());
+      setTimeout(() => {
+        dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
+      }, 3000);
     }
   };
 };

@@ -5,6 +5,7 @@ const initialCart = {
     items: [],
   },
   selectedTableId: null,
+  success: false,
   loading: false,
   error: null,
   showCartDrawer: false,
@@ -136,6 +137,9 @@ const cartSlice = createSlice({
     },
     toggleCartDrawer(state){
       state.showCartDrawer = !state.showCartDrawer;
+    },
+    setSuccess(state, action){
+      state.success = action.payload;
     },
   },
 });

@@ -67,7 +67,7 @@ export default function EmployeeTablesListPage() {
           </div>
         </Modal>
       )}
-      {isLoading && <Loading />}
+      {isLoading && <Loading absolute={true} />}
       <PageHeader
         title="All Table List"
         buttonLabel="ADD TABLE"
