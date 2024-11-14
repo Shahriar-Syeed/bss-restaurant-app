@@ -88,8 +88,8 @@ export default function OrderListPage() {
   );
   return (
     <>
-      {orderLoading && <Loading absolute={true} />}
-      { <Loading />}
+      {orderLoading && <Loading fullHeightWidth />}
+      { <Loading fullHeightWidth />}
       {errorMessage && orderListId === "orderList" && (
         <Modal open={isOpen} onClose={closeModal}>
           <h1>Failed fetching data, on {orderListId}!</h1>

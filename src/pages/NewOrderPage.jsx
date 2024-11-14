@@ -152,7 +152,7 @@ export default function NewOrderPage() {
           </div>
         </Modal>
       )}
-      {(tableLoading || foodLoading) && <Loading absolute={true} />}
+      {(tableLoading || foodLoading) && <Loading fullHeightWidth />}
       <PageHeader title="Order Food" />
       <div className="grid lg:grid-cols-4 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5">
         <section className="lg:col-end-2 pt-3 lg:pb-3 bg-white rounded-lg overflow-hidden">
