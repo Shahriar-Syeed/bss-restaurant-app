@@ -33,6 +33,9 @@ export default function OrderListPage() {
   function deleteOrder(id) {
     dispatch(removeOrder(id));
   }
+  function editStatus(id){
+    
+  }
 
   const orderObserver = useRef();
   const lastOrderElementRef = useCallback(
@@ -96,8 +99,7 @@ export default function OrderListPage() {
                     <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"></path>
                   </svg>
                 </Button>
-              </div>
-            
+              </div>            
               <div
                 className=" h-[12.5rem] border-b border-b-black mb-3 overflow-y-auto [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-transparent

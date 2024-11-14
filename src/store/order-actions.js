@@ -25,6 +25,30 @@ export const getOrder = ( perPage) => {
   };
 };
 
+export const changeOrderStatus = (id, status) => {
+  return async (dispatch) => {
+    dispatch(orderActions.setLoading(true));
+    try {
+      const response = await axios.put(
+        `https://restaurantapi.bssoln.com/api/Order/update-status/${id}`, status
+      );
+      console.log(response);
+      if(response.status === 20){
+        dispatch(orderActions.removeOrderFromOrderDataTable(id));
+      }
+      dispatch(orderActions.setLoading(false));
+    } catch (error) {
+      dispatch(orderActions.setLoading(false));
+      console.log(error);
+      dispatch(orderActions.errorMessage(error.message));
+      dispatch(modalActions.open());
+      console.log(error);
+      setTimeout(() => {
+        dispatch(modalActions.close());
+      }, 3000);
+    }
+  };
+};
 export const removeOrder = (id) => {
   return async (dispatch) => {
     dispatch(orderActions.setLoading(true));
