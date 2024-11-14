@@ -11,7 +11,7 @@ export default function Button({
   
   disabled && (cssClasses += " " + "fill-slate-400");
   
-  cssClasses += " " + className;
+  className && (cssClasses += " " + className);
 
   return (
     <button className={cssClasses} disabled={disabled} {...props}>

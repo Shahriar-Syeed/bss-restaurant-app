@@ -159,6 +159,7 @@ export default function FoodAddPage() {
             label="Select Discount Type"
             options={discountOption}
             onChanged={(e)=>handleDiscountSelect(e)}
+            maximumHeight='60'
           />
         </div>
         

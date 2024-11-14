@@ -86,6 +86,7 @@ export default function EmployeeForm({ handleSubmit, handleDrop, onSelectFile, s
             name="genderId"
             label="Gender"
             options={genderOptions}
+            maximumHeight='60'
             // onChange={handleGenderChange}
           />
         </div>

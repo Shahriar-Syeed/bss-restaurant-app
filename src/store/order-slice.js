@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialOrder = {
-  orderDataTable:{},
-  selectedFoodImage: undefined,
+  orderDataTable: {},
+  orderId: "",
+  orderNumber:"",
+  status: 0,
   preview: undefined,
   loading: false,
   error: null,
@@ -16,12 +18,23 @@ const orderSlice = createSlice({
     setOrderDataTable(state, action) {
       state.orderDataTable = action.payload;
     },
+    setOrderId(state, action) {
+      state.orderId = action.payload;
+    },
+    setOrderNumber(state, action) {
+      state.orderNumber = action.payload;
+    },
+    setStatus(state, action) {
+      state.status = action.payload;
+    },
     removeOrderFromOrderDataTable(state, action) {
-      state.orderDataTable.data = state.orderDataTable.data.filter(item=> item.id !==action.payload);
+      state.orderDataTable.data = state.orderDataTable.data.filter(
+        (item) => item.id !== action.payload
+      );
     },
     setLoading(state, action) {
       state.loading = action.payload;
-    },   
+    },
     errorMessage(state, action) {
       state.error = action.payload;
     },
@@ -29,10 +42,28 @@ const orderSlice = createSlice({
       state.lastPage = action.payload;
     },
 
-    removeFood(state, action) {
-      state.orderRowData = state.orderRowData.filter(
-        (food) => food.id !== action.payload
+    changeStatusOfOrder(state, action) {
+      const existingIndex = state.orderDataTable.data.findIndex(
+        (order) => order.id === action.payload.id
       );
+
+      if (existingIndex !== -1) {
+        const updatedOrderStatus = 
+        action.payload.status === 1 ? 'Confirmed':
+        action.payload.status === 2 ? 'Preparing':
+        action.payload.status === 3 ? 'PreparedToServe':
+        action.payload.status === 4 ? 'Served':
+        action.payload.status === 5 ? 'Paid':
+        'Pending';
+        state.orderDataTable.data = state.orderDataTable.data.map(
+          (order, index) =>
+            index === existingIndex
+              ? { ...order, orderStatus: updatedOrderStatus }
+              : order
+        );
+        state.status = 0;
+        state.orderId ='';
+      }
     },
   },
 });

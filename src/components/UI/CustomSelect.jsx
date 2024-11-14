@@ -7,6 +7,7 @@ const CustomSelect = ({
   options = [],
   className,
   id,
+  maximumHeight,
   onChanged,
   ...props
 }) => {
@@ -127,7 +128,7 @@ const CustomSelect = ({
       </div>
 
       {isOpen && (
-        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-60 overflow-y-auto">
+        <ul className={`absolute z-10 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-${maximumHeight} overflow-y-auto`}>
           {options?.map((option) => (
               <li
                 key={option.value}

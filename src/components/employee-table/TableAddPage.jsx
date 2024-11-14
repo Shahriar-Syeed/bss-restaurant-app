@@ -130,6 +130,7 @@ export default function TableAddPage() {
             name="numberOfSeats"
             label="Number of seats"
             options={tableOption}
+            maximumHeight='60'
           />
         </div>
        
