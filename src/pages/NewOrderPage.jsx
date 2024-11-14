@@ -178,7 +178,7 @@ export default function NewOrderPage() {
                         : `https://restaurantapi.bssoln.com/images/table/${table.image}`
                     }
                     alt="table"
-                    className="w-24 lg:rounded-lg "
+                    className="w-24 h-20 lg:rounded-lg object-cover"
                   />
                   <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
                     {table.tableNumber}
@@ -342,7 +342,7 @@ export default function NewOrderPage() {
                       ) && (
                         <Button
                           className="button button__outline--primary py-2 px-4 text-white rounded"
-                          onClick={toggleCartDrawer}
+                          onClick={toggleCart}
                         >
                           GO TO CART
                         </Button>

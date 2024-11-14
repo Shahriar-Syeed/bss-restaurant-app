@@ -85,7 +85,7 @@ export default function CartWithDrawer() {
           </svg>
           <span className="sr-only">Close menu</span>
         </Button>
-        <div className="grid h-[calc(100%-8.4rem)] overflow-y-auto [&::-webkit-scrollbar]:w-2
+        <div className="grid content-start h-[calc(100%-8.4rem)] overflow-y-auto [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-transparent
           [&::-webkit-scrollbar-thumb]:bg-red-300 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-clip-padding">
           {cartItems?.items?.map((item) => (

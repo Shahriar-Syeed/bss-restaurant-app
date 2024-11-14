@@ -89,6 +89,7 @@ export default function OrderListPage() {
   return (
     <>
       {orderLoading && <Loading absolute={true} />}
+      { <Loading />}
       {errorMessage && orderListId === "orderList" && (
         <Modal open={isOpen} onClose={closeModal}>
           <h1>Failed fetching data, on {orderListId}!</h1>
@@ -132,12 +133,12 @@ export default function OrderListPage() {
             </div>
         </Modal>
       )}
-      <div className="grid 2xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2">
+      <div className="grid justify-between auto-cols-auto 2xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 lg:gap-5 md:gap-3.5 sm:gap-3 gap-2">
         {orderInfo?.data?.map((eachOrderItem, eachOrderItemIndex) =>
           orderInfo.data.length !== eachOrderItemIndex + 1 ? (
             <div
               key={eachOrderItem.id}
-              className="rounded-lg border-2 xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white"
+              className="rounded-lg border-2 xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white max-w-md"
             >
               <div className="flex justify-between mb-3">
                 <div>
@@ -238,7 +239,7 @@ export default function OrderListPage() {
           ) : (
             <div
               key={eachOrderItem.id}
-              className="rounded-lg border-2 xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white"
+              className="rounded-lg border-2 xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white max-w-md"
               ref={lastOrderElementRef}
             >
               <div className="flex justify-between mb-3">
