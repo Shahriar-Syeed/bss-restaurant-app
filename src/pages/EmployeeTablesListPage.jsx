@@ -19,7 +19,7 @@ const HEADING = [
   { id: "tableNumber", label: "Table Number" },
   { id: "tableSeats", label: "Table Seats" },
   { id: "employees", label: "Employees" },
-  { id: "bookingStatus", label: "BookingStatus" },
+  { id: "bookingStatus", label: "Booking Status" },
   { id: "action", label: "Action" },
 ];
 
@@ -78,14 +78,14 @@ export default function EmployeeTablesListPage() {
       />
       <div className="overflow-x-auto shadow-md sm:rounded-t-lg">
         <table className="w-full text-left rtl:text-right text-gray-900 text-xs sm:text-sm ">
-          <thead className="text-xs text-primary uppercase bg-gray-50">
+          <thead className="text-xs text-primary uppercase bg-gray-50 hidden sm:table-header-group">
             <tr>
               {HEADING?.map((heading) => (
                 <HeadTable key={heading.id}>{heading.label}</HeadTable>
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="block sm:table-row-group text-center sm:text-start">
             {employeeTablesDataTable?.data?.map((row) => (
               <RowTableList
                 key={row.id}

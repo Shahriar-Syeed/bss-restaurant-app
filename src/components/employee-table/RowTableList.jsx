@@ -60,19 +60,20 @@ export default function RowEmployeeTableList({
           tableInfoData={{ ...tableInfoData }}
         />
       )}
-      <tr className="odd:bg-white  even:bg-gray-50  border-b border-gray-700 ">
-        <th
+      <tr className="block sm:table-row odd:bg-white even:bg-gray-50 sm:border-b border-b-0 border-gray-700 p-1 shadow-md rounded-lg mb-2 sm:p-0 sm:rounded-none sm:shadow-none">
+        <td
           scope="row"
-          className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 "
+          className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal"
+          data-th='Table Number: '
         >
           {tableInfoData.tableNumber}
-        </th>
-        <td className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 ">
+        </td>
+        <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal" data-th='Table Number: '>
           {tableInfoData.numberOfSeats}
         </td>
-        <td className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
-          <ul>
-            {tableInfoData?.employees?.map(emp=>  <li key={emp["employeeTableId"]}>
+        <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal" data-block data-th='Employees: '>
+          <ul className="flex flex-wrap gap-1">
+            {tableInfoData?.employees?.map(emp=>  <li className="w-fit sm:w-auto" key={emp["employeeTableId"]}>
           <div className="inline-flex items-center whitespace-nowrap bg-gray-100 hover:bg-gray-200 rounded-2xl p-1 mb-1 ">
             <span className="sm:me-1">{emp.name}</span>
             <Button
@@ -85,7 +86,6 @@ export default function RowEmployeeTableList({
                     "Are you sure you want to remove this employee from this table?"
                   )
                 )
-                console.log('rowtable id and ',tableInfoData.id,emp.employeeTableId)
                 handleDeleteEmployeeFromTable(tableInfoData.id,emp.employeeTableId);
               }}
             >
@@ -104,7 +104,7 @@ export default function RowEmployeeTableList({
 
           </ul>
           <Button
-            className="rounded-50 h-7 w-7 grid place-items-center  text-teal-300 hover:text-teal-500 hover:bg-stone-200 p-0.5 mt-0.5"
+            className="rounded-50 h-7 w-7 sm:grid sm:place-items-center  text-teal-300 hover:text-teal-500 hover:bg-stone-200 p-0.5 mt-0.5"
             onClick={() => openModal(tableInfoData.id)}
             type='button'
           >
@@ -119,10 +119,10 @@ export default function RowEmployeeTableList({
             </svg>
           </Button>
         </td>
-        <td className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
-          Available
+        <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal" data-th='Booking Status: '>
+          {tableInfoData.isOccupied ? <span className="text-red-800">Booked</span>: <span className="text-green-800">Available</span>}
         </td>
-        <td className="md:px-2  xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
+        <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 sm:table-cell flex justify-evenly  gap-1" >
           <Button
             textOnly
             className="rounded-50 h-8 w-8 grid place-items-center hover:bg-stone-100 fill-red-700 hover:fill-red-600"

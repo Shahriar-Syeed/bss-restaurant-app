@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { employeeSelectActions } from "../../store/employee-select-slice";
 
 const EmployeeSelect = ({
-  label,
+  label='',
   options = [],
   onChange,
-  className,
+  className='',
   ...props
 }) => {
   const isOpen = useSelector((state) => state.employeeSelect.isOpen);
@@ -85,7 +85,7 @@ const EmployeeSelect = ({
         tabIndex={0}
       >
         <label
-          className={`absolute text-xsm sm:text-sm md:text-base transform pointer-events-none transition-all duration-300
+          className={`absolute text-xs sm:text-sm md:text-base transform pointer-events-none transition-all duration-300
           ${
             isFocused
               ? "scale-75 top-2 bg-white px-1 text-blue-500 -translate-y-4 origin-[0] z-10"
@@ -143,7 +143,7 @@ const EmployeeSelect = ({
               />
               <label
                 htmlFor={option.value}
-                className="flex-grow cursor-pointer"
+                className="flex-grow cursor-pointer text-xs sm:text-sm md:text-base ps-0.5 sm:ps-1 md:ps-2"
               >
                 {option.label}
               </label>

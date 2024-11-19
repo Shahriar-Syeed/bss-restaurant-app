@@ -61,30 +61,30 @@ export default function AssignEmployeeModal({
         className=" overflow-unset"
       >
         <Button
-          className="button-primary px-3 py-1.5 rounded-lg absolute right-3 top-3 font-extrabold"
+          className="button-primary sm:px-3 sm:py-1.5 px-2 py-1 rounded-lg absolute right-3 top-3 font-extrabold"
           onClick={closeModal}
           type='button'
         >
           X
         </Button>
 
-        <h1 className=" text-center text-xl font-bold mb-3">
+        <h1 className="text-center sm:text-xl font-bold mb-3">
           Assign Employee To a Table
         </h1>
 
         <div className="grid grid-col-6 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5">
-          <div className="flex items-center justify-center lg:col-start-1 lg:col-end-3 col-start-1 col-end-7">
+          <div className="flex items-center justify-center sm:col-end-3 col-start-1 col-end-7">
             <img
               src={defaultImage}
               alt=""
-              className=" min-h-36 max-w-full object-cover rounded"
+              className=" sm:max-h-36 max-h-16 sm:max-w-full object-cover rounded"
             />
           </div>
-          <div className="lg:col-start-4 lg:col-end-7 col-start-1 col-end-7 flex flex-col justify-center gap-3 text-center lg:text-left">
-            <h2 className=" text-xl font-semibold lg:mb-3">
+          <div className="sm:col-start-4 col-start-1 col-end-7 flex flex-col justify-center gap-3 text-center lg:text-left">
+            <h2 className="sm:text-xl font-semibold lg:mb-3">
               Table Number: {info.tableNumber}
             </h2>
-            <h2 className=" text-xl font-semibold">
+            <h2 className="sm:text-xl font-semibold">
               Seats Number: {info.numberOfSeats}
             </h2>
           </div>
@@ -100,7 +100,7 @@ export default function AssignEmployeeModal({
             />
           </div>
           <Button
-            className="button-primary lg:px-4 lg:py-2 px-3 py-1.5 rounded-lg lg:col-start-5 col-start-6 col-end-7 self-center"
+            className="button-primary lg:px-4 lg:py-2 px-3 py-1.5 rounded-lg lg:col-start-5 col-start-6 col-end-7 self-center sm:text-base text-xs"
             onClick={() => handleAssignEmployee(info)}
             type='button'
           >

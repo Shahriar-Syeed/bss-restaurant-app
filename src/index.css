@@ -115,7 +115,7 @@ input {
 
 /* width */
 .w-min-percentage {
-  width: min(500px, 70%);
+  width: min(500px, 90%);
 }
 
 .animation-duration-20000 {
@@ -171,6 +171,7 @@ input {
     content: attr(data-th);
     display: inline;
     font-weight: bold;
+    color:#cc080b;
     margin: 0 0 2px;
     padding: 5px;
     font-size: 14px;
