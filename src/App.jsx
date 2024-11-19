@@ -8,7 +8,6 @@ import LoginPage from "./pages/LoginPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import EmployeeListPage from "./pages/EmployeeListPage.jsx";
 import EmployeeAddPage from "./components/employee/EmployeeAddPage.jsx";
-import EmployeeDetailPage from "./components/employee/EmployeeDetailPage.jsx";
 import EmployeeEditPage from "./components/employee/EmployeeEditPage.jsx";
 import EmployeeTablesListPage from "./pages/EmployeeTablesListPage.jsx";
 import OrderListPage from "./pages/OrderListPage.jsx";
@@ -24,7 +23,6 @@ import UserInfoPage from "./pages/UserInfoPage.jsx";
 import FoodsListPage from "./pages/FoodsListPage.jsx";
 import RootFood from "./pages/RootFood.jsx";
 import FoodAddPage from "./components/food/FoodAddPage.jsx";
-// import { employeeLoader } from "./components/employee/employeeLoader.js";
 
 
 
@@ -77,15 +75,12 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
+                path: "employee-list",
                 element: <EmployeeListPage />,
               },
               {
                 path: "employee-add",
                 element: <EmployeeAddPage />,
-              },
-              {
-                path: ":employeeId",
-                element: <EmployeeDetailPage />,
               },
               {
                 path: ":employeeId/employee-edit",

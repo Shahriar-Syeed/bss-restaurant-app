@@ -10,11 +10,11 @@ export const getEmployees = (page, perPage) => {
       );
       console.log(response);
       dispatch(employeeActions.getEmployeesDataTable(response.data));
-      dispatch(employeeActions.getEmployeesRow(response.data.data));
       dispatch(employeeActions.loading(false));
     } catch (error) {
       dispatch(employeeActions.loading(false));
       console.log(error);
+      dispatch(modalActions.id("employee-list-fail"));
       dispatch(employeeActions.errorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
@@ -44,6 +44,7 @@ export const deleteEmployee = (employeeId) => {
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
       }, 3000);
     }
   };
@@ -51,6 +52,7 @@ export const deleteEmployee = (employeeId) => {
 
 export const createEmployee = (formData, imageFile) => {
   return async (dispatch) => {
+    dispatch(modalActions.close());
     dispatch(employeeActions.loading(true));
     const birthDateString = dateConvertToString(formData.dob);
     const dateOfJoinString = dateConvertToString(formData.joinDate);
@@ -60,7 +62,6 @@ export const createEmployee = (formData, imageFile) => {
       dob: birthDateString,
     };
     try {
-  
       if (imageFile) {
         const base64String = await convertBase64(imageFile);
         console.log(base64String);
@@ -81,14 +82,61 @@ export const createEmployee = (formData, imageFile) => {
         }
       }
     } catch (error) {
+      dispatch(modalActions.id("employee-create-error"));
       dispatch(employeeActions.loading(false));
       dispatch(employeeActions.errorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
       }, 3000);
     }
+  };
+};
+export const createEmployee2 = (formData) => {
+  return async (dispatch) => {
+    dispatch(modalActions.close());
+    dispatch(employeeActions.loading(true));
+    const birthDateString = dateConvertToString(formData.dob);
+    const dateOfJoinString = dateConvertToString(formData.joinDate);
+    const updatedData = {
+      ...formData,
+      joinDate: dateOfJoinString,
+      dob: birthDateString,
+    };
+    console.log("updatedData", updatedData);
+    try {
+
+        const response = await axios.post(
+          "https://restaurantapi.bssoln.com/api/Employee/create",
+          updatedData
+        );
+        dispatch(employeeActions.setStatus(response.status));
+        console.log("createResult",response);
+        if (response.status === 200) {
+          dispatch(modalActions.close());
+          dispatch(employeeActions.showPreview(undefined));       
+          dispatch(employeeActions.loading(false));
+          
+        }
+        return response;
+    } catch (error) {
+      dispatch(modalActions.id('employee-create-error'));
+      dispatch(employeeActions.loading(false));
+      dispatch(employeeActions.errorMessage(error.message));
+      dispatch(modalActions.open());
+      console.log(error);
+      setTimeout(() => {
+        dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
+      }, 3000);
+    }
+  };
+};
+export const nullStatus = () => {
+  return async (dispatch) => {
+    dispatch(employeeActions.setStatus(null));
   };
 };
 
@@ -97,12 +145,8 @@ export const convertBase64 = (file) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
 
-    fileReader.onload = () => {
-      resolve(fileReader.result);
-    };
-    fileReader.onerror = (error) => {
-      reject(error);
-    };
+    fileReader.onload = () => resolve(fileReader.result);
+    fileReader.onerror = (error) => reject(error);
   });
 };
 

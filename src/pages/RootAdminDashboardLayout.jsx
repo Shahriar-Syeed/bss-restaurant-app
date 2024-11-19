@@ -19,7 +19,7 @@ export default function RootAdminDashboardLayout() {
             <CartWithDrawer />
           </div>
         </Navbar>
-        <div className="xl:p-10 lg:p-8 md:p-6 sm:p-4 p-2 pb-1 xl:pb-1 lg:pb-1 md:pb-1 sm:pb-1 relative min-h-[calc(100svh-5rem)]">
+        <div className="xl:p-10 lg:p-8 md:p-6 sm:p-4 p-2 pb-1 xl:pb-4 lg:pb-3 md:pb-2 sm:pb-1 relative min-h-[calc(100svh-5rem)] overflow-y-auto">
           <Outlet />
         </div>
       </div>

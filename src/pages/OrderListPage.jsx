@@ -89,7 +89,6 @@ export default function OrderListPage() {
   return (
     <>
       {orderLoading && <Loading fullHeightWidth />}
-      { <Loading fullHeightWidth />}
       {errorMessage && orderListId === "orderList" && (
         <Modal open={isOpen} onClose={closeModal}>
           <h1>Failed fetching data, on {orderListId}!</h1>
@@ -97,6 +96,7 @@ export default function OrderListPage() {
           <div className="modal-action p-2">
             <Button
               className="float-end button-primary px-4 py-2 rounded-lg"
+              type="button"
               onClick={closeModal}
             >
               Close
@@ -149,7 +149,7 @@ export default function OrderListPage() {
                     {eachOrderItem.orderTime}
                   </p>
                 </div>
-                <Button onClick={() => deleteOrder(eachOrderItem.id)}>
+                <Button type="button" onClick={() => deleteOrder(eachOrderItem.id)}>
                   <svg
                     focusable="false"
                     aria-hidden="true"
@@ -251,7 +251,7 @@ export default function OrderListPage() {
                     {eachOrderItem.orderTime}
                   </p>
                 </div>
-                <Button onClick={() => deleteOrder(eachOrderItem.id)}>
+                <Button type="button" onClick={() => deleteOrder(eachOrderItem.id)}>
                   <svg
                     focusable="false"
                     aria-hidden="true"

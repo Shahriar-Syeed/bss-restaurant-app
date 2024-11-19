@@ -128,7 +128,7 @@ input {
 
 .viewport-hight {
   @media (min-width: 1024px) {
-    height: calc(100svh - 16.875rem);
+    height: calc(100svh - 17.675rem);
   }
 }
 
@@ -158,5 +158,21 @@ input {
 
   @media (max-width: 525px) {
     background-size: cover, cover;
+  }
+}
+
+.bg-gradient-transparent-to-white{
+  background: linear-gradient(to top, transparent 57%, white 43%);
+}
+
+
+@media (max-width: 576px){
+  table td[data-th]:before {
+    content: attr(data-th);
+    display: inline;
+    font-weight: bold;
+    margin: 0 0 2px;
+    padding: 5px;
+    font-size: 14px;
   }
 }

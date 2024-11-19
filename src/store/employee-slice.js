@@ -5,6 +5,7 @@ const initialEmployees = {
   employeesRowData: [],
   selectedEmployeeImage: undefined,
   preview: undefined,
+  status: null,
   loading: false,
   error: null,
 };
@@ -16,13 +17,13 @@ const employeeSlice = createSlice({
     getEmployeesDataTable(state, action) {
       state.employeeDataTable = action.payload;
     },
-    getEmployeesRow(state, action) {
-      state.employeesRowData = action.payload;
+    setStatus(state,action){
+      state.status = action.payload;
     },
     showPreview(state, action) {
       state.preview = action.payload;
     },
-    selectedEmployeeImage(state, action) {
+    setSelectedEmployeeImage(state, action) {
       state.selectedEmployeeImage = action.payload;
     },
     loading(state, action) {
@@ -33,9 +34,9 @@ const employeeSlice = createSlice({
     },
 
     removeEmployee(state, action) {
-      state.employeesRowData = state.employeesRowData.filter(
+      state.employeeDataTable = {...state.employeeDataTable, data:state.employeeDataTable.data.filter(
         (employee) => employee.id !== action.payload
-      );
+      )};
     },
   },
 });

@@ -145,6 +145,7 @@ export default function NewOrderPage() {
           <div className="modal-action p-2">
             <Button
               className="float-end button-primary px-4 py-2 rounded-lg"
+              type="button"
               onClick={closeModal}
             >
               Close
@@ -280,6 +281,7 @@ export default function NewOrderPage() {
                       ) && (
                         <Button
                           className="button button__outline--primary py-2 px-4 text-white rounded"
+                          type="button"
                           onClick={toggleCart}
                         >
                           GO TO CART
@@ -287,6 +289,7 @@ export default function NewOrderPage() {
                       )}
                       <Button
                         className="button button-primary py-2 px-4 text-white rounded"
+                        type="button"
                         onClick={() => addFoodItemInCart(menuItem)}
                       >
                         ADD TO CART
@@ -342,6 +345,7 @@ export default function NewOrderPage() {
                       ) && (
                         <Button
                           className="button button__outline--primary py-2 px-4 text-white rounded"
+                          type="button"
                           onClick={toggleCart}
                         >
                           GO TO CART
@@ -349,6 +353,7 @@ export default function NewOrderPage() {
                       )}
                       <Button
                         className="button button-primary py-2 px-4 text-white rounded"
+                        type="button"
                         onClick={() => addFoodItemInCart(menuItem)}
                       >
                         ADD TO CART

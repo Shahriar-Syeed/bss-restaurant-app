@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { thunk } from "redux-thunk";
 import modalReducer from "./modal-slice.js";
 import loaderSlice from "./loader-slice.js";
 import employeeSlice from "./employee-slice.js";
@@ -22,6 +23,7 @@ const store = configureStore({
     cart: cartSlice,
     
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
 
 export default store;

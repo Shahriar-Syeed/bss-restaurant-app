@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialModal = {
   open: false,
   id:null,
+  data:null,
 };
 
 const modalSlice = createSlice({
@@ -16,9 +17,8 @@ const modalSlice = createSlice({
       state.open = false;
     },
     id(state, action){
-      state.id = action.payload;
-      
-    }
+      state.id = action.payload;      
+    },
   },
 });
 

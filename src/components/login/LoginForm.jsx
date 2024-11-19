@@ -83,7 +83,7 @@ export default function LoginForm() {
       <h1>Failed To Login</h1>
       <p>Invalid Password or Username</p>
       <div className="modal-action p-2">
-        <Button className='float-end button-primary px-4 py-2 rounded-lg' onClick={closeModal}>Close</Button>
+        <Button className='float-end button-primary px-4 py-2 rounded-lg' onClick={closeModal} type="button">Close</Button>
       </div>
     </Modal>
       <header className="mb-5">

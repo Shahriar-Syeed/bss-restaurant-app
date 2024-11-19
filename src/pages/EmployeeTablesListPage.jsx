@@ -60,6 +60,7 @@ export default function EmployeeTablesListPage() {
           <div className="modal-action p-2">
             <Button
               className="float-end button-primary px-4 py-2 rounded-lg"
+              type="button"
               onClick={closeModal}
             >
               Close

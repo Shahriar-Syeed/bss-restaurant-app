@@ -35,7 +35,7 @@ export default function Sidebar() {
   function goToLoginPage() {
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("token");
-    navigate("/login");
+    navigate("/bss-restaurant-app/login");
   }
 
   return (
@@ -109,7 +109,7 @@ export default function Sidebar() {
             </li>
             <li>
               <NavLink
-                to="/bss-restaurant-app/admin/employee"
+                to="/bss-restaurant-app/admin/employee/employee-list"
                 className={({ isActive }) =>
                   isActive
                     ? "flex items-center p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
@@ -224,6 +224,7 @@ export default function Sidebar() {
               <Button
                 onClick={goToLoginPage}
                 className="w-full button__outline--primary rounded-full"
+                type='button'
               >
                 <svg
                   focusable="false"

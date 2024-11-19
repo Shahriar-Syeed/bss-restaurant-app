@@ -117,6 +117,7 @@ export default function FoodAddPage() {
           <Button
             className="float-end button-primary px-4 py-2 rounded-lg"
             onClick={closeModal}
+            type="button"
           >
             Close
           </Button>

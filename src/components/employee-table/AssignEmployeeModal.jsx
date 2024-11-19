@@ -63,6 +63,7 @@ export default function AssignEmployeeModal({
         <Button
           className="button-primary px-3 py-1.5 rounded-lg absolute right-3 top-3 font-extrabold"
           onClick={closeModal}
+          type='button'
         >
           X
         </Button>
@@ -101,6 +102,7 @@ export default function AssignEmployeeModal({
           <Button
             className="button-primary lg:px-4 lg:py-2 px-3 py-1.5 rounded-lg lg:col-start-5 col-start-6 col-end-7 self-center"
             onClick={() => handleAssignEmployee(info)}
+            type='button'
           >
             Assign
           </Button>

@@ -54,6 +54,7 @@ export default function RowTableFoodList({ food, deleteFood }) {
             <Button
               textOnly
               className="rounded-50 h-8 w-8 grid place-items-center hover:bg-stone-100 fill-red-700 hover:fill-red-600"
+              type="button"
               onClick={() => {
                 if (
                   window.confirm(

@@ -46,6 +46,7 @@ export default function RowEmployeeTableList({
             <Button
               className="float-end button-primary px-4 py-2 rounded-lg"
               onClick={closeErrorModal}
+              type='button'
             >
               Close
             </Button>
@@ -77,6 +78,7 @@ export default function RowEmployeeTableList({
             <Button
               textOnly={true}
               className="rounded-50 h-6 w-6 grid place-items-center text-stone-400 hover:text-stone-500 stroke-transparent"
+              type='button'
               onClick={() => {
                 if (
                   window.confirm(
@@ -104,6 +106,7 @@ export default function RowEmployeeTableList({
           <Button
             className="rounded-50 h-7 w-7 grid place-items-center  text-teal-300 hover:text-teal-500 hover:bg-stone-200 p-0.5 mt-0.5"
             onClick={() => openModal(tableInfoData.id)}
+            type='button'
           >
             <svg
               className="fill-current"

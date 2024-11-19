@@ -24,12 +24,14 @@ const CustomSelect = ({
   useEffect(() => {
     const handler = (e) => {
       if (!showOption.current.contains(e.target)) {
+        console.log(e);
         dispatch(customSelectActions.setIsOpen(false));
       }
     };
     document.addEventListener("mousedown", handler);
     dispatch(customSelectActions.setSelectedOption(null));
     dispatch(customSelectActions.setIsFocused(false));
+    
 
     return () => {
       document.removeEventListener("mousedown", handler);
@@ -67,10 +69,10 @@ const CustomSelect = ({
       dispatch(customSelectActions.setIsFocused(true));
     }
   };
-  console.log("selectedOption", selectedOption);
+
 
   return (
-    <div className={`relative ${className && className}`} ref={showOption}>
+    <div className={`${className && className}`} ref={showOption}>
       
         <input
           type="hidden"
@@ -81,7 +83,7 @@ const CustomSelect = ({
         />
 
       <div
-        className={`border rounded cursor-pointer w-full  p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
+        className={`relative border rounded cursor-pointer w-full  p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
         ${isFocused ? "border-blue-900" : "border-gray-200"}`}
         onClick={handleToggle}
         onBlur={handleBlur}
@@ -93,7 +95,7 @@ const CustomSelect = ({
           className={`absolute text-xsm sm:text-sm md:text-base transform pointer-events-none transition-all duration-300
           ${
             isFocused
-              ? "scale-75 top-2 bg-white px-1 text-blue-500 -translate-y-4 origin-[0] z-10"
+              ? "scale-75 top-2 bg-white text-blue-500 -translate-y-4 origin-[0] z-10"
               : "text-gray-500 top-1/2 -translate-y-1/2 rtl:translate-x-1/4 rtl:left-auto"
           }`}
         >
@@ -128,7 +130,7 @@ const CustomSelect = ({
       </div>
 
       {isOpen && (
-        <ul className={`absolute z-10 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-${maximumHeight} overflow-y-auto`}>
+        <ul className={`absolute z-20 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-${maximumHeight} overflow-y-auto`}>
           {options?.map((option) => (
               <li
                 key={option.value}
