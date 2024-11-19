@@ -150,9 +150,9 @@ input {
 
 .bg--page {
   background: linear-gradient(0deg, #fff9, #fff),
-    url(/bss-restaurant-app/src/assets/login-bg-left.png) no-repeat left center /
+    url('/bss-restaurant-app/src/assets/login-bg-left.png') no-repeat left center /
       contain,
-    url(/bss-restaurant-app/src/assets/login-bg-right.png) no-repeat right
+    url('/bss-restaurant-app/src/assets/login-bg-right.png') no-repeat right
       center / contain,
     linear-gradient(0deg, black, black);
 

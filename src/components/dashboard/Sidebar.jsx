@@ -1,5 +1,6 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import adminImage from '../../assets/admin.png';
 import Button from "../UI/Button";
 
 export default function Sidebar() {
@@ -65,24 +66,16 @@ export default function Sidebar() {
                 href="#"
                 className="flex items-center p-2 text-primary rounded-lg text-primary"
               >
-                <div className="h-10 w-10 grid place-items-center rounded-full bg-stone-500 hover:bg-black ">
-                  {userInfo.image ? (
+                <div className="h-10 w-10 ">
+  
                     <img
-                      src={`https://restaurantapi.bssoln.com/images/user/${userInfo.image}`}
+                      src={adminImage}
                       alt="User Image"
-                      className="w-3/4 rounded-full"
+                      className="w-full h-full object-cover rounded-50"
                     />
-                  ) : (
-                    <svg
-                      focusable="false"
-                      aria-hidden="true"
-                      viewBox="0 0 24 24"
-                      fill="white"
-                      width="75%"
-                    >
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
-                    </svg>
-                  )}
+                 
+                  
+           
                 </div>
                 <div className="ms-3 d">
                   <h5>{userInfo.fullName}</h5>
