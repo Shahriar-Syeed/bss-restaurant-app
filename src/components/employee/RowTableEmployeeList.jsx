@@ -56,7 +56,7 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
                   : "../assets/default-image-preview.png"
               }
               alt="Admin image"
-              className="sm:w-10 sm:h-10 w-16 h-16 rounded-full object-cover"
+              className="sm:w-10 sm:h-10 w-16 h-16 rounded-lg object-cover"
             />
           </th>
           <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal" data-th='Name: '>
