@@ -2,7 +2,13 @@ import Button from "../components/UI/Button.jsx";
 import defaultImage from "../assets/default-image-preview.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { changeOrderStatus, getOrder, openEditModal, removeOrder, storeStatus } from "../store/order-actions.js";
+import {
+  changeOrderStatus,
+  getOrder,
+  openEditModal,
+  removeOrder,
+  storeStatus,
+} from "../store/order-actions.js";
 import Loading from "../components/loader/Loading.jsx";
 import { modalActions } from "../store/modal-slice.js";
 import Modal from "../components/UI/Modal.jsx";
@@ -14,7 +20,6 @@ export default function OrderListPage() {
 
   const orderInfo = useSelector((state) => state.order.orderDataTable);
   const orderId = useSelector((state) => state.order.orderId);
-  const orderNumber = useSelector((state) => state.order.orderNumber);
   const status = useSelector((state) => state.order.status);
   const orderLoading = useSelector((state) => state.order.loading);
   const errorMessage = useSelector((state) => state.order.error);
@@ -41,7 +46,6 @@ export default function OrderListPage() {
     dispatch(getOrder(itemsPerPage));
   }, [itemsPerPage, dispatch]);
 
-
   function deleteOrder(id) {
     dispatch(removeOrder(id));
   }
@@ -52,19 +56,13 @@ export default function OrderListPage() {
     console.log(orderListId);
   }
 
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   const fetchData = new FormData(event.target);
-  //   const data = Object.fromEntries(fetchData.entries());
-  //   console.log(data);
-  // }
-  function handelChange(e){
+  function handelChange(e) {
     dispatch(storeStatus(e.sendingValue));
-    console.log('handelChange',e.sendingValue);
+    console.log("handelChange", e.sendingValue);
   }
-  function confirmStatus(id, changedStatus){
+  function confirmStatus(id, changedStatus) {
     dispatch(changeOrderStatus(id, changedStatus));
-    console.log('confirmStatus',id,changedStatus);
+    console.log("confirmStatus", id, changedStatus);
   }
 
   const orderObserver = useRef();
@@ -104,33 +102,36 @@ export default function OrderListPage() {
           </div>
         </Modal>
       )}
-      {orderListId === orderId && (
+      {orderListId?.id === orderId && (
         <Modal open={isOpen} onClose={closeModal} className="overflow-visible">
-            <h1 className="text-center text-xl mb-2">Change The Order Status</h1>
-            <p className="mb-2"> Order No: <strong>{orderNumber}</strong></p>
-            <CustomSelect
-              label="Order Status"
-              options={statusOption}
-              name="orderStatus"
-              maximumHeight='64'
-              onChanged={(e)=>handelChange(e)}
-            />
-            <div className="modal-action pt-3 flex justify-end gap-3">
-              <Button
-                className=" button-primary px-4 py-2 rounded-lg"
-                onClick={()=>confirmStatus(orderListId,status)}
-                type="button"
-              >
-                CHANGE
-              </Button>
-              <Button
-                className=" button-primary px-4 py-2 rounded-lg"
-                onClick={closeModal}
-                type="button"
-              >
-                CLOSE
-              </Button>
-            </div>
+          <h1 className="text-center text-xl mb-2">Change The Order Status</h1>
+          <p className="mb-2">
+            {" "}
+            Order No: <strong>{orderListId?.orderNumber}</strong>
+          </p>
+          <CustomSelect
+            label="Order Status"
+            options={statusOption}
+            name="orderStatus"
+            maximumHeight="64"
+            onChanged={(e) => handelChange(e)}
+          />
+          <div className="pt-3 flex flex-wrap justify-end gap-3">
+            <Button
+              className=" button__outline--primary px-4 py-2 rounded-lg"
+              onClick={closeModal}
+              type="button"
+            >
+              CANCEL
+            </Button>
+            <Button
+              className=" button-primary px-4 py-2 rounded-lg"
+              onClick={() => confirmStatus(orderListId, status)}
+              type="button"
+            >
+              CHANGE
+            </Button>
+          </div>
         </Modal>
       )}
       <div className="grid justify-between auto-cols-auto 2xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 lg:gap-5 md:gap-3.5 sm:gap-3 gap-2">
@@ -149,7 +150,10 @@ export default function OrderListPage() {
                     {eachOrderItem.orderTime}
                   </p>
                 </div>
-                <Button type="button" onClick={() => deleteOrder(eachOrderItem.id)}>
+                <Button
+                  type="button"
+                  onClick={() => deleteOrder(eachOrderItem.id)}
+                >
                   <svg
                     focusable="false"
                     aria-hidden="true"
@@ -194,47 +198,58 @@ export default function OrderListPage() {
                   </div>
                 ))}
               </div>
-              
-                <div className="flex flex-wrap gap-1 justify-between items-center text-md">
-                  <p>
-                    Total Item:{" "}
-                    <strong>{eachOrderItem?.orderItems?.length}</strong>
-                  </p>
-                  <p className="text-end">
-                    Table:
-                    <strong>{eachOrderItem?.table?.tableNumber}</strong>
-                  </p>
-                </div>
-                <div className="flex gap-2 items-center flex-wrap">
+
+              <div className="flex flex-wrap gap-1 justify-between items-center text-md">
+                <p>
+                  Total Item:{" "}
+                  <strong>{eachOrderItem?.orderItems?.length}</strong>
+                </p>
+                <p className="text-end">
+                  Table:
+                  <strong>{eachOrderItem?.table?.tableNumber}</strong>
+                </p>
+              </div>
+              <div className="flex gap-2 items-center flex-wrap">
                 <p className="whitespace-nowrap">
                   Total:{" "}
                   <strong className="text-green-800">
                     {eachOrderItem.amount}
                   </strong>
                 </p>
-                  <span className={`ms-auto me-2 font-extrabold ${eachOrderItem.orderStatus === 'Pending' ? 'text-yellow-500':
-                    eachOrderItem.orderStatus === 'Confirmed' ? 'text-blue-600' :
-                     eachOrderItem.orderStatus === 'Preparing' ? 'text-orange-600' :
-                      eachOrderItem.orderStatus === 'PreparedToServe' ? 'text-teal-600' :
-                       eachOrderItem.orderStatus === 'Served' ? 'text-green-600' : 'text-gray-600'}`}>
-                    {eachOrderItem.orderStatus}
-                  </span>
-                  <Button
-                    type="button"
-                    aria-label="edit"
-                    onClick={() => editStatus(eachOrderItem.id, eachOrderItem.orderNumber)}
+                <span
+                  className={`ms-auto me-2 font-extrabold ${
+                    eachOrderItem.orderStatus === "Pending"
+                      ? "text-yellow-500"
+                      : eachOrderItem.orderStatus === "Confirmed"
+                      ? "text-blue-600"
+                      : eachOrderItem.orderStatus === "Preparing"
+                      ? "text-orange-600"
+                      : eachOrderItem.orderStatus === "PreparedToServe"
+                      ? "text-teal-600"
+                      : eachOrderItem.orderStatus === "Served"
+                      ? "text-green-600"
+                      : "text-gray-600"
+                  }`}
+                >
+                  {eachOrderItem.orderStatus}
+                </span>
+                <Button
+                  type="button"
+                  aria-label="edit"
+                  onClick={() =>
+                    editStatus(eachOrderItem.id, eachOrderItem.orderNumber)
+                  }
+                >
+                  <svg
+                    className="p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100"
+                    focusable="false"
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      className="p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100"
-                      focusable="false"
-                      aria-hidden="true"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M3 10h11v2H3zm0-2h11V6H3zm0 8h7v-2H3zm15.01-3.13.71-.71c.39-.39 1.02-.39 1.41 0l.71.71c.39.39.39 1.02 0 1.41l-.71.71zm-.71.71-5.3 5.3V21h2.12l5.3-5.3z"></path>
-                    </svg>
-                  </Button>
-                </div>
-              
+                    <path d="M3 10h11v2H3zm0-2h11V6H3zm0 8h7v-2H3zm15.01-3.13.71-.71c.39-.39 1.02-.39 1.41 0l.71.71c.39.39.39 1.02 0 1.41l-.71.71zm-.71.71-5.3 5.3V21h2.12l5.3-5.3z"></path>
+                  </svg>
+                </Button>
+              </div>
             </div>
           ) : (
             <div
@@ -251,7 +266,10 @@ export default function OrderListPage() {
                     {eachOrderItem.orderTime}
                   </p>
                 </div>
-                <Button type="button" onClick={() => deleteOrder(eachOrderItem.id)}>
+                <Button
+                  type="button"
+                  onClick={() => deleteOrder(eachOrderItem.id)}
+                >
                   <svg
                     focusable="false"
                     aria-hidden="true"
@@ -312,17 +330,27 @@ export default function OrderListPage() {
                   </strong>
                 </p>
                 <div className="flex justify-end items-center">
-                  <span className={`me-2 font-extrabold ${eachOrderItem.orderStatus === 'Pending' ? 'text-yellow-500':
-                    eachOrderItem.orderStatus === 'Confirmed' ? 'text-blue-600' :
-                     eachOrderItem.orderStatus === 'Preparing' ? 'text-orange-600' :
-                      eachOrderItem.orderStatus === 'PreparedToServe' ? 'text-tale-600' :
-                       eachOrderItem.orderStatus === 'Served' ? 'text-green-600' : 'text-gray-600'}`}>
+                  <span
+                    className={`me-2 font-extrabold ${
+                      eachOrderItem.orderStatus === "Pending"
+                        ? "text-yellow-500"
+                        : eachOrderItem.orderStatus === "Confirmed"
+                        ? "text-blue-600"
+                        : eachOrderItem.orderStatus === "Preparing"
+                        ? "text-orange-600"
+                        : eachOrderItem.orderStatus === "PreparedToServe"
+                        ? "text-tale-600"
+                        : eachOrderItem.orderStatus === "Served"
+                        ? "text-green-600"
+                        : "text-gray-600"
+                    }`}
+                  >
                     {eachOrderItem.orderStatus}
                   </span>
                   <Button
                     type="button"
                     aria-label="edit"
-                    onClick={() => editStatus(eachOrderItem.id)}
+                    onClick={() => editStatus(eachOrderItem.id, eachOrderItem?.table?.tableNumber)}
                   >
                     <svg
                       className="p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100"

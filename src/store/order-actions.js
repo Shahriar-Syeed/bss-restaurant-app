@@ -56,9 +56,8 @@ export const changeOrderStatus = (id, status) => {
 };
 export const openEditModal = (id, orderNo) => {
   return async (dispatch) => {
-    dispatch(modalActions.id(id));
+    dispatch(modalActions.id({id:id, orderNumber: orderNo}));
     dispatch(orderActions.setOrderId(id));
-    dispatch(orderActions.setOrderNumber(orderNo));
     dispatch(modalActions.open());
   };
 };

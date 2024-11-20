@@ -50,51 +50,7 @@ export const deleteEmployee = (employeeId) => {
   };
 };
 
-export const createEmployee = (formData, imageFile) => {
-  return async (dispatch) => {
-    dispatch(modalActions.close());
-    dispatch(employeeActions.loading(true));
-    const birthDateString = dateConvertToString(formData.dob);
-    const dateOfJoinString = dateConvertToString(formData.joinDate);
-    const updatedData = {
-      ...formData,
-      joinDate: dateOfJoinString,
-      dob: birthDateString,
-    };
-    try {
-      if (imageFile) {
-        const base64String = await convertBase64(imageFile);
-        console.log(base64String);
-        const finalData = {
-          ...updatedData,
-          image: imageFile?.name || "",
-          base64: base64String ? base64String : "",
-        };
-        const response = await axios.post(
-          "https://restaurantapi.bssoln.com/api/Employee/create",
-          finalData
-        );
-        if (response.status === 200) {
-          dispatch(employeeActions.showPreview(undefined));
-          dispatch(employeeActions.selectedEmployeeImage(undefined));
-          dispatch(employeeActions.loading(false));
-          return 200;
-        }
-      }
-    } catch (error) {
-      dispatch(modalActions.id("employee-create-error"));
-      dispatch(employeeActions.loading(false));
-      dispatch(employeeActions.errorMessage(error.message));
-      dispatch(modalActions.open());
-      console.log(error);
-      setTimeout(() => {
-        dispatch(modalActions.close());
-        dispatch(modalActions.id(null));
-      }, 3000);
-    }
-  };
-};
-export const createEmployee2 = (formData) => {
+export const createEmployee = (formData) => {
   return async (dispatch) => {
     dispatch(modalActions.close());
     dispatch(employeeActions.loading(true));

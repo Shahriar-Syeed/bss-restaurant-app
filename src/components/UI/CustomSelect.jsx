@@ -18,8 +18,6 @@ const CustomSelect = ({
   );
   const dispatch = useDispatch();
   const showOption = useRef();
-  
-
 
   useEffect(() => {
     const handler = (e) => {
@@ -31,7 +29,6 @@ const CustomSelect = ({
     document.addEventListener("mousedown", handler);
     dispatch(customSelectActions.setSelectedOption(null));
     dispatch(customSelectActions.setIsFocused(false));
-    
 
     return () => {
       document.removeEventListener("mousedown", handler);
@@ -41,25 +38,19 @@ const CustomSelect = ({
   const handleToggle = () => {
     dispatch(customSelectActions.setIsOpen(!isOpen));
 
-    if (
-      !selectedOption ||
-      (selectedOption && selectedOption.length === 0)
-    ) {
+    if (!selectedOption || (selectedOption && selectedOption.length === 0)) {
       dispatch(customSelectActions.setIsFocused(!isFocused));
     }
   };
 
-
   const handleSelect = (option) => {
-
     dispatch(customSelectActions.setSelectedOption(option));
 
     dispatch(customSelectActions.setIsOpen(false));
 
     dispatch(customSelectActions.setIsFocused(true));
-    // Trigger the onChanged function passed from parent
     if (onChanged) {
-      onChanged(option); // Pass the selected option to the parent
+      onChanged(option);
     }
   };
 
@@ -70,20 +61,17 @@ const CustomSelect = ({
     }
   };
 
-
   return (
-    <div className={`${className && className}`} ref={showOption}>
-      
-        <input
-          type="hidden"
-          value={selectedOption ? selectedOption.sendingValue : 0}
-          onChange={(e)=>onChanged(e)}
-          {...props}
-
-        />
+    <div className={`${className && className} relative`} ref={showOption}>
+      <input
+        type="hidden"
+        value={selectedOption ? selectedOption.sendingValue : 0}
+        onChange={(e) => onChanged(e)}
+        {...props}
+      />
 
       <div
-        className={`relative border rounded cursor-pointer w-full  p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
+        className={`relative border rounded cursor-pointer p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
         ${isFocused ? "border-blue-900" : "border-gray-200"}`}
         onClick={handleToggle}
         onBlur={handleBlur}
@@ -113,7 +101,7 @@ const CustomSelect = ({
               : "text-gray-400 "
           }`}
         >
-          { selectedOption?.label}
+          {selectedOption?.label}
         </span>
         <svg
           className={`transform transition-transform ${
@@ -130,16 +118,18 @@ const CustomSelect = ({
       </div>
 
       {isOpen && (
-        <ul className={`absolute z-20 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-${maximumHeight} overflow-y-auto`}>
+        <ul
+          className={`absolute z-20 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-${maximumHeight} overflow-y-auto`}
+        >
           {options?.map((option) => (
-              <li
-                key={option.value}
-                className="p-2 hover:bg-gray-100 cursor-pointer"
-                onClick={() => handleSelect(option)}
-              >
-                {option.label}
-              </li>
-            ))}
+            <li
+              key={option.value}
+              className="p-2 hover:bg-gray-100 cursor-pointer"
+              onClick={() => handleSelect(option)}
+            >
+              {option.label}
+            </li>
+          ))}
         </ul>
       )}
     </div>

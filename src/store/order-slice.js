@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialOrder = {
   orderDataTable: {},
   orderId: "",
-  orderNumber:"",
   status: 0,
   preview: undefined,
   loading: false,
@@ -21,9 +20,7 @@ const orderSlice = createSlice({
     setOrderId(state, action) {
       state.orderId = action.payload;
     },
-    setOrderNumber(state, action) {
-      state.orderNumber = action.payload;
-    },
+   
     setStatus(state, action) {
       state.status = action.payload;
     },
