@@ -1,9 +1,49 @@
 import { Link } from "react-router-dom";
 import Button from "../UI/Button";
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "../UI/Modal";
+import { modalActions } from "../../store/modal-slice";
 
 export default function RowTableFoodList({ food, deleteFood }) {
+  const dispatch = useDispatch();
+   // Modal
+   const modalId = useSelector(state=>  state.modal.id);
+
+   const isOpen = useSelector((state) => state.modal.open);
+   function closeModal() {
+     dispatch(modalActions.close());
+     dispatch(modalActions.id(null));
+   }
+   function deleteThisFood(){
+    deleteFood(modalId?.id);
+    closeModal();
+   }
+   function openDeleteConfirmationModal(id, foodDeleteText){
+    dispatch(modalActions.id({id: id, text: foodDeleteText}));
+    dispatch(modalActions.open());
+   }
+
   return (
     <>
+    {modalId?.id===food.id && modalId?.text === 'deleteThisFood' && <Modal open={isOpen} onClose={closeModal}>
+        <h1>Do you want to delete this ?</h1>
+        <div className="flex flex-wrap justify-end gap-2 p-2">
+          <Button
+            className="button__outline-primary px-4 py-2 rounded-lg"
+            type="button"
+            onClick={closeModal}
+          >
+            Cancel
+          </Button>
+          <Button
+            className="button-primary px-4 py-2 rounded-lg"
+            type="button"
+            onClick={deleteThisFood}
+          >
+            Confirm
+          </Button>
+        </div>
+      </Modal>}
         <tr
           className="block sm:table-row odd:bg-white even:bg-gray-50 sm:border-b border-b-0 border-gray-700 p-1 shadow-md rounded-lg mb-2 sm:p-0 sm:rounded-none sm:shadow-none"
           
@@ -63,12 +103,13 @@ export default function RowTableFoodList({ food, deleteFood }) {
               className="rounded-50 h-8 w-8 grid place-items-center hover:bg-stone-100 fill-red-700 hover:fill-red-600"
               type="button"
               onClick={() => {
-                if (
-                  window.confirm(
-                    "Are you sure you want to delete this employee?"
-                  )
-                )
-                  deleteFood(food.id);
+                // if (
+                //   window.confirm(
+                //     "Are you sure you want to delete this employee?"
+                //   )
+                // )
+                  // deleteFood(food.id);
+                  openDeleteConfirmationModal(food.id, "deleteThisFood");
               }}
             >
               <svg
