@@ -166,14 +166,18 @@ input {
 }
 
 
-@media (max-width: 576px){
+table td[data-th]:before {
+  content: attr(data-th);
+  display: inline;
+  font-weight: bold;
+  color:#cc080b;
+  margin: 0 0 2px;
+  padding: 5px;
+  font-size: 14px;
+}
+@media (min-width: 576px){
   table td[data-th]:before {
-    content: attr(data-th);
-    display: inline;
-    font-weight: bold;
-    color:#cc080b;
-    margin: 0 0 2px;
-    padding: 5px;
-    font-size: 14px;
+    content: '';
+    display: none;
   }
 }

@@ -223,7 +223,7 @@ export default function Sidebar() {
             <li className="">
               <Button
                 onClick={goToLoginPage}
-                className="w-full button__outline--primary rounded-full"
+                className="w-full button__outline--primary rounded-lg"
                 type='button'
               >
                 <svg
