@@ -74,7 +74,7 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
           <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal" data-th='Designation: '>
             {employee.designation}
           </td>
-          <td className=" md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 flex justify-evenly sm:justify-start gap-1">
+          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 flex justify-evenly sm:justify-start gap-1">
             <Link
               to={`/bss-restaurant-app/admin/employee/${employee.id}/employee-edit`}
               className="rounded-50 h-8 w-8 grid place-items-center hover:bg-stone-100 fill-green-700 hover:fill-green-600"

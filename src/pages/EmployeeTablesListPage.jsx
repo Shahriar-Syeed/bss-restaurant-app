@@ -46,7 +46,6 @@ export default function EmployeeTablesListPage() {
     dispatch(getEmployeeTables(pageNumber, itemsPerPage));
     // dispatch(getAssignEmployeeAndTableDetails());
   }, [pageNumber, itemsPerPage, dispatch]);
-  console.log('ohyihnihihnikhih',employeeTablesDataTable.data);
   function handleDelete(id) {
     dispatch(deleteEmployeeTable(id));
   }
@@ -76,7 +75,7 @@ export default function EmployeeTablesListPage() {
           navigate("/bss-restaurant-app/admin/tables/add-table")
         }
       />
-      <div className="overflow-x-auto shadow-md sm:rounded-t-lg">
+      <div className="shadow-md sm:rounded-t-lg">
         <table className="w-full text-left rtl:text-right text-gray-900 text-xs sm:text-sm ">
           <thead className="text-xs text-primary uppercase bg-gray-50 hidden sm:table-header-group">
             <tr>

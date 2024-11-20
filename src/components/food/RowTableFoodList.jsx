@@ -5,39 +5,46 @@ export default function RowTableFoodList({ food, deleteFood }) {
   return (
     <>
         <tr
-          className="odd:bg-white even:bg-gray-50 border-b border-gray-700"
+          className="block sm:table-row odd:bg-white even:bg-gray-50 sm:border-b border-b-0 border-gray-700 p-1 shadow-md rounded-lg mb-2 sm:p-0 sm:rounded-none sm:shadow-none"
           
         >
           <th
             scope="row"
-            className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
+            className="flex sm:table-cell justify-center md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
           >
             <img
               src={
                 food.image
                   ? `https://restaurantapi.bssoln.com/images/food/${food.image}`
                   : "../assets/default-image-preview.png"
-              }
-              alt="Admin image"
-              className="w-10 h-10 rounded-full object-cover"
+                }
+                alt={food.name}
+                className="sm:w-10 sm:h-10 w-16 h-16 rounded-lg object-cover"
+                title={food.name}
+
             />
           </th>
-          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
+          <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal"
+          data-th='NAME: '>
             {food.name}
           </td>
-          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
+          <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal"
+          data-th='PRICE: '>
             {food.price}
           </td>
-          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
+          <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal"
+          data-th='DISCOUNT TYPE: '>
             {food.discountType}
           </td>
-          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
+          <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal"
+          data-th='DISCOUNT: '>
             {food.discount}
           </td>
-          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1">
+          <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal"
+          data-th='DISCOUNT PRICE: '>
             {food.discountPrice}
           </td>
-          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 flex gap-1">
+          <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 flex justify-evenly sm:justify-start gap-1">
             <Link
               to={`/bss-restaurant-app/admin/food/${food.id}/employee-edit`}
               className="rounded-50 h-8 w-8 grid place-items-center hover:bg-stone-100 fill-green-700 hover:fill-green-600"

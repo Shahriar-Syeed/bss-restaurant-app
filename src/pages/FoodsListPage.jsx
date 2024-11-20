@@ -70,16 +70,16 @@ export default function FoodsListPage() {
         }
       />
 
-      <div className="overflow-x-auto shadow-md sm:rounded-t-lg">
+      <div className="shadow-md sm:rounded-t-lg">
         <table className="w-full text-left rtl:text-right text-gray-900 text-xs sm:text-sm ">
-          <thead className="text-xs text-primary uppercase bg-gray-50">
+          <thead className="text-xs text-primary uppercase bg-gray-50 hidden sm:table-header-group">
             <tr>
               {HEADING?.map((heading) => (
                 <HeadTable key={heading.id}>{heading.label}</HeadTable>
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="block sm:table-row-group text-center sm:text-start">
             {foodDataTable?.data?.map((food) => (
               <RowTableFoodList
                 food={food}

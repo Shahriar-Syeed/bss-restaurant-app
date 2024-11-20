@@ -37,7 +37,7 @@ export const deleteEmployeeTable = (employeeTableId) => {
         `https://restaurantapi.bssoln.com/api/Table/delete/${employeeTableId}`
       );
       console.log("delete res", res);
-      if (res.status === 200) {
+      if (res.status === 204 || res.status === 200) {
         dispatch(employeeTablesActions.removeEmployeeTable(employeeTableId));
         dispatch(employeeTablesActions.setLoading(false));
       }
@@ -161,51 +161,27 @@ export const deleteEmployeeFromTableDetail = (id,employeeTableId) => {
       const res = await axios.delete(
         `https://restaurantapi.bssoln.com/api/EmployeeTable/delete/${employeeTableId}`
       );
-      if (res.status === 204) {
-        console.log(dispatch(employeeTablesActions.removeEmployeeFromTable(id,employeeTableId)));
+      if (res.status === 204 || res.status === 200) {
         dispatch(
           employeeTablesActions.removeEmployeeFromTable({id,employeeTableId})
         );
         dispatch(employeeTablesActions.setLoading(false));
       }
     } catch (error) {
+      dispatch(modalActions.id("employeeTableError"))
       dispatch(employeeTablesActions.setLoading(false));
       dispatch(employeeTablesActions.setErrorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
-        dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
         dispatch(employeeTablesActions.setErrorMessage(undefined));
+        dispatch(modalActions.close());
       }, 3000);
     }
   };
 };
 
-export const unassignEmployeeFromTable = (employeeTableId) => {
-  return async (dispatch) => {
-    dispatch(employeeTablesActions.setLoading(true));
-    try {
-      const res = await axios.delete(
-        `https://restaurantapi.bssoln.com/api/EmployeeTable/delete/${employeeTableId}`
-      );
-      if (res.status === 204) {
-        dispatch(
-          employeeTablesActions.removeEmployeeAndTableDetail(employeeTableId)
-        );
-        dispatch(employeeTablesActions.setLoading(false));
-      }
-    } catch (error) {
-      dispatch(employeeTablesActions.setLoading(false));
-      dispatch(employeeTablesActions.setErrorMessage(error.message));
-      dispatch(modalActions.open());
-      console.log(error);
-      setTimeout(() => {
-        dispatch(modalActions.close());
-        dispatch(employeeTablesActions.setErrorMessage(undefined));
-      }, 3000);
-    }
-  };
-};
 
 export const postAssignEmployeesTable = (data,id) => {
   return async (dispatch) => {

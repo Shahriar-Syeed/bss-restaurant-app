@@ -14,8 +14,21 @@ export default function RowEmployeeTableList({
   console.log("tableInfoData", tableInfoData);
   const errorMessage = useSelector((state) => state.employeeTables.error);
 
-  function handleDeleteEmployeeFromTable(id, employeeTableId) {    
-    dispatch(deleteEmployeeFromTableDetail(id, employeeTableId));
+  function handleWholeTableDelete() {  
+    if(modalTableId?.employeeTableId == "deleteWholeTable"){
+      handleDelete(modalTableId?.id);
+    }
+    dispatch(modalActions.id(null));
+    closeNormalModal();
+  }
+
+  function handleDeleteEmployeeFromTable() {    
+    dispatch(deleteEmployeeFromTableDetail(modalTableId?.id, modalTableId?.employeeTableId));
+    closeNormalModal();
+  }
+  function openDeleteConfirmationModal (id, employeeTableId){
+    dispatch(modalActions.id({id:id, employeeTableId:employeeTableId}));
+    dispatch(modalActions.open());
   }
 
   // Modal
@@ -31,24 +44,70 @@ export default function RowEmployeeTableList({
   function closeModal() {
     dispatch(employeeSelectActions.setSelectedOption([]));
     dispatch(employeeSelectActions.setIsFocused(false));
+    dispatch(modalActions.id(null))
     dispatch(modalActions.close());
   }
-  function closeErrorModal() {
+  function closeNormalModal() {
+    dispatch(modalActions.id(null));
     dispatch(modalActions.close());
   }
   return (
     <>
-      {errorMessage && (
+      {errorMessage && modalTableId==="employeeTableError" && (
         <Modal open={isOpen}>
           <h1>Failed!</h1>
           {errorMessage ? <p>{errorMessage}</p> : <p>Something went wrong</p>}
           <div className="modal-action p-2">
             <Button
               className="float-end button-primary px-4 py-2 rounded-lg"
-              onClick={closeErrorModal}
+              onClick={closeNormalModal}
               type='button'
             >
               Close
+            </Button>
+          </div>
+        </Modal>
+      )}
+      {modalTableId?.id === tableInfoData.id && (
+        <Modal open={isOpen}>
+          <h1>Confirmation!</h1>
+          <p>Are you sure you want to remove this employee from this table?</p>
+          <div className="flex flex-wrap justify-end gap-1 p-2">
+            <Button
+              className="button__outline--primary px-4 py-2 rounded-lg"
+              onClick={closeNormalModal}
+              type='button'
+            >
+              Close
+            </Button>
+            <Button
+              className="button-primary px-4 py-2 rounded-lg"
+              onClick={()=>handleDeleteEmployeeFromTable()}
+              type='button'
+            >
+              Confirm
+            </Button>
+          </div>
+        </Modal>
+      )}
+      {modalTableId?.id === tableInfoData.id && modalTableId?.employeeTableId==="deleteWholeTable" && (
+        <Modal open={isOpen}>
+          <h1>Confirmation!</h1>
+          <p>Are you sure you want to remove this table?</p>
+          <div className="flex flex-wrap justify-end gap-1 p-2">
+            <Button
+              className="button__outline--primary px-4 py-2 rounded-lg"
+              onClick={closeNormalModal}
+              type='button'
+            >
+              Close
+            </Button>
+            <Button
+              className="button-primary px-4 py-2 rounded-lg"
+              onClick={()=>handleWholeTableDelete(modalTableId.id)}
+              type='button'
+            >
+              Confirm
             </Button>
           </div>
         </Modal>
@@ -72,21 +131,22 @@ export default function RowEmployeeTableList({
           {tableInfoData.numberOfSeats}
         </td>
         <td className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal" data-block data-th='Employees: '>
-          <ul className="flex flex-wrap gap-1">
+          <ul className="sm:block flex flex-wrap justify-center gap-1">
             {tableInfoData?.employees?.map(emp=>  <li className="w-fit sm:w-auto" key={emp["employeeTableId"]}>
-          <div className="inline-flex items-center whitespace-nowrap bg-gray-100 hover:bg-gray-200 rounded-2xl p-1 mb-1 ">
-            <span className="sm:me-1">{emp.name}</span>
+          <div className="inline-flex items-center whitespace-nowrap bg-stone-100 hover:bg-stone-200 rounded-2xl p-1 mb-1 ">
+            <span className="p-0.5">{emp.name}</span>
             <Button
               textOnly={true}
-              className="rounded-50 h-6 w-6 grid place-items-center text-stone-400 hover:text-stone-500 stroke-transparent"
+              className="rounded-50 h-6 w-6 grid place-items-center text-stone-400 hover:text-red-500 stroke-transparent"
               type='button'
               onClick={() => {
-                if (
-                  window.confirm(
-                    "Are you sure you want to remove this employee from this table?"
-                  )
-                )
-                handleDeleteEmployeeFromTable(tableInfoData.id,emp.employeeTableId);
+                // if (
+                //   window.confirm(
+                //     "Are you sure you want to remove this employee from this table?"
+                //   )
+                // )
+                // handleDeleteEmployeeFromTable(tableInfoData.id,emp.employeeTableId);
+                openDeleteConfirmationModal(tableInfoData.id,emp.employeeTableId);
               }}
             >
               <svg
@@ -128,8 +188,7 @@ export default function RowEmployeeTableList({
             className="rounded-50 h-8 w-8 grid place-items-center hover:bg-stone-100 fill-red-700 hover:fill-red-600"
             onClick={() => {
               if (window.confirm("Are you sure you want to delete this table?"))
-                console.log("delete");
-              handleDelete(tableInfoData.id);
+                openDeleteConfirmationModal(tableInfoData.id,'deleteWholeTable')
             }}
           >
             <svg
