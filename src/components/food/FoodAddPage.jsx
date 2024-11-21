@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import TextAreaFloating from "../UI/TextAreaFloating.jsx";
 import { convertBase64 } from "../../store/employee-actions.js";
 import useFormValidation from "../../customHooks/useFormValidation.js";
+import foodValidationUtility from "../utility/foodValidationUtility.jsx"
 
 export default function FoodAddPage() {
   const [price, setPrice] = useState(0);
@@ -27,7 +28,7 @@ export default function FoodAddPage() {
       description: "",
       price: 0,
     },
-    employeeValidateInput,
+    foodValidationUtility,
     ['price']
   );
 
