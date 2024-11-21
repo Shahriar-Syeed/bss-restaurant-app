@@ -103,7 +103,7 @@ export const employeeValidateInput = (name, value) => {
     case "joinDate":
       if (!value) {
         error = "Date of Join is required.";
-      } else if (Date.now() - Date.parse(value) >= 0) {
+      } else if (Date.now() - Date.parse(value) <= 0) {
         error = "Date should be before today.";
       }
       break;

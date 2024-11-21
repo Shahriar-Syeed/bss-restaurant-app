@@ -52,7 +52,7 @@ export default function EmployeeForm() {
   const isOpen = useSelector((state) => state.modal.open);
 
   function openModal() {
-    if(hasError()){
+    if(!hasError()){
       dispatch(modalActions.id("employee-create-confirmation"));
       dispatch(modalActions.open());
     }
