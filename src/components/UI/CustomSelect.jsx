@@ -71,7 +71,7 @@ const CustomSelect = ({
       />
 
       <div
-        className={`relative border rounded cursor-pointer p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
+        className={`relative border rounded cursor-pointer sm:p-3.5 p-1.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
         ${isFocused ? "border-blue-900" : "border-gray-200"}`}
         onClick={handleToggle}
         onBlur={handleBlur}
@@ -80,10 +80,10 @@ const CustomSelect = ({
         tabIndex={0}
       >
         <label
-          className={`absolute text-xsm sm:text-sm md:text-base transform pointer-events-none transition-all duration-300
+          className={`absolute ps-1.5 text-xs sm:text-sm md:text-base transform pointer-events-none transition-all duration-300
           ${
             isFocused
-              ? "scale-75 top-2 bg-white text-blue-500 -translate-y-4 origin-[0] z-10"
+              ? "scale-75 top-2 bg-white text-blue-500 sm:-translate-x-4 -translate-y-3.5 origin-[0] z-10"
               : "text-gray-500 top-1/2 -translate-y-1/2 rtl:translate-x-1/4 rtl:left-auto"
           }`}
         >

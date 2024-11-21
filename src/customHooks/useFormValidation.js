@@ -1,19 +1,27 @@
 import { useState } from "react";
 
-export default function useFormValidation(initialState, validateInput) {
+export default function useFormValidation(initialState, validateInput, isNumericInput=[]) {
   const [formData, setFromData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [touched, setTouched]= useState({})
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+
+      let sanitizedValue= value;
+      if(isNumericInput.includes(name)){
+        sanitizedValue = value.replace(/\D/g,'');
+      }
+   
+
     
     setFromData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: sanitizedValue,
     }));
     if(touched[name]){
-      const error = validateInput(name, value);
+      const error = validateInput(name, sanitizedValue);
       setErrors((prevErrors) => ({
         ...prevErrors,
         [name]: error || '',

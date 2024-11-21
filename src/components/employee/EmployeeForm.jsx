@@ -32,7 +32,8 @@ export default function EmployeeForm() {
         joinDate: "",
         nid: 0,
       },
-      employeeValidateInput
+      employeeValidateInput,
+      ['phoneNumber', 'nid']
     );
   const forwardRef = useRef();
 
@@ -164,7 +165,7 @@ export default function EmployeeForm() {
             </div>
           </Modal>
         )}
-        <div className="grid lg:grid-cols-12 lg:gap-6 md:gap-3.5 sm:gap-3 gap-2.5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
+        <div className="grid lg:grid-cols-12 lg:gap-6 gap-5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
           <div
             className="lg:col-start-9 lg:col-end-13 lg:row-span-3 border-dashed border border-gray-200 hover:border-gray-400 relative min-h-36 rounded"
             onDragOver={(e) => e.preventDefault()}
@@ -253,7 +254,7 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-4 relative">
-            <InputFloating name="phoneNumber" onChange={handleChange} onBlur={handleBlur} >Phone Number</InputFloating>
+            <InputFloating name="phoneNumber" onChange={handleChange} onBlur={handleBlur} value={formData.phoneNumber} >Phone Number</InputFloating>
             {errors?.phoneNumber && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
                 {errors?.phoneNumber}

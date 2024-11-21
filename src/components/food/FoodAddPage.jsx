@@ -13,12 +13,23 @@ import { createFood } from "../../store/food-actions.js";
 import { useEffect, useRef, useState } from "react";
 import TextAreaFloating from "../UI/TextAreaFloating.jsx";
 import { convertBase64 } from "../../store/employee-actions.js";
+import useFormValidation from "../../customHooks/useFormValidation.js";
 
 export default function FoodAddPage() {
   const [price, setPrice] = useState(0);
   const [disableDiscountFields, setDisableDiscountFields] = useState(true);
   const [discountPrice, setDiscountPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
+  const { formData, errors, handleChange, handleBlur, validateFields, hasError } =
+  useFormValidation(
+    {
+      name: "",
+      description: "",
+      price: 0,
+    },
+    employeeValidateInput,
+    ['price']
+  );
 
   const formRef = useRef();
 
@@ -53,8 +64,10 @@ export default function FoodAddPage() {
   }
 
   function openSubmitConfirmation() {
-    dispatch(modalActions.id({ id: null, text: "food-create-confirmation" }));
-    dispatch(modalActions.open());
+    if(!hasError()){
+      dispatch(modalActions.id({ id: null, text: "food-create-confirmation" }));
+      dispatch(modalActions.open());
+    }
   }
   function onSelectFile(event) {
     if (!event.target.files || event.target.files.length === 0) {
@@ -195,23 +208,40 @@ export default function FoodAddPage() {
             </div>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1">
-            <InputFloating id="FoodName" name="name">
+            <InputFloating id="FoodName" name="name" onChange={handleChange} onBlur={handleBlur}>
               Food Name
             </InputFloating>
+            {errors?.name && (
+              <span className="absolute text-xs text-red-600 py-0.5 ps-3">
+                {errors?.name}
+              </span>
+            )}
           </div>
           <div className="lg:col-start-1 lg:col-end-9 row-start-2 row-end-5">
-            <TextAreaFloating id="descriptionOfFood" name="description">
+            <TextAreaFloating id="descriptionOfFood" name="description" onChange={handleChange} onBlur={handleBlur}>
               Description
             </TextAreaFloating>
+            {errors?.description && (
+              <span className="absolute text-xs text-red-600 py-0.5 ps-3">
+                {errors?.description}
+              </span>
+            )}
           </div>
           <div className="lg:col-start-1 lg:col-end-4 lg:row-start-5">
             <InputFloating
               id="foodPrice"
               name="price"
-              onChange={(e) => setPrice(e.target.value)}
-            >
+              onChange={(e) => {setPrice(e.target.value); handleChange(e);}}
+              onBlur={handleBlur}
+              value={formData.price}
+              >
               Price
             </InputFloating>
+              {errors?.price && (
+                <span className="absolute text-xs text-red-600 py-0.5 ps-3">
+                  {errors?.price}
+                </span>
+              )}
           </div>
 
           <div className="lg:col-start-4 lg:col-end-7 lg:row-start-5">

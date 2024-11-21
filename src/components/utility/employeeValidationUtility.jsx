@@ -6,17 +6,19 @@ export const employeeValidateInput = (name, value) => {
       if (!value.trim()) {
         error = "First name is required.";
       } else if (value.length < 2) {
-        error = "First name must be at least 2 characters.";
+        error = "Must be 2 characters.";
       } else if (value.length > 10) {
-        error = "First name must be at less than 10 characters.";
+        error = "10 char limit.";
       }
       break;
 
     case "middleName":
       if (!value.trim()) {
         error = "Middle name is required.";
+      } else if (value.trim().length < 2) {
+        error = "Must be 2 characters.";
       } else if (value.length > 10) {
-        error = "Middle name must be at less than 10 characters.";
+        error = "10 char limit.";
       }
       break;
 
@@ -24,9 +26,9 @@ export const employeeValidateInput = (name, value) => {
       if (!value.trim()) {
         error = "Last name is required.";
       } else if (value.trim().length < 2) {
-        error = "Last name must be at least 2 characters.";
+        error = "Must be 2 characters.";
       } else if (value.trim().length > 10) {
-        error = "Last name must be at less than 10 characters.";
+        error = "10 char limit.";
       }
       break;
 
@@ -34,9 +36,9 @@ export const employeeValidateInput = (name, value) => {
       if (!value.trim()) {
         error = "Father's name is required.";
       } else if (value.trim().length < 2) {
-        error = "Father's name must be at least 2 characters.";
+        error = "Must be 2 characters.";
       } else if (value.trim().length > 25) {
-        error = "Father's name must be at less than 25 characters.";
+        error = "25 char limit.";
       }
       break;
 
@@ -44,19 +46,19 @@ export const employeeValidateInput = (name, value) => {
       if (!value.trim()) {
         error = "Mother's name is required.";
       } else if (value.trim().length < 2) {
-        error = "Mother's name must be at least 2 characters.";
+        error = "Must be 2 characters.";
       } else if (value.trim().length > 25) {
-        error = "Mother's name must be at less than 25 characters.";
+        error = "25 char limit.";
       }
       break;
 
     case "spouseName":
       if (!value.trim()) {
-        error = "Spouse's name is required.";
+        error = "Name is required.";
       } else if (value.trim().length < 2) {
-        error = "Spouse's name must be at least 2 characters.";
+        error = "Must be 2 characters.";
       } else if (value.trim().length > 25) {
-        error = "Spouse's name must be at less than 25 characters.";
+        error = "25 char limit.";
       }
       break;
 
@@ -73,8 +75,8 @@ export const employeeValidateInput = (name, value) => {
       const phoneRegex = /^[0-9]{11}$/;
       if (!value.trim()) {
         error = "Phone number is required.";
-      } else if (!phoneRegex.test(value.trim())) {
-        error = "Phone number must be 11 digits.";
+      } else if (!phoneRegex.test(value.trim().replace(/\D/g, ""))) {
+        error = "Must be 11 digits.";
       }
       break;
 
@@ -88,7 +90,7 @@ export const employeeValidateInput = (name, value) => {
       if (!value.trim()) {
         error = "Designation is required.";
       } else if (value.trim().length > 15) {
-        error = "Designation must be at less then 15 characters.";
+        error = "15 char limit.";
       }
       break;
 
@@ -96,7 +98,7 @@ export const employeeValidateInput = (name, value) => {
       if (!value) {
         error = "Date of Birth is required.";
       } else if (Date.now() - Date.parse(value) < 568025136000) {
-        error = "Age is less then 18 years.";
+        error = "Must be under 18 years.";
       }
       break;
 
@@ -113,7 +115,7 @@ export const employeeValidateInput = (name, value) => {
       if (!value) {
         error = "NID is required.";
       } else if ( !nidRegex.test(value)) {
-        error = "NID should be 10 or 17 digits.";
+        error = "10 or 17 digits.";
       }
       break;
 
