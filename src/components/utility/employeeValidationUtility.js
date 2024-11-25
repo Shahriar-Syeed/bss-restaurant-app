@@ -1,4 +1,4 @@
-export const employeeValidateInput = (name, value) => {
+ const validateEmployeeEntry = (name, value) => {
   let error = "";
 
   switch (name) {
@@ -35,8 +35,8 @@ export const employeeValidateInput = (name, value) => {
     case "fatherName":
       if (!value.trim()) {
         error = "Father's name is required.";
-      } else if (value.trim().length < 2) {
-        error = "Must be 2 characters.";
+      } else if (value.trim().length < 3) {
+        error = "Must be 3 characters.";
       } else if (value.trim().length > 25) {
         error = "25 char limit.";
       }
@@ -45,8 +45,8 @@ export const employeeValidateInput = (name, value) => {
     case "motherName":
       if (!value.trim()) {
         error = "Mother's name is required.";
-      } else if (value.trim().length < 2) {
-        error = "Must be 2 characters.";
+      } else if (value.trim().length < 3) {
+        error = "Must be 3 characters.";
       } else if (value.trim().length > 25) {
         error = "25 char limit.";
       }
@@ -55,8 +55,8 @@ export const employeeValidateInput = (name, value) => {
     case "spouseName":
       if (!value.trim()) {
         error = "Name is required.";
-      } else if (value.trim().length < 2) {
-        error = "Must be 2 characters.";
+      } else if (value.trim().length < 3) {
+        error = "Must be 3 characters.";
       } else if (value.trim().length > 25) {
         error = "25 char limit.";
       }
@@ -89,6 +89,8 @@ export const employeeValidateInput = (name, value) => {
     case "designation":
       if (!value.trim()) {
         error = "Designation is required.";
+      } else if (value.trim().length < 2) {
+        error = "Must be 2 characters.";
       } else if (value.trim().length > 15) {
         error = "15 char limit.";
       }
@@ -125,3 +127,5 @@ export const employeeValidateInput = (name, value) => {
 
   return error;
 };
+
+export default validateEmployeeEntry;

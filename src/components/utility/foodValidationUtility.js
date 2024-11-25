@@ -1,10 +1,10 @@
-export const employeeValidateInput = (name, value) => {
+ const validateFoodEntry = (name, value) => {
   let error = "";
 
   switch (name) {
     case "name":
       if (!value.trim()) {
-        error = "Food name is required.";
+        error = "Food name require.";
       } else if (value.length < 3) {
         error = "Must be 3 characters.";
       } else if (value.trim().length > 40) {
@@ -14,8 +14,8 @@ export const employeeValidateInput = (name, value) => {
 
     case "description":
       if (!value.trim()) {
-        error = "Food description cannot be empty.";
-      } else if (value.length > 10) {
+        error = "Description cannot be empty.";
+      } else if (value.length < 10) {
         error = "Must be 10 characters.";
       } else if (value.length > 150) {
         error = "150 characters limit.";
@@ -23,9 +23,11 @@ export const employeeValidateInput = (name, value) => {
       break;
 
     case "price":
-      if (!value.trim()) {
+      if (value<=0) {
         error = "Price is required.";
-      } 
+      } else if (!value.trim()){
+        error = "Price can not be empty.";
+      }
       break;
 
     default:
@@ -34,3 +36,5 @@ export const employeeValidateInput = (name, value) => {
 
   return error;
 };
+
+export default validateFoodEntry;

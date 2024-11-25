@@ -16,7 +16,7 @@ import {
 } from "../../store/employee-actions.js";
 import Loading from "../loader/Loading.jsx";
 import useFormValidation from "../../customHooks/useFormValidation.js";
-import { employeeValidateInput } from "../utility/employeeValidationUtility.jsx";
+import validateEmployeeEntry from "../utility/employeeValidationUtility.js";
 
 export default function EmployeeForm() {
   const { formData, errors, handleChange, handleBlur, validateFields, hasError } =
@@ -32,7 +32,7 @@ export default function EmployeeForm() {
         joinDate: "",
         nid: 0,
       },
-      employeeValidateInput,
+      validateEmployeeEntry,
       ['phoneNumber', 'nid']
     );
   const forwardRef = useRef();

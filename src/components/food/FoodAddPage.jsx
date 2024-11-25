@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import TextAreaFloating from "../UI/TextAreaFloating.jsx";
 import { convertBase64 } from "../../store/employee-actions.js";
 import useFormValidation from "../../customHooks/useFormValidation.js";
-import foodValidationUtility from "../utility/foodValidationUtility.jsx"
+import validateFoodEntry from "../utility/foodValidationUtility.js"
 
 export default function FoodAddPage() {
   const [price, setPrice] = useState(0);
@@ -28,7 +28,7 @@ export default function FoodAddPage() {
       description: "",
       price: 0,
     },
-    foodValidationUtility,
+    validateFoodEntry,
     ['price']
   );
 
@@ -56,9 +56,6 @@ export default function FoodAddPage() {
   const isOpen = useSelector((state) => state.modal.open);
   const modalId = useSelector((state) => state.modal.id);
 
-  function openModal() {
-    dispatch(modalActions.open());
-  }
   function closeModal() {
     dispatch(modalActions.id(null));
     dispatch(modalActions.close());
@@ -279,9 +276,10 @@ export default function FoodAddPage() {
             >
               Discount Price
             </InputFloating>
+            
           </div>
 
-          <div className="lg:col-start-1 lg:-col-end-1">
+          <div className="lg:col-start-1 lg:-col-end-1 pt-1">
             <Button
               type="button"
               className="button-primary w-full py-2 text-white rounded "
