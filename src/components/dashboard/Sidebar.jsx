@@ -62,8 +62,8 @@ export default function Sidebar() {
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 flex justify-between flex-col">
           <ul className="space-y-2 font-medium h-full">
             <li>
-              <a
-                href="#"
+              <Link
+                to="/bss-restaurant-app/admin"
                 className="flex items-center p-2 text-primary rounded-lg text-primary"
               >
                 <div className="h-10 w-10 ">
@@ -81,7 +81,7 @@ export default function Sidebar() {
                   <h5>{userInfo.fullName}</h5>
                   <p>{userInfo.email}</p>
                 </div>
-              </a>
+              </Link>
               <hr />
             </li>
             <li>
