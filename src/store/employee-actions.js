@@ -63,22 +63,20 @@ export const createEmployee = (formData) => {
     };
     console.log("updatedData", updatedData);
     try {
-
-        const response = await axios.post(
-          "https://restaurantapi.bssoln.com/api/Employee/create",
-          updatedData
-        );
-        dispatch(employeeActions.setStatus(response.status));
-        console.log("createResult",response);
-        if (response.status === 200) {
-          dispatch(modalActions.close());
-          dispatch(employeeActions.showPreview(undefined));       
-          dispatch(employeeActions.loading(false));
-          
-        }
-        return response;
+      const response = await axios.post(
+        "https://restaurantapi.bssoln.com/api/Employee/create",
+        updatedData
+      );
+      dispatch(employeeActions.setStatus(response.status));
+      console.log("createResult", response);
+      if (response.status === 200) {
+        dispatch(modalActions.close());
+        dispatch(employeeActions.showPreview(undefined));
+        dispatch(employeeActions.loading(false));
+      }
+      return response;
     } catch (error) {
-      dispatch(modalActions.id('employee-create-error'));
+      dispatch(modalActions.id("employee-create-error"));
       dispatch(employeeActions.loading(false));
       dispatch(employeeActions.errorMessage(error.message));
       dispatch(modalActions.open());
@@ -90,6 +88,38 @@ export const createEmployee = (formData) => {
     }
   };
 };
+
+export const editEmployeeDesignation = (id, data) => {
+  return async (dispatch) => {
+    dispatch(employeeActions.loading(true));
+    console.log("data", data);
+    try {
+      const response = await axios.put(
+        `https://restaurantapi.bssoln.com/api/Employee/update/${id}`,
+        { designation: data }
+      );
+      console.log(response);
+      if (response.status === 200 || response.status === 203) {
+        dispatch(
+          employeeActions.changeEmployeeDesignation({
+            id: id,
+            designation: data,
+          })
+        );
+        dispatch(employeeActions.loading(false));
+        return Promise.resolve("success");
+      }
+    } catch (error) {
+      dispatch(employeeActions.errorMessage(error.message));
+      dispatch(modalActions.open());
+      console.log(error);
+      setTimeout(() => {
+        dispatch(modalActions.close());
+      }, 3000);
+    }
+  };
+};
+
 export const nullStatus = () => {
   return async (dispatch) => {
     dispatch(employeeActions.setStatus(null));
