@@ -5,7 +5,7 @@ export default function TextArea({ children, id, labelTextColor="text-gray-500",
     <div className="">
       {label && <label
         htmlFor={id}
-        className={`${labelTextColor} duration-300 px-2  ${labelClass}`} 
+        className={`${labelClass && labelClass}`} 
       >
         {children}
       </label>}

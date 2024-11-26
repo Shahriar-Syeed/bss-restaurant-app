@@ -84,8 +84,8 @@ export default function FoodEditPage() {
             <TextArea
               placeholder={foodInfo?.description}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 w-full"
-              labelClass="font-bold block"
-              labelTextColor="text-stone-900"
+              labelClass="font-bold block text-stone-900"
+              
               id="description"
               label
             >
