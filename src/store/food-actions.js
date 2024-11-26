@@ -1,7 +1,6 @@
 import axios from "axios";
 import { foodActions } from "./food-slice.js";
 import { modalActions } from "./modal-slice.js";
-import { convertBase64 } from "./employee-actions.js";
 export const getFoods = (page, perPage) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
@@ -84,5 +83,58 @@ export const createFood = (formData) => {
         dispatch(modalActions.close());
       }, 3000);
     }
+  };
+};
+
+export const getSingleFoodItem = (id) => {
+  return async (dispatch) => {
+    dispatch(foodActions.loading(true));
+    try {
+      const response = await axios.get(
+        `https://restaurantapi.bssoln.com/api/Food/get/${id}`
+      );
+      console.log(response);
+      dispatch(foodActions.setFoodItem(response.data));
+      dispatch(foodActions.loading(false));
+    } catch (error) {
+      dispatch(modalActions.id("getSingleFoodFail"));
+      dispatch(foodActions.loading(false));
+      dispatch(foodActions.errorMessage(error.message));
+      dispatch(modalActions.open());
+      setTimeout(() => {
+        dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
+      }, 3000);
+    }
+  };
+};
+
+export const updateSingleFoodItem = (id, data) => {
+  return async (dispatch) => {
+    dispatch(foodActions.loading(true));
+    console.log(id,data);
+    try {
+      const response = await axios.put(
+        `https://restaurantapi.bssoln.com/api/Food/update/${id}`, data
+      );
+      console.log(response);
+      if (response.status === 200 || response.status === 204) {
+        dispatch(foodActions.updateFood({id,data}))
+        dispatch(foodActions.loading(false));
+        dispatch(foodActions.showPreview(undefined));
+        dispatch(foodActions.selectedFoodImage(undefined));
+        return Promise.resolve("success");
+      }
+      dispatch(foodActions.loading(false));
+    } catch (error) {
+      dispatch(modalActions.id("updateSingleFoodFail"));
+      dispatch(foodActions.loading(false));
+      dispatch(foodActions.errorMessage(error.message));
+      dispatch(modalActions.open());
+      setTimeout(() => {
+        dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
+      }, 3000);
+    }    
   };
 };

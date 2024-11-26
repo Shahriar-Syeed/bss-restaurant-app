@@ -143,7 +143,7 @@ export default function FoodAddPage() {
           {errorMessage ? (
             <p>{errorMessage}</p>
           ) : (
-            <p>Invalid Password or Username</p>
+            <p>Failed to add food!</p>
           )}
           <div className="modal-action p-2">
             <Button

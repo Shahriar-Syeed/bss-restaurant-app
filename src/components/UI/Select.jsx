@@ -6,6 +6,7 @@ const Select = ({
   outerClassName,
   className,
   labelClassName,
+  selectedOption,
   id,
   name,
   ...props
@@ -18,13 +19,13 @@ const Select = ({
       <select
         value={value}
         onChange={onChange}
-        className={`p-1 border rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-pink-50 ${className && className}`}
+        className={`border rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-pink-50 ${className && className}`}
         id={id}
         name={name ? name : id}
         {...props}
       >
         {options?.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option key={option.value} value={option.value} selected={selectedOption === option.label} >
             {option.label}
           </option>
         ))}

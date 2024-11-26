@@ -99,7 +99,7 @@ export const editEmployeeDesignation = (id, data) => {
         { designation: data }
       );
       console.log(response);
-      if (response.status === 200 || response.status === 203) {
+      if (response.status === 200 || response.status === 204) {
         dispatch(
           employeeActions.changeEmployeeDesignation({
             id: id,
@@ -119,6 +119,47 @@ export const editEmployeeDesignation = (id, data) => {
     }
   };
 };
+
+// export const fetchImageAsBase64 = async (url) => {
+
+//     try {
+//       const response = await axios.get(url, { responseType: "blob" });;
+//       const blob = await response.blob();
+      
+
+//       const base64 =  new Promise((resolve, reject) => {
+//         const reader = new FileReader();
+//         reader.onloadend = () => resolve(reader.result); // Resolve with Base64 string
+//         reader.onerror = (error) => reject(error); // Reject on error
+//         reader.readAsDataURL(blob);
+//       });
+//       return {base64};
+//     } catch (error) {
+//       console.error("Error fetching image:", error);
+//       throw error; // Re-throw error so it can be caught by caller
+//     }
+
+// };
+
+// export const urlToBase64 = (url) => {
+//   const img = new Image();
+//   img.crossOrigin = "Anonymous"; // Handle cross-origin issues
+//   img.src = url;
+
+//   img.onload = () => {
+//     const canvas = document.createElement("canvas");
+//     canvas.width = img.width;
+//     canvas.height = img.height;
+//     const ctx = canvas.getContext("2d");
+//     ctx.drawImage(img, 0, 0);
+
+//     const dataURL = canvas.toDataURL("image/png");
+//     return dataURL; // Set the Base64 string in state
+//   };
+//   img.onerror = () => {
+//     console.error("Error loading image.");
+//   };
+// }
 
 export const nullStatus = () => {
   return async (dispatch) => {

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../loader/Loading.jsx";
@@ -8,46 +8,155 @@ import Input from "../UI/Input.jsx";
 import Button from "../UI/Button.jsx";
 import TextArea from "../UI/TextArea.jsx";
 import Select from "../UI/Select.jsx";
+import { getSingleFoodItem, updateSingleFoodItem } from "../../store/food-actions.js";
+import { modalActions } from "../../store/modal-slice.js";
+
+import { foodActions } from "../../store/food-slice.js";
+import { convertBase64 } from "../../store/employee-actions.js";
+import Modal from "../UI/Modal.jsx";
 
 export default function FoodEditPage() {
+  const foodImageRef = useRef();
   const param = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const foods = useSelector(state => state.foods.foodDataTable);
-  const foodData = useSelector((state) => state.foods.foodDataTable.data);
+  const foodData = useSelector((state) => state.foods.singleFoodItem);
   const isLoading = useSelector((state) => state.foods.loading);
+  const errorEditFood = useSelector((state) => state.foods.error);
+  const previewImage = useSelector((state) => state.foods.preview);
+
   console.log(foodData, "high");
-  const foodInfo = useMemo(() => {
-    console.log(foodData);
-    return foodData?.data?.find((food) => food.id === param.foodId);
-  }, []);
+
   const DISCOUNT_OPTION = [
-    { value: "64555112", label: "None" },
-    { value: "63322514", label: "Flat" },
-    { value: "85245675", label: "Percentage" },
+    { value: 0, label: "None" },
+    { value: 1, label: "Flat" },
+    { value: 2, label: "Percentage" },
   ];
+
+  // Modal
+  const isOpen = useSelector((state) => state.modal.open);
+  const modalId = useSelector((state) => state.modal.id);
+
+  function closeModal() {
+    dispatch(modalActions.id(null));
+    dispatch(modalActions.close());
+  }
+ 
+
+  useEffect(() => {
+    dispatch(getSingleFoodItem(param.foodId));
+  }, []);
+
+  function onSelectFile(event) {
+    if (!event.target.files || event.target.files.length === 0) {
+      return;
+    }
+    const file = event.target.files[0];
+    foodImageRef.current = file;
+    dispatch(foodActions.showPreview(URL.createObjectURL(file)));
+  }
+  function handleDrop(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+      const file = event.target.files[0];
+      foodImageRef.current = file;
+      dispatch(foodActions.showPreview(URL.createObjectURL(file)));
+      event.dataTransfer.clearData();
+    }
+  }
 
   async function handleEdit(e) {
     e.preventDefault();
-    if (window.confirm("Do you really want to change food information?")) {
-      const fetchData = new FormData(e.target);
-      const data = Object.fromEntries(fetchData.entries());
-      console.log(data);
-
-      // try{
-      //   const res = await dispatch(editEmployeeDesignation(param.employeeId,e.target[0].value));
-      //   console.log(typeof e.target[0].value);
-      //   console.log(res);
-
-      // res === 'success' && navigate('../foods');
-      // }catch(error){
-      //   console.error("Failed to update designation:", error);
-      // }
+    const fetchData = new FormData(e.target);
+    const initialData = Object.fromEntries(fetchData.entries());
+    console.log(initialData.description);
+    
+    delete initialData.foodImage;
+    const data =  {
+      ...initialData,
+      discount: Number(initialData.discount),
+        discountType:  Number(initialData.discountType),
+        discountPrice: Number(initialData.discountPrice),
+        price: Number(initialData.price),
+    };
+    const conditionCheck = foodData.discountType ===  DISCOUNT_OPTION.find((option)=>option.value === data.discountType)?.label && foodData.discount === data.discount && foodData.discountPrice === data.discountPrice && foodData.price === data.price && foodData.description === data.description && !foodImageRef?.current;
+ 
+    if(conditionCheck){
+      navigate('../');
+      return;
     }
-  }
+
+    if (window.confirm("Do you really want to change food information?")) {
+      delete initialData.foodImage;
+      let finalData ={}
+      if(foodImageRef?.current){
+
+        finalData = {
+         ...data,
+         base64: (await convertBase64(foodImageRef?.current)) ?? "",
+         image: foodImageRef?.current?.name ?? "",
+       };
+      }else {
+        finalData={
+          ...data,
+          base64: '',
+        }
+      }
+        try{
+          const res = await dispatch(updateSingleFoodItem(param.foodId,finalData));
+       
+          console.log(res);
+  
+        res === 'success' && navigate('../');
+        }catch(error){
+          console.error("Failed to update designation:", error);
+        }
+      }
+    }
+  
+
   return (
     <>
       {isLoading && <Loading fullHeightWidth />}
+      {errorEditFood && (modalId === "updateSingleFoodFail") && (
+        <Modal open={isOpen} onClose={closeModal}>
+          <h1>Failed!</h1>
+          {errorEditFood ? (
+            <p>{errorEditFood}</p>
+          ) : (
+            <p>Failed to update food!</p>
+          )}
+          <div className="modal-action p-2">
+            <Button
+              className="float-end button-primary px-4 py-2 rounded-lg"
+              onClick={closeModal}
+              type="button"
+            >
+              Close
+            </Button>
+          </div>
+        </Modal>
+      )}
+      {errorEditFood && (modalId === "getSingleFoodFail") && (
+        <Modal open={isOpen} onClose={closeModal}>
+          <h1>Failed!</h1>
+          {errorEditFood ? (
+            <p>{errorEditFood}</p>
+          ) : (
+            <p>Failed to get food item!</p>
+          )}
+          <div className="modal-action p-2">
+            <Button
+              className="float-end button-primary px-4 py-2 rounded-lg"
+              onClick={closeModal}
+              type="button"
+            >
+              Close
+            </Button>
+          </div>
+        </Modal>
+      )}
       <PageHeader
         title="Edit Food"
         buttonLabel="BACK"
@@ -55,23 +164,42 @@ export default function FoodEditPage() {
       />
       <form onSubmit={handleEdit}>
         <section className="grid lg:grid-cols-12 md:grid-cols-2 lg:gap-4 gap-4 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
-          <h2 className="col-start-1 lg:col-end-9 md:-col-end-1">
-            <strong>Id :</strong> {foodInfo?.id}
+          <h2 className="col-start-1 lg:col-end-9 md:-col-end-1 font-bold">
+            <u>Id : {foodData?.id}</u>
           </h2>
-          <div className="lg:col-start-9 lg:col-end-13 md:col-start-1 md:-col-end-1 lg:row-start-1 lg:row-span-3 flex justify-center items-center">
-            <img
-              src={
-                foodInfo?.image
-                  ? `https://restaurantapi.bssoln.com/images/food/${foodInfo?.image}`
-                  : defaultImage
-              }
-              alt={foodInfo?.name}
-              className="max-w-48 object-cover rounded-lg "
-            />
+          <div className="lg:col-start-9 lg:col-end-13 md:col-start-1 md:-col-end-1 lg:row-start-1 lg:row-span-3">
+            <div
+              className="relative flex justify-center items-center border-dashed border border-gray-200 hover:border-gray-400"
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDrop}
+            >
+              <Input
+                type="file"
+                hidden
+                id="foodImage"
+                name="image"
+                labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
+                onChange={onSelectFile}
+              >
+                {""}
+              </Input>
+              <img
+                src={
+                  previewImage
+                    ? previewImage
+                    : foodData?.image
+                    ? `https://restaurantapi.bssoln.com/images/food/${foodData?.image}`
+                    : defaultImage
+                }
+                alt={foodData?.name}
+                className="max-w-48 object-cover rounded-lg "
+              />
+            </div>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 md:col-start-1 md:-col-end-1">
             <Input
-              placeholder={foodInfo?.name}
+              placeholder={ foodData?.name}
+              defaultValue={foodData?.name}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 lg:flex-1 w-full lg:w-auto"
               outerClassName="lg:flex gap-3 items-center"
               labelClass="font-bold block"
@@ -82,10 +210,10 @@ export default function FoodEditPage() {
           </div>
           <div className="lg:col-start-1 lg:col-end-9 md:col-start-1 md:-col-end-1">
             <TextArea
-              placeholder={foodInfo?.description}
+              placeholder={foodData?.description}
+              defaultValue={foodData?.description}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 w-full"
               labelClass="font-bold block text-stone-900"
-              
               id="description"
               label
             >
@@ -94,7 +222,8 @@ export default function FoodEditPage() {
           </div>
           <div className="lg:col-start-1 lg:col-end-4">
             <Input
-              placeholder={foodInfo?.price}
+              placeholder={foodData?.price}
+              defaultValue={foodData?.price}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 w-full"
               labelClass="font-bold"
               id="price"
@@ -104,32 +233,34 @@ export default function FoodEditPage() {
           </div>
           <div className="lg:col-start-4 lg:col-end-7">
             <Select
-              placeholder={foodInfo?.discountType}
+            defaultValue={DISCOUNT_OPTION?.find((option)=>option.label === foodData?.discountType)?.value}
               label="Discount Type:"
-              className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 w-full"
+              className="placeholder:text-stone-950 border border-solid border-stone-500 rounded w-full p-1.5"
               outerClassName="block "
               labelClassName="text-stone-900 font-bold"
               labelClass="font-bold block"
               id="discountType"
               options={DISCOUNT_OPTION}
-              value={foodInfo?.discountType}
+              selectedOption={foodData?.discountType}
             />
           </div>
           <div className="lg:col-start-7 lg:col-end-10">
             <Input
-              placeholder={foodInfo?.discount}
+              defaultValue={foodData?.discount}
+              placeholder={foodData?.discount}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 w-full"
               outerClassName="block "
               labelClassName="text-stone-900 font-bold"
               labelClass="font-bold block"
-              id="price"
+              id="discount"
             >
               Discount :
             </Input>
           </div>
           <div className="lg:col-start-10 lg:col-end-13 pt-1">
             <Input
-              placeholder={foodInfo?.discountPrice}
+              placeholder={foodData?.discountPrice}
+              defaultValue={foodData?.discountPrice}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 w-full"
               outerClassName="block "
               labelClassName="text-stone-900 font-bold"

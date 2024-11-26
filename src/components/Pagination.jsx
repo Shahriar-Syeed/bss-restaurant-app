@@ -64,7 +64,7 @@ export default function Pagination({
         options={pageOption}
         value={currentItemsPerPage}
         onChange={handlePerPageChange}
-        className="gap-2"
+        className="gap-2 p-1"
       />
       <p>
         {Math.min((currentPageNumber - 1) * currentItemsPerPage + 1, totalRecord)}-
