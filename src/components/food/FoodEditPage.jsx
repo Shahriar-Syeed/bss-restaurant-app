@@ -72,9 +72,9 @@ export default function FoodEditPage() {
           <div className="lg:col-start-1 lg:col-end-9 md:col-start-1 md:-col-end-1">
             <Input
               placeholder={foodInfo?.name}
-              className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 flex-1"
-              outerClassName="flex gap-3 items-center"
-              labelClass="font-bold"
+              className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 lg:flex-1 w-full lg:w-auto"
+              outerClassName="lg:flex gap-3 items-center"
+              labelClass="font-bold block"
               id="name"
             >
               Food Name:
