@@ -23,6 +23,7 @@ import UserInfoPage from "./pages/UserInfoPage.jsx";
 import FoodsListPage from "./pages/FoodsListPage.jsx";
 import RootFood from "./pages/RootFood.jsx";
 import FoodAddPage from "./components/food/FoodAddPage.jsx";
+import FoodEditPage from "./components/food/FoodEditPage.jsx";
 
 
 
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
             children: [
               { index: true, element: <FoodsListPage /> },
               { path: "add-food", element: <FoodAddPage /> },
+              {
+                path: ":foodId/food-edit",
+                element: <FoodEditPage />,
+              },
             ],
           },
 

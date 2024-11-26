@@ -156,7 +156,7 @@ export default function FoodAddPage() {
           </div>
         </Modal>
       )}
-      <PageHeader title="Add Table" buttonLabel="BACK  " />
+      <PageHeader title="Add Food Item" buttonLabel="BACK" buttonOnClick={()=>navigate("../")} />
       <form ref={formRef} className="bg-white">
         {modalId?.text === "food-create-confirmation" && (
           <Modal open={isOpen} onClose={closeModal}>

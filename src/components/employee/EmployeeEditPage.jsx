@@ -1,4 +1,4 @@
-import { redirect, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PageHeader from "../PageHeader.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import defaultImage from "../../assets/default-image-preview.png";
@@ -50,16 +50,17 @@ export default function EmployeeEditPage() {
         buttonLabel="BACK"
         buttonOnClick={() => navigate("../employee-list")}
       />
-      <section className="bg-white p-3 sm:p-4 md:p-6 lg-p-8 xl:p-10 2xl:p-12 rounded-lg ">
-        <h2><strong>Id :</strong> {employeeInfo.id}</h2>
-        <div>
+      <section className="bg-white p-3 sm:p-4 md:p-6 lg-p-8 xl:p-10 2xl:p-12 rounded-lg grid sm:grid-cols-2 gap-3">
+        <h2 className="col-start-1 -col-end-1"><strong>Id :</strong> {employeeInfo.id}</h2>
+        <div className="col-start-1 -col-end-1">
           <img
             src={
-              employeeInfo.user.image === ""
-                ? defaultImage
-                : `https://restaurantapi.bssoln.com/images/${employeeInfo.user.image}`
+              employeeInfo.user.image
+              ? `https://restaurantapi.bssoln.com/images/user/${employeeInfo.user.image}`
+                : defaultImage
             }
-            alt=""
+            alt={employeeInfo.user.fullName}
+            className="max-w-44 object-cover rounded-lg"
           />
         </div>
         <p> <strong>Name:</strong> {employeeInfo.user.fullName}</p>
@@ -67,7 +68,7 @@ export default function EmployeeEditPage() {
         <p><strong>Email:</strong> {employeeInfo.user.email}</p>
         <p><strong>NID:</strong> {employeeInfo.user.nid}</p>
         <p><strong>Address:</strong> {employeeInfo.user.address}</p>
-        <form onSubmit={handleEdit} className="flex gap-3">
+        <form onSubmit={handleEdit} className="flex gap-3 col-start-1 -col-end-1">
           <Input placeholder={employeeInfo.designation} className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5" labelClass='font-bold'>Designation:</Input>
           <Button type="submit" title="Change designation">
             <svg
