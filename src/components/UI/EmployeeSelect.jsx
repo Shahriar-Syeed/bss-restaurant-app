@@ -97,10 +97,8 @@ const EmployeeSelect = ({
 
         <span
           className={`flex-1 max-h-16 overflow-y-auto [&::-webkit-scrollbar]:w-2
-          [&::-webkit-scrollbar-track]:bg-gray-100
-          [&::-webkit-scrollbar-thumb]:bg-gray-300
-          dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-          dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 ${
+          [&::-webkit-scrollbar-track]:bg-neutral-700
+          [&::-webkit-scrollbar-thumb]:bg-neutral-400 ${
             selectedOption
               ? "text-xsm sm:text-sm md:text-base"
               : "text-gray-400 "

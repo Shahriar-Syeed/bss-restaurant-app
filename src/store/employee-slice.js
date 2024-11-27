@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialEmployees = {
-  employeeDataTable:{},
+  employeeDataTable: {},
   employeesRowData: [],
   selectedEmployeeImage: undefined,
   preview: undefined,
@@ -17,7 +17,7 @@ const employeeSlice = createSlice({
     getEmployeesDataTable(state, action) {
       state.employeeDataTable = action.payload;
     },
-    setStatus(state,action){
+    setStatus(state, action) {
       state.status = action.payload;
     },
     showPreview(state, action) {
@@ -28,15 +28,25 @@ const employeeSlice = createSlice({
     },
     loading(state, action) {
       state.loading = action.payload;
-    },   
+    },
     errorMessage(state, action) {
       state.error = action.payload;
     },
 
     removeEmployee(state, action) {
-      state.employeeDataTable = {...state.employeeDataTable, data:state.employeeDataTable.data.filter(
-        (employee) => employee.id !== action.payload
-      )};
+      state.employeeDataTable = {
+        ...state.employeeDataTable,
+        data: state.employeeDataTable.data.filter(
+          (employee) => employee.id !== action.payload
+        ),
+      };
+    },
+    changeEmployeeDesignation(state, action) {
+      state.employeeDataTable.data = state.employeeDataTable.data.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, designation: action.payload.designation }
+          : item
+      );
     },
   },
 });

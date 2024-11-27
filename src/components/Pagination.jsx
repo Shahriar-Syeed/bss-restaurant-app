@@ -64,7 +64,7 @@ export default function Pagination({
         options={pageOption}
         value={currentItemsPerPage}
         onChange={handlePerPageChange}
-        className="gap-2"
+        className="gap-2 p-1"
       />
       <p>
         {Math.min((currentPageNumber - 1) * currentItemsPerPage + 1, totalRecord)}-
@@ -75,7 +75,7 @@ export default function Pagination({
           textOnly
           className="inline-flex place-items-center p-2"
           onClick={handlePrevPage}
-          disable={currentPageNumber === 1}
+          disabled={currentPageNumber === 1}
         >
           <svg
             className="flex-shrink-0 w-6 h-6 text-primary transition duration-75"
@@ -89,7 +89,7 @@ export default function Pagination({
         <Button
           textOnly
           className="inline-flex place-items-center p-2"
-          disable={currentPageNumber === totalPages || totalRecord === 0}
+          disabled={currentPageNumber === totalPages || totalRecord === 0}
           onClick={handleNextPage}
         >
           <svg

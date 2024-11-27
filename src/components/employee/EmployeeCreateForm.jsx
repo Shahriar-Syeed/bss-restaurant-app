@@ -6,9 +6,6 @@ import EmployeeForm from "./EmployeeForm.jsx";
 
 export default function EmployeeCreateForm() {
   const dispatch = useDispatch();
-  const selectedEmployeeImage = useSelector(
-    (state) => state.employees.selectedEmployeeImage
-  );
   const modalId = useSelector((state) => state.modal.id);
   const errorMessage = useSelector((state) => state.employees.error);
   // Modal
@@ -40,11 +37,7 @@ export default function EmployeeCreateForm() {
           </div>
         </Modal>
       )}
-      <EmployeeForm
-        // handleDrop={handleDrop}
-        // onSelectFile={onSelectFile}
-        selectedEmployeeImage={selectedEmployeeImage}
-      />
+      <EmployeeForm />
     </div>
   );
 }

@@ -7,7 +7,8 @@ export default function Button({
   disabled,
   ...props
 }) {
-  let cssClasses = textOnly ? "text-button" : "button";
+  let cssClasses = textOnly && "text-button" ;
+  cssClasses = !textOnly &&  "button";
   
   disabled && (cssClasses += " " + "fill-slate-400");
   

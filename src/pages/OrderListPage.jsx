@@ -13,6 +13,8 @@ import Loading from "../components/loader/Loading.jsx";
 import { modalActions } from "../store/modal-slice.js";
 import Modal from "../components/UI/Modal.jsx";
 import CustomSelect from "../components/UI/CustomSelect.jsx";
+import DeleteIcon from "../components/svg/DeleteIcon.jsx";
+import EditIcon from "../components/svg/EditIcon.jsx";
 
 export default function OrderListPage() {
   const [itemsPerPage, setItemsPerPage] = useState(6);
@@ -352,14 +354,7 @@ export default function OrderListPage() {
                     aria-label="edit"
                     onClick={() => editStatus(eachOrderItem.id, eachOrderItem?.table?.tableNumber)}
                   >
-                    <svg
-                      className="p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100"
-                      focusable="false"
-                      aria-hidden="true"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M3 10h11v2H3zm0-2h11V6H3zm0 8h7v-2H3zm15.01-3.13.71-.71c.39-.39 1.02-.39 1.41 0l.71.71c.39.39.39 1.02 0 1.41l-.71.71zm-.71.71-5.3 5.3V21h2.12l5.3-5.3z"></path>
-                    </svg>
+                    <EditIcon className='p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100' />
                   </Button>
                 </div>
               </div>

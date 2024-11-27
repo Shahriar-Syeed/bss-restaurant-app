@@ -5,6 +5,7 @@ import OrderDetails from "./OrderDetails.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder, toggleCartDrawer } from "../../store/cart-actions.js";
 import Loading from "../loader/Loading.jsx";
+import EmptyCartSvg from "../svg/EmptyCartSvg.jsx";
 
 export default function CartWithDrawer() {
   const dispatch = useDispatch();
@@ -84,13 +85,13 @@ export default function CartWithDrawer() {
           <span className="sr-only">Close menu</span>
         </Button>
         <div
-          className="grid content-start h-[calc(100%-8.4rem)] overflow-y-auto [&::-webkit-scrollbar]:w-2
+          className={`grid ${cartItems?.items?.length > 0 && 'content-start'} h-[calc(100%-8.4rem)] overflow-y-auto [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-transparent
-          [&::-webkit-scrollbar-thumb]:bg-red-300 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-clip-padding"
+          [&::-webkit-scrollbar-thumb]:bg-red-300 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-clip-padding`}
         >
-          {cartItems?.items?.map((item) => (
+          {cartItems?.items?.length > 0 ? cartItems.items.map((item) => (
             <OrderDetails key={item.foodId} cartItem={item} />
-          ))}
+          )) : <EmptyCartSvg/>}
         </div>
         <hr />
         <h3 className="text-lg font-bold pe-4 py-1">

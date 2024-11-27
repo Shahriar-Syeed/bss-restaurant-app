@@ -126,8 +126,8 @@ input {
   }
 }
 
+@media (min-width: 1024px) {
 .viewport-hight {
-  @media (min-width: 1024px) {
     height: calc(100svh - 17.675rem);
   }
 }
@@ -137,7 +137,7 @@ input {
 .top-72px {
   top: 4.5rem;
 }
-@media (max-width: 525px) {
+@media (min-width: 525px) {
   .top-sm-80px {
     top: 5rem;
   }
@@ -166,14 +166,18 @@ input {
 }
 
 
-@media (max-width: 576px){
+table td[data-th]:before {
+  content: attr(data-th);
+  display: inline;
+  font-weight: bold;
+  color:#cc080b;
+  margin: 0 0 2px;
+  padding: 5px;
+  font-size: 14px;
+}
+@media (min-width: 576px){
   table td[data-th]:before {
-    content: attr(data-th);
-    display: inline;
-    font-weight: bold;
-    color:#cc080b;
-    margin: 0 0 2px;
-    padding: 5px;
-    font-size: 14px;
+    content: '';
+    display: none;
   }
 }
