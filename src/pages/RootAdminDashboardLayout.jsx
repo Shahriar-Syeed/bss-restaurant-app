@@ -19,9 +19,11 @@ export default function RootAdminDashboardLayout() {
             <CartWithDrawer />
           </div>
         </Navbar>
-        <div className="xl:p-10 lg:p-8 md:p-6 sm:p-4 p-2 pb-1 xl:pb-4 lg:pb-3 md:pb-2 sm:pb-1 relative h-[calc(100svh-5rem)] overflow-y-auto [&::-webkit-scrollbar]:w-2
+        <div
+          className="xl:p-10 lg:p-8 md:p-6 sm:p-4 p-2 pb-1 xl:pb-4 lg:pb-3 md:pb-2 sm:pb-1 relative sm:h-[calc(100svh-5rem)] h-[calc(100svh-8.7rem)] overflow-y-auto [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-neutral-200
-          [&::-webkit-scrollbar-thumb]:bg-neutral-700 bg--page">
+          [&::-webkit-scrollbar-thumb]:bg-neutral-700 bg--page"
+        >
           <Outlet />
         </div>
       </div>
