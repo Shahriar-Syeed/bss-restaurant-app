@@ -136,16 +136,16 @@ export default function OrderListPage() {
           </div>
         </Modal>
       )}
-      <div className="grid justify-between auto-cols-auto 2xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 lg:gap-5 md:gap-3.5 sm:gap-3 gap-2">
+      <div className="grid sm:justify-between justify-center auto-cols-auto 2xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 lg:gap-5 md:gap-3.5 sm:gap-3 gap-2">
         {orderInfo?.data?.map((eachOrderItem, eachOrderItemIndex) =>
           orderInfo.data.length !== eachOrderItemIndex + 1 ? (
             <div
               key={eachOrderItem.id}
-              className="rounded-lg border-2 xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white max-w-md"
+              className="rounded-lg border-2 mx-auto xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white sm:w-[min(100%,_25rem)] w-[min(90%,_25rem)]"
             >
-              <div className="flex justify-between mb-3">
+              <div className="flex justify-between mb-3 gap-0.5">
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-stone-900/90">
+                  <h3 className="text-md md:text-xl sm:text-lg font-bold text-stone-900/90">
                     {eachOrderItem.orderNumber}
                   </h3>
                   <p className="font-bold text-stone-900/80">
@@ -155,15 +155,9 @@ export default function OrderListPage() {
                 <Button
                   type="button"
                   onClick={() => deleteOrder(eachOrderItem.id)}
+                  className='self-start'
                 >
-                  <svg
-                    focusable="false"
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="p-1.5 border border-red-700 hover:bg-red-700 fill-red-700 hover:fill-white rounded-lg w-10 h-10"
-                  >
-                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"></path>
-                  </svg>
+                  <DeleteIcon className="sm:p-1.5 p-1 border border-red-700 hover:bg-red-700 fill-red-700 hover:fill-white rounded-lg sm:w-8 md:w-10 w-7"/>
                 </Button>
               </div>
               <div
@@ -256,12 +250,12 @@ export default function OrderListPage() {
           ) : (
             <div
               key={eachOrderItem.id}
-              className="rounded-lg border-2 xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white max-w-md"
+              className="rounded-lg border-2 mx-auto xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white sm:w-[min(100%,_25rem)] w-[min(90%,_25rem)]"
               ref={lastOrderElementRef}
             >
-              <div className="flex justify-between mb-3">
+              <div className="flex justify-between mb-3 gap-0.5">
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-stone-900/90">
+                  <h3 className="text-md md:text-xl sm:text-lg font-bold text-stone-900/90">
                     {eachOrderItem.orderNumber}
                   </h3>
                   <p className="font-bold text-stone-900/80">
@@ -271,15 +265,9 @@ export default function OrderListPage() {
                 <Button
                   type="button"
                   onClick={() => deleteOrder(eachOrderItem.id)}
+                  className="self-start"
                 >
-                  <svg
-                    focusable="false"
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="p-1.5 border border-red-700 hover:bg-red-700 fill-red-700 hover:fill-white rounded-lg w-10 h-10"
-                  >
-                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"></path>
-                  </svg>
+                  <DeleteIcon className="sm:p-1.5 p-1 border border-red-700 hover:bg-red-700 fill-red-700 hover:fill-white rounded-lg sm:w-8 md:w-10 w-7"/>
                 </Button>
               </div>
               <div
@@ -352,9 +340,14 @@ export default function OrderListPage() {
                   <Button
                     type="button"
                     aria-label="edit"
-                    onClick={() => editStatus(eachOrderItem.id, eachOrderItem?.table?.tableNumber)}
+                    onClick={() =>
+                      editStatus(
+                        eachOrderItem.id,
+                        eachOrderItem?.table?.tableNumber
+                      )
+                    }
                   >
-                    <EditIcon className='p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100' />
+                    <EditIcon className="p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100" />
                   </Button>
                 </div>
               </div>

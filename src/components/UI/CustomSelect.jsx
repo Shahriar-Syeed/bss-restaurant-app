@@ -122,7 +122,7 @@ const CustomSelect = ({
           {options?.map((option) => (
             <li
               key={option.value}
-              className="p-2 hover:bg-gray-100 cursor-pointer"
+              className="p-2 hover:bg-gray-100 cursor-pointer text-xs sm:text-sm md:text-base"
               onClick={() => handleSelect(option)}
             >
               {option.label}

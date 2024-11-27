@@ -25,7 +25,6 @@ export default function CartWithDrawer() {
       ...orders,
       items: orders.items.map(({ foodImage, foodName, ...rest }) => rest),
       orderNumber: new Date().toISOString(),
-      // phoneNumber: JSON.parse(sessionStorage.getItem('user')).phoneNumber,
       phoneNumber: "",
     };
     cartError && console.log(cartError);
