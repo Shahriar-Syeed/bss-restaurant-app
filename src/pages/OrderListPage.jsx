@@ -1,5 +1,5 @@
 import Button from "../components/UI/Button.jsx";
-import defaultImage from "../assets/default-image-preview.png";
+// import defaultImage from "../assets/default-image-preview.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -13,8 +13,7 @@ import Loading from "../components/loader/Loading.jsx";
 import { modalActions } from "../store/modal-slice.js";
 import Modal from "../components/UI/Modal.jsx";
 import CustomSelect from "../components/UI/CustomSelect.jsx";
-import DeleteIcon from "../components/svg/DeleteIcon.jsx";
-import EditIcon from "../components/svg/EditIcon.jsx";
+import OrderCard from "../components/order/OrderCard.jsx";
 
 export default function OrderListPage() {
   const [itemsPerPage, setItemsPerPage] = useState(6);
@@ -55,7 +54,7 @@ export default function OrderListPage() {
   function editStatus(id, orderNum) {
     console.log(id);
     dispatch(openEditModal(id, orderNum));
-    console.log(orderListId);
+
   }
 
   function handelChange(e) {
@@ -63,7 +62,7 @@ export default function OrderListPage() {
     console.log("handelChange", e.sendingValue);
   }
   function confirmStatus(id, changedStatus) {
-    dispatch(changeOrderStatus(id, changedStatus));
+    dispatch(changeOrderStatus(id.id, changedStatus));
     console.log("confirmStatus", id, changedStatus);
   }
 
@@ -82,7 +81,6 @@ export default function OrderListPage() {
         }
       });
       if (node) orderObserver.current.observe(node);
-      console.log("node", node);
     },
     [orderLoading, hasMoreOrder]
   );
@@ -139,219 +137,9 @@ export default function OrderListPage() {
       <div className="grid sm:justify-between justify-center auto-cols-auto 2xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 lg:gap-5 md:gap-3.5 sm:gap-3 gap-2">
         {orderInfo?.data?.map((eachOrderItem, eachOrderItemIndex) =>
           orderInfo.data.length !== eachOrderItemIndex + 1 ? (
-            <div
-              key={eachOrderItem.id}
-              className="rounded-lg border-2 mx-auto xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white sm:w-[min(100%,_25rem)] w-[min(90%,_25rem)]"
-            >
-              <div className="flex justify-between mb-3 gap-0.5">
-                <div>
-                  <h3 className="text-md md:text-xl sm:text-lg font-bold text-stone-900/90">
-                    {eachOrderItem.orderNumber}
-                  </h3>
-                  <p className="font-bold text-stone-900/80">
-                    {eachOrderItem.orderTime}
-                  </p>
-                </div>
-                <Button
-                  type="button"
-                  onClick={() => deleteOrder(eachOrderItem.id)}
-                  className='self-start'
-                >
-                  <DeleteIcon className="sm:p-1.5 p-1 border border-red-700 hover:bg-red-700 fill-red-700 hover:fill-white rounded-lg sm:w-8 md:w-10 w-7"/>
-                </Button>
-              </div>
-              <div
-                className=" h-[12.5rem] border-b border-b-black mb-3 pb-1 overflow-y-auto [&::-webkit-scrollbar]:w-2
-          [&::-webkit-scrollbar-track]:bg-transparent
-          [&::-webkit-scrollbar-thumb]:bg-red-300 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-clip-padding"
-              >
-                {eachOrderItem?.orderItems?.map((item) => (
-                  <div key={item.id} className="flex gap-3 items-center mb-2">
-                    <div className="sm:w-12 w-10">
-                      <img
-                        src={
-                          item.food.image === ""
-                            ? defaultImage
-                            : `https://restaurantapi.bssoln.com/images/food/${item.food.image}`
-                        }
-                        alt="food image"
-                        className="w-full object-cover rounded-lg"
-                      />
-                    </div>
-                    <div className="flex-grow">
-                      <h4 className="text-md sm:text-lg font-bold mb-1">
-                        {item.food.name}
-                      </h4>
-                      <p className="flex gap-1 flex-wrap pe-2 justify-between">
-                        <span className="text-green-900 font-bold">
-                          {item.totalPrice}৳
-                        </span>
-                        <span>
-                          Qty: <strong>{item.quantity}</strong>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-1 justify-between items-center text-md">
-                <p>
-                  Total Item:{" "}
-                  <strong>{eachOrderItem?.orderItems?.length}</strong>
-                </p>
-                <p className="text-end">
-                  Table:
-                  <strong>{eachOrderItem?.table?.tableNumber}</strong>
-                </p>
-              </div>
-              <div className="flex gap-2 items-center flex-wrap">
-                <p className="whitespace-nowrap">
-                  Total:{" "}
-                  <strong className="text-green-800">
-                    {eachOrderItem.amount}
-                  </strong>
-                </p>
-                <span
-                  className={`ms-auto me-2 font-extrabold ${
-                    eachOrderItem.orderStatus === "Pending"
-                      ? "text-yellow-500"
-                      : eachOrderItem.orderStatus === "Confirmed"
-                      ? "text-blue-600"
-                      : eachOrderItem.orderStatus === "Preparing"
-                      ? "text-orange-600"
-                      : eachOrderItem.orderStatus === "PreparedToServe"
-                      ? "text-teal-600"
-                      : eachOrderItem.orderStatus === "Served"
-                      ? "text-green-600"
-                      : "text-gray-600"
-                  }`}
-                >
-                  {eachOrderItem.orderStatus}
-                </span>
-                <Button
-                  type="button"
-                  aria-label="edit"
-                  onClick={() =>
-                    editStatus(eachOrderItem.id, eachOrderItem.orderNumber)
-                  }
-                >
-                  <svg
-                    className="p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100"
-                    focusable="false"
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M3 10h11v2H3zm0-2h11V6H3zm0 8h7v-2H3zm15.01-3.13.71-.71c.39-.39 1.02-.39 1.41 0l.71.71c.39.39.39 1.02 0 1.41l-.71.71zm-.71.71-5.3 5.3V21h2.12l5.3-5.3z"></path>
-                  </svg>
-                </Button>
-              </div>
-            </div>
+            <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} />
           ) : (
-            <div
-              key={eachOrderItem.id}
-              className="rounded-lg border-2 mx-auto xl:p-10 lg:p-6 md:p-5 sm:p-4 p-3 shadow-lg bg-white sm:w-[min(100%,_25rem)] w-[min(90%,_25rem)]"
-              ref={lastOrderElementRef}
-            >
-              <div className="flex justify-between mb-3 gap-0.5">
-                <div>
-                  <h3 className="text-md md:text-xl sm:text-lg font-bold text-stone-900/90">
-                    {eachOrderItem.orderNumber}
-                  </h3>
-                  <p className="font-bold text-stone-900/80">
-                    {eachOrderItem.orderTime}
-                  </p>
-                </div>
-                <Button
-                  type="button"
-                  onClick={() => deleteOrder(eachOrderItem.id)}
-                  className="self-start"
-                >
-                  <DeleteIcon className="sm:p-1.5 p-1 border border-red-700 hover:bg-red-700 fill-red-700 hover:fill-white rounded-lg sm:w-8 md:w-10 w-7"/>
-                </Button>
-              </div>
-              <div
-                className=" h-[12.5rem] max-h-[12.5rem] border-b border-b-black mb-3 overflow-y-auto [&::-webkit-scrollbar]:w-2
-          [&::-webkit-scrollbar-track]:bg-transparent
-          [&::-webkit-scrollbar-thumb]:bg-red-300 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-clip-padding"
-              >
-                {eachOrderItem?.orderItems?.map((item) => (
-                  <div key={item.id} className="flex gap-3 items-center">
-                    <div className="sm:w-12 w-10">
-                      <img
-                        src={
-                          item.food.image === ""
-                            ? defaultImage
-                            : `https://restaurantapi.bssoln.com/images/food/${item.food.image}`
-                        }
-                        alt="food image"
-                        className="w-full object-cover rounded-lg"
-                      />
-                    </div>
-                    <div className="flex-grow">
-                      <h4 className="text-md sm:text-lg font-bold mb-1">
-                        {item.food.name}
-                      </h4>
-                      <p className="pe-2">
-                        <span className="text-green-900 font-bold">
-                          {item.totalPrice}৳
-                        </span>
-                        <span className="float-end">
-                          Qty: <strong>{item.quantity}</strong>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-2 gap-2 justify-between text-md sm:text-lg">
-                <p>
-                  Total Item:{" "}
-                  <strong>{eachOrderItem?.orderItems?.length}</strong>
-                </p>
-                <p className="text-end">
-                  Table:
-                  <strong>{eachOrderItem?.table?.tableNumber}</strong>
-                </p>
-                <p>
-                  Total:{" "}
-                  <strong className="text-green-800">
-                    {eachOrderItem.amount}
-                  </strong>
-                </p>
-                <div className="flex justify-end items-center">
-                  <span
-                    className={`me-2 font-extrabold ${
-                      eachOrderItem.orderStatus === "Pending"
-                        ? "text-yellow-500"
-                        : eachOrderItem.orderStatus === "Confirmed"
-                        ? "text-blue-600"
-                        : eachOrderItem.orderStatus === "Preparing"
-                        ? "text-orange-600"
-                        : eachOrderItem.orderStatus === "PreparedToServe"
-                        ? "text-tale-600"
-                        : eachOrderItem.orderStatus === "Served"
-                        ? "text-green-600"
-                        : "text-gray-600"
-                    }`}
-                  >
-                    {eachOrderItem.orderStatus}
-                  </span>
-                  <Button
-                    type="button"
-                    aria-label="edit"
-                    onClick={() =>
-                      editStatus(
-                        eachOrderItem.id,
-                        eachOrderItem?.table?.tableNumber
-                      )
-                    }
-                  >
-                    <EditIcon className="p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100" />
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} ref={lastOrderElementRef}/>
           )
         )}
       </div>

@@ -1,11 +1,10 @@
-import { useState } from "react";
 import Button from "../UI/Button.jsx";
-import defaultImage from "../../assets/default-image-preview.png";
 import OrderDetails from "./OrderDetails.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder, toggleCartDrawer } from "../../store/cart-actions.js";
 import Loading from "../loader/Loading.jsx";
 import EmptyCartSvg from "../svg/EmptyCartSvg.jsx";
+import CloseIcon from "../svg/CloseIcon.jsx";
 
 export default function CartWithDrawer() {
   const dispatch = useDispatch();
@@ -66,21 +65,7 @@ export default function CartWithDrawer() {
           className="text-gray-400 bg-primary hover:bg-opacity-35  rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center z-50"
           onClick={toggle}
         >
-          <svg
-            className="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
+          <CloseIcon className="w-3 h-3"/>
           <span className="sr-only">Close menu</span>
         </Button>
         <div

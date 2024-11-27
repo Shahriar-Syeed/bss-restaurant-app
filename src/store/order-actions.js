@@ -54,6 +54,7 @@ export const changeOrderStatus = (id, status) => {
     }
   };
 };
+
 export const openEditModal = (id, orderNo) => {
   return async (dispatch) => {
     dispatch(modalActions.id({id:id, orderNumber: orderNo}));
@@ -61,30 +62,13 @@ export const openEditModal = (id, orderNo) => {
     dispatch(modalActions.open());
   };
 };
+
 export const storeStatus = (status) => {
   return async (dispatch) => {
     dispatch(orderActions.setStatus(status));
-    // try {
-    //   const response = await axios.put(
-    //     `https://restaurantapi.bssoln.com/api/Order/update-status/${id}`, status
-    //   );
-    //   console.log(response);
-    //   if(response.status === 200){
-    //     dispatch(orderActions.changeStatusOfOrder({id, status}));
-    //   }
-    //   dispatch(orderActions.setLoading(false));
-    // } catch (error) {
-    //   dispatch(orderActions.setLoading(false));
-    //   console.log(error);
-    //   dispatch(orderActions.errorMessage(error.message));
-    //   dispatch(modalActions.open());
-    //   console.log(error);
-    //   setTimeout(() => {
-    //     dispatch(modalActions.close());
-    //   }, 3000);
-    // }
   };
 };
+
 export const removeOrder = (id) => {
   return async (dispatch) => {
     dispatch(orderActions.setLoading(true));

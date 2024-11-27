@@ -72,7 +72,7 @@ export default function EmployeeTablesListPage() {
         title="All Table List"
         buttonLabel="ADD TABLE"
         buttonOnClick={() =>
-          navigate("/bss-restaurant-app/admin/tables/add-table")
+          navigate("add-table")
         }
       />
       <div className="shadow-md sm:rounded-t-lg">

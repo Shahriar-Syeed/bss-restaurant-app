@@ -131,9 +131,10 @@ export default function NewOrderPage() {
           errorModalId === "cart-error")) ||
         cartSuccess) && (
         <Modal open={isOpen} onClose={closeModal}>
-          <h1>Failed fetching data!</h1>
           {cartSuccess ? (
-            <p>Order Create Success!</p>
+            <p className="font-bold text-green-800 lg:text-xl md:text-lg sm:text-md">
+              Order Create Success!
+            </p>
           ) : (
             <p>
               {foodErrorMessage ||
@@ -179,7 +180,7 @@ export default function NewOrderPage() {
                         : `https://restaurantapi.bssoln.com/images/table/${table.image}`
                     }
                     alt="table"
-                    className="w-24 h-20 lg:rounded-lg object-cover"
+                    className="w-24 max-h-16 rounded-lg object-cover"
                   />
                   <span className="md:font-semibold font-medium lg:font-bold lg:text-xl md:text-lg sm:text-base text-base">
                     {table.tableNumber}
