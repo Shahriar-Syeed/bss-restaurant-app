@@ -51,16 +51,18 @@ export default function RowTableFoodList({ food, deleteFood }) {
           scope="row"
           className="flex sm:table-cell justify-center md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
         >
-          <img
-            src={
-              food.image
-                ? `https://restaurantapi.bssoln.com/images/food/${food.image}`
-                : "../assets/default-image-preview.png"
-            }
-            alt={food.name}
-            className="sm:w-10 sm:h-10 w-16 h-16 rounded-lg object-cover"
-            title={food.name}
-          />
+          <div className="overflow-hidden sm:w-10 sm:h-10 w-16 h-16 rounded-lg">
+            <img
+              src={
+                food.image
+                  ? `https://restaurantapi.bssoln.com/images/food/${food.image}`
+                  : "../assets/default-image-preview.png"
+              }
+              alt={food.name}
+              className="w-full h-full object-cover"
+              title={food.name}
+            />
+          </div>
         </th>
         <td
           className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 break-words md:break-normal"

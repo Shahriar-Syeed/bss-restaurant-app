@@ -196,17 +196,19 @@ export default function FoodEditPage() {
               >
                 {""}
               </Input>              
-              <img
-                src={
-                  previewImage
-                    ? previewImage
-                    : foodData?.image
-                    ? `https://restaurantapi.bssoln.com/images/food/${foodData?.image}`
-                    : defaultImage
-                }
-                alt={foodData?.name}
-                className="max-w-48 object-cover rounded-lg "
-              />
+              <div className="overflow-hidden max-w-48 rounded-lg">
+                <img
+                  src={
+                    previewImage
+                      ? previewImage
+                      : foodData?.image
+                      ? `https://restaurantapi.bssoln.com/images/food/${foodData?.image}`
+                      : defaultImage
+                  }
+                  alt={foodData?.name}
+                  className="w-full object-cover rounded-lg "
+                />
+              </div>
             </div>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 md:col-start-1 md:-col-end-1">

@@ -80,11 +80,11 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin"
                 className="flex items-center p-2 text-primary rounded-lg text-primary"
               >
-                <div className="h-10 w-10 ">
+                <div className="h-10 w-10 rounded-50 overflow-hidden">
                   <img
                     src={adminImage}
                     alt="User Image"
-                    className="w-full h-full object-cover rounded-50"
+                    className="w-full object-cover"
                   />
                 </div>
                 <div className="ms-3 d">

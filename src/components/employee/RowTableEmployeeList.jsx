@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "../UI/Modal";
-import { modalActions } from "../../store/modal-slice";
+import Modal from "../UI/Modal.jsx";
+import { modalActions } from "../../store/modal-slice.js";
+import defaultImage from "../../assets/default-image-preview.png";
 
 export default function RowTableEmployeeList({ deleteEmployee }) {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
               src={
                 employee.user.image
                   ? `https://restaurantapi.bssoln.com/images/user/${employee.user.image}`
-                  : "../assets/default-image-preview.png"
+                  : defaultImage
               }
               alt="Admin image"
               className="sm:w-10 sm:h-10 w-16 h-16 rounded-lg object-cover"

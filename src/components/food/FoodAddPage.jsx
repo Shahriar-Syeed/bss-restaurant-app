@@ -199,10 +199,12 @@ export default function FoodAddPage() {
               >
                 {""}
               </Input>
-              <img
-                src={previewImage ? previewImage : defaultImage}
-                className="h-40"
-              />
+              <div className="overflow-hidden h-40 rounded-lg">
+                <img
+                  src={previewImage ? previewImage : defaultImage}
+                  className="h-full w-full object-cover"
+                />
+              </div>
             </div>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1">

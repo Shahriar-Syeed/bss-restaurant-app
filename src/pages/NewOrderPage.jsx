@@ -304,7 +304,7 @@ export default function NewOrderPage() {
                   className="food-card p-3 shadow-md grid lg:grid-cols-4 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5 border hover:border-red-900 rounded-sm"
                   ref={lastMenuElementRef}
                 >
-                  <div className="lg:row-span-4 place-self-center max-w-52">
+                  <div className="lg:row-span-4 place-self-center max-w-52 rounded-lg overflow-hidden">
                     <img
                       src={
                         menuItem.image

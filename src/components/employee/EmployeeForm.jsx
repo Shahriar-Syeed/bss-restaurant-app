@@ -181,10 +181,13 @@ export default function EmployeeForm() {
                 labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
                 onChange={onSelectFile}
               >{``}</Input>
+              <div className="max-w-36 h-36 overflow-hidden rounded-lg">
+
               <img
                 src={previewImage || defaultImage}
-                className="h-36 object-cover"
+                className="w-full h-full object-cover"
               />
+              </div>
             </div>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1 relative">

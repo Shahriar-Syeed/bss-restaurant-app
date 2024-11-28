@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialEmployees = {
   employeeDataTable: {},
-  employeesRowData: [],
   selectedEmployeeImage: undefined,
   preview: undefined,
   status: null,
@@ -32,7 +31,6 @@ const employeeSlice = createSlice({
     errorMessage(state, action) {
       state.error = action.payload;
     },
-
     removeEmployee(state, action) {
       state.employeeDataTable = {
         ...state.employeeDataTable,

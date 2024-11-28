@@ -6,7 +6,9 @@ export default function Navbar({ children }) {
       <nav className="bg-primary top-0 z-20">
         <div className="flex flex-wrap items-center justify-between py-4 sm:px-10 ps-2 pe-3 ">
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src={Logo} alt="Logo" className=" mx-auto h-8" />
+            <div className="mx-auto h-8">
+              <img src={Logo} alt="Logo" className=" w-full h-full" />
+            </div>
             <h2 className=" text-center text-white font-semibold whitespace-nowrap">
               BSS RESTAURANT
             </h2>

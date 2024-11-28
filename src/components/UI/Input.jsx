@@ -10,6 +10,7 @@ export default function Input({
   eyeButton,
   labelClass,
   outerClassName,
+  errorClass,
   ...props
 }) {
   const [toggle, setToggle] = useState(false);
@@ -78,7 +79,7 @@ export default function Input({
             </label>
             <input {...props} id={id} name={id} />
           </div>
-          <div className="control-error">{error && <p>{error}</p>}</div>
+          <div className={errorClass && errorClass}>{error && <p>{error}</p>}</div>
         </>
       )}
     </>
