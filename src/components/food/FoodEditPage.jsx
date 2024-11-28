@@ -14,8 +14,21 @@ import { modalActions } from "../../store/modal-slice.js";
 import { foodActions } from "../../store/food-slice.js";
 import { convertBase64 } from "../../store/employee-actions.js";
 import Modal from "../UI/Modal.jsx";
+import useFormValidation from "../../customHooks/useFormValidation.js";
+import validateFoodEntry from "../utility/foodValidationUtility.js";
 
 export default function FoodEditPage() {
+  const { formData, errors, handleChange, handleBlur, validateFields, hasError}= useFormValidation(
+    {
+      name: '',
+      description: '',
+      price: 0,
+      discount: 0,
+      discountPrice: 0,
+    },
+    validateFoodEntry,
+    ['price', 'discount', 'discountPrice']
+  );
   const foodImageRef = useRef();
   const param = useParams();
   const navigate = useNavigate();
@@ -68,7 +81,7 @@ export default function FoodEditPage() {
 
   async function handleEdit(e) {
     e.preventDefault();
-    const fetchData = new FormData(e.target);
+   if(!hasError()){ const fetchData = new FormData(e.target);
     const initialData = Object.fromEntries(fetchData.entries());
     console.log(initialData.description);
     
@@ -112,7 +125,7 @@ export default function FoodEditPage() {
         }catch(error){
           console.error("Failed to update designation:", error);
         }
-      }
+      }}
     }
   
 
@@ -163,7 +176,7 @@ export default function FoodEditPage() {
         buttonOnClick={() => navigate("../")}
       />
       <form onSubmit={handleEdit}>
-        <section className="grid lg:grid-cols-12 md:grid-cols-2 lg:gap-4 gap-4 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
+        <section className="grid lg:grid-cols-12 md:grid-cols-2 gap-x-4 gap-y-5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
           <h2 className="col-start-1 lg:col-end-9 md:-col-end-1 font-bold">
             <u>Id : {foodData?.id}</u>
           </h2>
@@ -182,7 +195,7 @@ export default function FoodEditPage() {
                 onChange={onSelectFile}
               >
                 {""}
-              </Input>
+              </Input>              
               <img
                 src={
                   previewImage
@@ -204,9 +217,16 @@ export default function FoodEditPage() {
               outerClassName="lg:flex gap-3 items-center"
               labelClass="font-bold block"
               id="name"
+              onChange={handleChange}
+              onBlur={handleBlur}
             >
               Food Name:
             </Input>
+            {errors?.name && (
+              <span className="absolute text-xs text-red-600 py-0.5 ps-28">
+                {errors?.name}
+              </span>
+            )}
           </div>
           <div className="lg:col-start-1 lg:col-end-9 md:col-start-1 md:-col-end-1">
             <TextArea
@@ -216,20 +236,35 @@ export default function FoodEditPage() {
               labelClass="font-bold block text-stone-900"
               id="description"
               label
+              onChange={handleChange}
+              onBlur={handleBlur}
             >
               Description:
             </TextArea>
+            {errors?.description && (
+              <span className="absolute text-xs text-red-600 py-0.5 ps-28">
+                {errors?.description}
+              </span>
+            )}
           </div>
           <div className="lg:col-start-1 lg:col-end-4">
             <Input
               placeholder={foodData?.price}
               defaultValue={foodData?.price}
+              value={formData.price}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 w-full"
               labelClass="font-bold"
               id="price"
+              onChange={handleChange}
+              onBlur={handleBlur}
             >
               Price in(&#2547;):
             </Input>
+            {errors?.price && (
+              <span className="absolute text-xs text-red-600 py-0.5 ps-3">
+                {errors?.price}
+              </span>
+            )}
           </div>
           <div className="lg:col-start-4 lg:col-end-7">
             <Select
@@ -253,22 +288,38 @@ export default function FoodEditPage() {
               labelClassName="text-stone-900 font-bold"
               labelClass="font-bold block"
               id="discount"
+              onChange={handleChange}
+              onBlur={handleBlur}
             >
               Discount :
             </Input>
+            {errors?.discount && (
+              <span className="absolute text-xs text-red-600 py-0.5 ps-3">
+                {errors?.discount}
+              </span>
+            )}
+            
           </div>
           <div className="lg:col-start-10 lg:col-end-13 pt-1">
             <Input
               placeholder={foodData?.discountPrice}
               defaultValue={foodData?.discountPrice}
+              value={formData.discountPrice}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 w-full"
               outerClassName="block "
               labelClassName="text-stone-900 font-bold"
               labelClass="font-bold block"
               id="discountPrice"
+              onChange={handleChange}
+              onBlur={handleBlur}
             >
               Discount Price (&#2547;) :
             </Input>
+            {errors?.discountPrice && (
+              <span className="absolute text-xs text-red-600 py-0.5 ps-3">
+                {errors?.discountPrice}
+              </span>
+            )}
           </div>
           <div className="col-start-1 -col-end-1 pt-1">
             <Button

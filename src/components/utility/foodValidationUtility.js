@@ -30,6 +30,22 @@
       }
       break;
 
+    case "discount":
+      if (value<=0) {
+        error = "Price is required.";
+      } else if (!value.trim()){
+        error = "Price can not be empty.";
+      }
+      break;
+
+    case "discountPrice":
+      if (value<=0) {
+        error = "Price is required.";
+      } else if (!value.trim()){
+        error = "Price can not be empty.";
+      }
+      break;
+
     default:
       break;
   }
