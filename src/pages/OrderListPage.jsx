@@ -14,18 +14,19 @@ import { modalActions } from "../store/modal-slice.js";
 import Modal from "../components/UI/Modal.jsx";
 import CustomSelect from "../components/UI/CustomSelect.jsx";
 import OrderCard from "../components/order/OrderCard.jsx";
+import usePageItems from "../customHooks/usePagesItems.js";
 
 export default function OrderListPage() {
-  const [itemsPerPage, setItemsPerPage] = useState(6);
   const dispatch = useDispatch();
 
   const orderInfo = useSelector((state) => state.order.orderDataTable);
+  const orderLoading = useSelector((state) => state.order.loading);
   const orderId = useSelector((state) => state.order.orderId);
   const status = useSelector((state) => state.order.status);
-  const orderLoading = useSelector((state) => state.order.loading);
   const errorMessage = useSelector((state) => state.order.error);
 
-  const hasMoreOrder = orderInfo.totalRecords - itemsPerPage;
+  const { itemsPerPage, lastElementRef} = usePageItems(2,1, orderInfo, orderLoading );
+
 
   const statusOption = [
     { value: 0, label: "Pending", sendingValue: 0 },
@@ -39,12 +40,12 @@ export default function OrderListPage() {
 
   const isOpen = useSelector((state) => state.modal.open);
   const orderListId = useSelector((state) => state.modal.id);
-  function closeModal() {
-    dispatch(modalActions.close());
-  }
+  const closeModal=()=> dispatch(modalActions.close());
+  
 
   useEffect(() => {
     dispatch(getOrder(itemsPerPage));
+    console.log(itemsPerPage);
   }, [itemsPerPage, dispatch]);
 
   function deleteOrder(id) {
@@ -66,24 +67,7 @@ export default function OrderListPage() {
     console.log("confirmStatus", id, changedStatus);
   }
 
-  const orderObserver = useRef();
-  const lastOrderElementRef = useCallback(
-    (node) => {
-      if (orderLoading) return;
-      if (orderObserver.current) orderObserver.current.disconnect();
-      orderObserver.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMoreOrder > 0) {
-          if (itemsPerPage + 3 < orderInfo.totalRecords) {
-            setItemsPerPage((prevTableCount) => prevTableCount + 3);
-          } else {
-            setItemsPerPage(orderInfo.totalRecords);
-          }
-        }
-      });
-      if (node) orderObserver.current.observe(node);
-    },
-    [orderLoading, hasMoreOrder]
-  );
+  
   return (
     <>
       {orderLoading && <Loading fullHeightWidth />}
@@ -139,7 +123,7 @@ export default function OrderListPage() {
           orderInfo.data.length !== eachOrderItemIndex + 1 ? (
             <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} />
           ) : (
-            <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} ref={lastOrderElementRef}/>
+            <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} ref={lastElementRef}/>
           )
         )}
       </div>
