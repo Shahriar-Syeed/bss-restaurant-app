@@ -25,6 +25,9 @@ export default function EmployeeForm() {
         firstName: "",
         middleName: "",
         lastName: "",
+        fatherName:"",
+        motherName:"",
+        spouseName:"",
         email: "",
         phoneNumber: "",
         designation: "",
@@ -53,7 +56,9 @@ export default function EmployeeForm() {
   const isOpen = useSelector((state) => state.modal.open);
 
   function openModal() {
-    if(!hasError()){
+    const validationError = validateFields();
+    console.log("AAAAAAAaaa",Object.keys(validationError));
+    if(!hasError() && Object.keys(validationError).length === 0){
       dispatch(modalActions.id("employee-create-confirmation"));
       dispatch(modalActions.open());
     }

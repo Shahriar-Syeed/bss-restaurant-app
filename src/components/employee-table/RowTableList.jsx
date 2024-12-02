@@ -157,12 +157,6 @@ export default function RowEmployeeTableList({
                     className="rounded-50 h-6 w-6 grid place-items-center text-stone-400 hover:text-red-500 stroke-transparent"
                     type="button"
                     onClick={() => {
-                      // if (
-                      //   window.confirm(
-                      //     "Are you sure you want to remove this employee from this table?"
-                      //   )
-                      // )
-                      // handleDeleteEmployeeFromTable(tableInfoData.id,emp.employeeTableId);
                       openDeleteConfirmationModal(
                         tableInfoData.id,
                         emp.employeeTableId

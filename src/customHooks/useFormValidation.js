@@ -13,8 +13,6 @@ export default function useFormValidation(initialState, validateInput, isNumeric
       if(isNumericInput.includes(name)){
         sanitizedValue = value.replace(/\D/g,'');
       }
-   
-
     
     setFromData((prev) => ({
       ...prev,
@@ -46,13 +44,17 @@ export default function useFormValidation(initialState, validateInput, isNumeric
 
   const validateFields = () => {
     const finalErrors = {};
+    const updateTouched = {};
     Object.keys(formData).forEach((field) => {
       const fieldError = validateInput(field, formData[field]);
+      console.log('alif',field,fieldError,formData);
       if (fieldError) {
         finalErrors[field] = fieldError;
       }
+      updateTouched[field] = true;
     });
     setErrors(finalErrors);
+    setTouched(updateTouched);
     return finalErrors;
   };
   const hasError = () => Object.values(errors).some((error) => error !== "");

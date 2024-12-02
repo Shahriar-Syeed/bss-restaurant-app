@@ -162,7 +162,12 @@ input {
 .bg-gradient-transparent-to-white{
   background: linear-gradient(to top, transparent 57%, white 43%);
 }
+@media (min-width: 1280px){
+  .bg-gradient-transparent-to-white{
+    background: linear-gradient(to top, transparent 55%, white 45%);
+  }
 
+}
 
 table td[data-th]:before {
   content: attr(data-th);
