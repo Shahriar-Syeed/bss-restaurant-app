@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import defaultImage from "../../assets/default-image-preview.png";
 import Input from "../UI/Input";
 import Button from "../UI/Button.jsx";
-import {  useMemo } from "react";
+import { useMemo } from "react";
 import { editEmployeeDesignation } from "../../store/employee-actions.js";
 import Loading from "../loader/Loading.jsx";
 import useFormValidation from "../../customHooks/useFormValidation.js";
@@ -42,8 +42,8 @@ export default function EmployeeEditPage() {
 
   async function handleEdit(e) {
     e.preventDefault();
-
-    if (!hasError()) {
+    const validationError = validateFields();
+    if (!hasError() && Object.keys(validationError).length === 0) {
       if (window.confirm("Do you really want to change designation?")) {
         try {
           const res = await dispatch(
@@ -73,15 +73,15 @@ export default function EmployeeEditPage() {
         </h2>
         <div className="col-start-1 -col-end-1">
           <div className="max-w-44 max-h-44 object-cover rounded-lg overflow-hidden">
-          <img
-            src={
-              employeeInfo?.user?.image
-                ? `https://restaurantapi.bssoln.com/images/user/${employeeInfo.user.image}`
-                : defaultImage
-            }
-            alt={employeeInfo?.user?.fullName}
-            className="w-full object-cover "
-          />
+            <img
+              src={
+                employeeInfo?.user?.image
+                  ? `https://restaurantapi.bssoln.com/images/user/${employeeInfo.user.image}`
+                  : defaultImage
+              }
+              alt={employeeInfo?.user?.fullName}
+              className="w-full object-cover "
+            />
           </div>
         </div>
         <p>
@@ -100,7 +100,7 @@ export default function EmployeeEditPage() {
         <p>
           <strong>Address:</strong> {employeeInfo?.user?.address}
         </p>
-        <form onSubmit={handleEdit} className="col-start-1 -col-end-1  " >
+        <form onSubmit={handleEdit} className="col-start-1 -col-end-1  ">
           <Input
             placeholder={employeeInfo?.designation}
             className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 min-w-44"
@@ -120,7 +120,11 @@ export default function EmployeeEditPage() {
                 {errors?.designation}
               </span>
             )} */}
-          <Button type="submit" title="Change designation" className="align-middle ms-3">
+          <Button
+            type="submit"
+            title="Change designation"
+            className="align-middle ms-3"
+          >
             <ForwardIcon className="fill-primary hover:fill-red-800" />
           </Button>
         </form>

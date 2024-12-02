@@ -19,25 +19,31 @@ import useFormValidation from "../../customHooks/useFormValidation.js";
 import validateEmployeeEntry from "../utility/employeeValidationUtility.js";
 
 export default function EmployeeForm() {
-  const { formData, errors, handleChange, handleBlur, validateFields, hasError } =
-    useFormValidation(
-      {
-        firstName: "",
-        middleName: "",
-        lastName: "",
-        fatherName:"",
-        motherName:"",
-        spouseName:"",
-        email: "",
-        phoneNumber: "",
-        designation: "",
-        dob: "",
-        joinDate: "",
-        nid: 0,
-      },
-      validateEmployeeEntry,
-      ['phoneNumber', 'nid']
-    );
+  const {
+    formData,
+    errors,
+    handleChange,
+    handleBlur,
+    validateFields,
+    hasError,
+  } = useFormValidation(
+    {
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      fatherName: "",
+      motherName: "",
+      spouseName: "",
+      email: "",
+      phoneNumber: "",
+      designation: "",
+      dob: "",
+      joinDate: "",
+      nid: 0,
+    },
+    validateEmployeeEntry,
+    ["phoneNumber", "nid"]
+  );
   const forwardRef = useRef();
 
   const imageCaptureRef = useRef();
@@ -57,8 +63,7 @@ export default function EmployeeForm() {
 
   function openModal() {
     const validationError = validateFields();
-    console.log("AAAAAAAaaa",Object.keys(validationError));
-    if(!hasError() && Object.keys(validationError).length === 0){
+    if (!hasError() && Object.keys(validationError).length === 0) {
       dispatch(modalActions.id("employee-create-confirmation"));
       dispatch(modalActions.open());
     }
@@ -187,16 +192,19 @@ export default function EmployeeForm() {
                 onChange={onSelectFile}
               >{``}</Input>
               <div className="max-w-36 h-36 overflow-hidden rounded-lg">
-
-              <img
-                src={previewImage || defaultImage}
-                className="w-full h-full object-cover"
-              />
+                <img
+                  src={previewImage || defaultImage}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1 relative">
-            <InputFloating name="firstName" onChange={handleChange} onBlur={handleBlur} >
+            <InputFloating
+              name="firstName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
               First Name
             </InputFloating>
             {errors?.firstName && (
@@ -206,7 +214,13 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-2 relative">
-            <InputFloating name="middleName" onChange={handleChange} onBlur={handleBlur} >Middle Name</InputFloating>
+            <InputFloating
+              name="middleName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              Middle Name
+            </InputFloating>
             {errors?.middleName && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
                 {errors?.middleName}
@@ -214,7 +228,13 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-3 relative">
-            <InputFloating name="lastName" onChange={handleChange} onBlur={handleBlur} >Last Name</InputFloating>
+            <InputFloating
+              name="lastName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              Last Name
+            </InputFloating>
             {errors?.lastName && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
                 {errors?.lastName}
@@ -222,7 +242,13 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-4 relative">
-            <InputFloating name="fatherName" onChange={handleChange} onBlur={handleBlur}>Father Name</InputFloating>
+            <InputFloating
+              name="fatherName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              Father Name
+            </InputFloating>
             {errors?.fatherName && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
                 {errors?.fatherName}
@@ -230,7 +256,13 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-4">
-            <InputFloating name="motherName" onChange={handleChange} onBlur={handleBlur}>Mother Name</InputFloating>
+            <InputFloating
+              name="motherName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              Mother Name
+            </InputFloating>
             {errors?.motherName && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
                 {errors?.motherName}
@@ -238,7 +270,13 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-4 relative">
-            <InputFloating name="spouseName" onChange={handleChange} onBlur={handleBlur}>Spouse Name</InputFloating>
+            <InputFloating
+              name="spouseName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              Spouse Name
+            </InputFloating>
             {errors?.spouseName && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
                 {errors?.spouseName}
@@ -246,7 +284,13 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-4 relative">
-            <InputFloating name="designation" onChange={handleChange} onBlur={handleBlur} >Designation</InputFloating>
+            <InputFloating
+              name="designation"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              Designation
+            </InputFloating>
             {errors?.designation && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
                 {errors?.designation}
@@ -254,7 +298,13 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-4 relative">
-            <InputFloating name="email" onChange={handleChange} onBlur={handleBlur} >Email</InputFloating>
+            <InputFloating
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              Email
+            </InputFloating>
             {errors?.email && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
                 {errors?.email}
@@ -262,7 +312,14 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-4 relative">
-            <InputFloating name="phoneNumber" onChange={handleChange} onBlur={handleBlur} value={formData.phoneNumber} >Phone Number</InputFloating>
+            <InputFloating
+              name="phoneNumber"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={formData.phoneNumber}
+            >
+              Phone Number
+            </InputFloating>
             {errors?.phoneNumber && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
                 {errors?.phoneNumber}
@@ -274,7 +331,9 @@ export default function EmployeeForm() {
               name="genderId"
               label="Gender"
               options={genderOptions}
-              maximumHeight="60" onChange={handleChange} onBlur={handleBlur}
+              maximumHeight="60"
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
             {errors?.genderId && (
               <span className="absolute text-xs text-red-600 py-0.5 ps-3">
@@ -283,7 +342,12 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-3 relative">
-            <InputFloating type="date" name="dob" onChange={handleChange} onBlur={handleBlur} >
+            <InputFloating
+              type="date"
+              name="dob"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
               Date of Birth
             </InputFloating>
             {errors?.dob && (
@@ -293,7 +357,12 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-3 relative">
-            <InputFloating type="date" name="joinDate" onChange={handleChange} onBlur={handleBlur} >
+            <InputFloating
+              type="date"
+              name="joinDate"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
               Date of Join
             </InputFloating>
             {errors?.joinDate && (
@@ -303,7 +372,12 @@ export default function EmployeeForm() {
             )}
           </div>
           <div className="lg:col-span-3 relative">
-            <InputFloating type="number" name="nid" onChange={handleChange} onBlur={handleBlur} >
+            <InputFloating
+              type="number"
+              name="nid"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
               NID
             </InputFloating>
             {errors?.nid && (

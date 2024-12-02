@@ -1,4 +1,4 @@
- const validateEmployeeEntry = (name, value) => {
+const validateEmployeeEntry = (name, value) => {
   let error = "";
 
   switch (name) {
@@ -83,7 +83,7 @@
     case "gender":
       if (!value) {
         error = "Gender select please.";
-      } 
+      }
       break;
 
     case "designation":
@@ -116,7 +116,7 @@
       const nidRegex = /^(?:\d{10}|\d{17})$/;
       if (!value) {
         error = "NID is required.";
-      } else if ( !nidRegex.test(value)) {
+      } else if (!nidRegex.test(value)) {
         error = "10 or 17 digits.";
       }
       break;

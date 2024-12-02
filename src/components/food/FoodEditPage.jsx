@@ -8,7 +8,10 @@ import Input from "../UI/Input.jsx";
 import Button from "../UI/Button.jsx";
 import TextArea from "../UI/TextArea.jsx";
 import Select from "../UI/Select.jsx";
-import { getSingleFoodItem, updateSingleFoodItem } from "../../store/food-actions.js";
+import {
+  getSingleFoodItem,
+  updateSingleFoodItem,
+} from "../../store/food-actions.js";
 import { modalActions } from "../../store/modal-slice.js";
 
 import { foodActions } from "../../store/food-slice.js";
@@ -18,16 +21,23 @@ import useFormValidation from "../../customHooks/useFormValidation.js";
 import validateFoodEntry from "../utility/foodValidationUtility.js";
 
 export default function FoodEditPage() {
-  const { formData, errors, handleChange, handleBlur, validateFields, hasError}= useFormValidation(
+  const {
+    formData,
+    errors,
+    handleChange,
+    handleBlur,
+    validateFields,
+    hasError,
+  } = useFormValidation(
     {
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       price: 0,
       discount: 0,
       discountPrice: 0,
     },
     validateFoodEntry,
-    ['price', 'discount', 'discountPrice']
+    ["price", "discount", "discountPrice"]
   );
   const foodImageRef = useRef();
   const param = useParams();
@@ -54,7 +64,6 @@ export default function FoodEditPage() {
     dispatch(modalActions.id(null));
     dispatch(modalActions.close());
   }
- 
 
   useEffect(() => {
     dispatch(getSingleFoodItem(param.foodId));
@@ -81,58 +90,69 @@ export default function FoodEditPage() {
 
   async function handleEdit(e) {
     e.preventDefault();
-   if(!hasError()){ const fetchData = new FormData(e.target);
-    const initialData = Object.fromEntries(fetchData.entries());
-    console.log(initialData.description);
-    
-    delete initialData.foodImage;
-    const data =  {
-      ...initialData,
-      discount: Number(initialData.discount),
-        discountType:  Number(initialData.discountType),
+    const validationError = validateFields();
+    if (!hasError() && Object.keys(validationError).length === 0) {
+      const fetchData = new FormData(e.target);
+      const initialData = Object.fromEntries(fetchData.entries());
+      console.log(initialData.description);
+
+      delete initialData.foodImage;
+      const data = {
+        ...initialData,
+        discount: Number(initialData.discount),
+        discountType: Number(initialData.discountType),
         discountPrice: Number(initialData.discountPrice),
         price: Number(initialData.price),
-    };
-    const conditionCheck = foodData.discountType ===  DISCOUNT_OPTION.find((option)=>option.value === data.discountType)?.label && foodData.discount === data.discount && foodData.discountPrice === data.discountPrice && foodData.price === data.price && foodData.description === data.description && !foodImageRef?.current;
- 
-    if(conditionCheck){
-      navigate('../');
-      return;
-    }
+      };
+      const conditionCheck =
+        foodData.discountType ===
+          DISCOUNT_OPTION.find((option) => option.value === data.discountType)
+            ?.label &&
+        foodData.discount === data.discount &&
+        foodData.discountPrice === data.discountPrice &&
+        foodData.price === data.price &&
+        foodData.description === data.description &&
+        !foodImageRef?.current;
 
-    if (window.confirm("Do you really want to change food information?")) {
-      delete initialData.foodImage;
-      let finalData ={}
-      if(foodImageRef?.current){
-
-        finalData = {
-         ...data,
-         base64: (await convertBase64(foodImageRef?.current)) ?? "",
-         image: foodImageRef?.current?.name ?? "",
-       };
-      }else {
-        finalData={
-          ...data,
-          base64: '',
-        }
+      if (conditionCheck) {
+        navigate("../");
+        return;
       }
-        try{
-          const res = await dispatch(updateSingleFoodItem(param.foodId,finalData));
-       
+
+      if (window.confirm("Do you really want to change food information?")) {
+        delete initialData.foodImage;
+        let finalData = {};
+        if (foodImageRef?.current) {
+          finalData = {
+            ...data,
+            base64: (await convertBase64(foodImageRef?.current)) ?? "",
+            image: foodImageRef?.current?.name ?? "",
+          };
+        } else {
+          finalData = {
+            ...data,
+            base64: "",
+          };
+        }
+        try {
+          const res = await dispatch(
+            updateSingleFoodItem(param.foodId, finalData)
+          );
+
           console.log(res);
-  
-        res === 'success' && navigate('../');
-        }catch(error){
+
+          res === "success" && navigate("../");
+        } catch (error) {
           console.error("Failed to update designation:", error);
         }
-      }}
+      }
     }
-  
+  }
 
   return (
     <>
       {isLoading && <Loading fullHeightWidth />}
-      {errorEditFood && (modalId === "updateSingleFoodFail") && (
+      {errorEditFood && modalId === "updateSingleFoodFail" && (
         <Modal open={isOpen} onClose={closeModal}>
           <h1>Failed!</h1>
           {errorEditFood ? (
@@ -151,7 +171,7 @@ export default function FoodEditPage() {
           </div>
         </Modal>
       )}
-      {errorEditFood && (modalId === "getSingleFoodFail") && (
+      {errorEditFood && modalId === "getSingleFoodFail" && (
         <Modal open={isOpen} onClose={closeModal}>
           <h1>Failed!</h1>
           {errorEditFood ? (
@@ -195,7 +215,7 @@ export default function FoodEditPage() {
                 onChange={onSelectFile}
               >
                 {""}
-              </Input>              
+              </Input>
               <div className="overflow-hidden max-w-48 rounded-lg">
                 <img
                   src={
@@ -213,7 +233,7 @@ export default function FoodEditPage() {
           </div>
           <div className="lg:col-start-1 lg:col-end-9 md:col-start-1 md:-col-end-1">
             <Input
-              placeholder={ foodData?.name}
+              placeholder={foodData?.name}
               defaultValue={foodData?.name}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 lg:flex-1 w-full lg:w-auto"
               outerClassName="lg:flex gap-3 items-center"
@@ -270,7 +290,11 @@ export default function FoodEditPage() {
           </div>
           <div className="lg:col-start-4 lg:col-end-7">
             <Select
-            defaultValue={DISCOUNT_OPTION?.find((option)=>option.label === foodData?.discountType)?.value}
+              defaultValue={
+                DISCOUNT_OPTION?.find(
+                  (option) => option.label === foodData?.discountType
+                )?.value
+              }
               label="Discount Type:"
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded w-full p-1.5"
               outerClassName="block "
@@ -300,7 +324,6 @@ export default function FoodEditPage() {
                 {errors?.discount}
               </span>
             )}
-            
           </div>
           <div className="lg:col-start-10 lg:col-end-13 pt-1">
             <Input

@@ -14,22 +14,28 @@ import { useEffect, useRef, useState } from "react";
 import TextAreaFloating from "../UI/TextAreaFloating.jsx";
 import { convertBase64 } from "../../store/employee-actions.js";
 import useFormValidation from "../../customHooks/useFormValidation.js";
-import validateFoodEntry from "../utility/foodValidationUtility.js"
+import validateFoodEntry from "../utility/foodValidationUtility.js";
 
 export default function FoodAddPage() {
   const [price, setPrice] = useState(0);
   const [disableDiscountFields, setDisableDiscountFields] = useState(true);
   const [discountPrice, setDiscountPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
-  const { formData, errors, handleChange, handleBlur, validateFields, hasError } =
-  useFormValidation(
+  const {
+    formData,
+    errors,
+    handleChange,
+    handleBlur,
+    validateFields,
+    hasError,
+  } = useFormValidation(
     {
       name: "",
       description: "",
       price: 0,
     },
     validateFoodEntry,
-    ['price']
+    ["price"]
   );
 
   const formRef = useRef();
@@ -62,7 +68,8 @@ export default function FoodAddPage() {
   }
 
   function openSubmitConfirmation() {
-    if(!hasError()){
+    const validationError = validateFields();
+    if (!hasError() && Object.keys(validationError).length === 0) {
       dispatch(modalActions.id({ id: null, text: "food-create-confirmation" }));
       dispatch(modalActions.open());
     }
@@ -140,11 +147,7 @@ export default function FoodAddPage() {
       {errorMessage && modalId === "foodAddFail" && (
         <Modal open={isOpen} onClose={closeModal}>
           <h1>Failed!</h1>
-          {errorMessage ? (
-            <p>{errorMessage}</p>
-          ) : (
-            <p>Failed to add food!</p>
-          )}
+          {errorMessage ? <p>{errorMessage}</p> : <p>Failed to add food!</p>}
           <div className="modal-action p-2">
             <Button
               className="float-end button-primary px-4 py-2 rounded-lg"
@@ -156,7 +159,11 @@ export default function FoodAddPage() {
           </div>
         </Modal>
       )}
-      <PageHeader title="Add Food Item" buttonLabel="BACK" buttonOnClick={()=>navigate("../")} />
+      <PageHeader
+        title="Add Food Item"
+        buttonLabel="BACK"
+        buttonOnClick={() => navigate("../")}
+      />
       <form ref={formRef} className="bg-white">
         {modalId?.text === "food-create-confirmation" && (
           <Modal open={isOpen} onClose={closeModal}>
@@ -208,7 +215,12 @@ export default function FoodAddPage() {
             </div>
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1">
-            <InputFloating id="FoodName" name="name" onChange={handleChange} onBlur={handleBlur}>
+            <InputFloating
+              id="FoodName"
+              name="name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
               Food Name
             </InputFloating>
             {errors?.name && (
@@ -218,7 +230,12 @@ export default function FoodAddPage() {
             )}
           </div>
           <div className="lg:col-start-1 lg:col-end-9 row-start-2 row-end-5">
-            <TextAreaFloating id="descriptionOfFood" name="description" onChange={handleChange} onBlur={handleBlur}>
+            <TextAreaFloating
+              id="descriptionOfFood"
+              name="description"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
               Description
             </TextAreaFloating>
             {errors?.description && (
@@ -231,17 +248,20 @@ export default function FoodAddPage() {
             <InputFloating
               id="foodPrice"
               name="price"
-              onChange={(e) => {setPrice(e.target.value); handleChange(e);}}
+              onChange={(e) => {
+                setPrice(e.target.value);
+                handleChange(e);
+              }}
               onBlur={handleBlur}
               value={formData.price}
-              >
+            >
               Price
             </InputFloating>
-              {errors?.price && (
-                <span className="absolute text-xs text-red-600 py-0.5 ps-3">
-                  {errors?.price}
-                </span>
-              )}
+            {errors?.price && (
+              <span className="absolute text-xs text-red-600 py-0.5 ps-3">
+                {errors?.price}
+              </span>
+            )}
           </div>
 
           <div className="lg:col-start-4 lg:col-end-7 lg:row-start-5">
@@ -278,7 +298,6 @@ export default function FoodAddPage() {
             >
               Discount Price
             </InputFloating>
-            
           </div>
 
           <div className="lg:col-start-1 lg:-col-end-1 pt-1">
