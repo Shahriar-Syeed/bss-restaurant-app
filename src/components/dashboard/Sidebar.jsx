@@ -73,7 +73,7 @@ export default function Sidebar() {
       </Button>
 
       <aside id="defaultSidebar" className={sidebarCss} aria-label="Sidebar">
-        <div className="sm:h-full sm:px-3 py-4 overflow-y-auto bg-gray-50 sm:flex sm:justify-between sm:flex-col">
+        <div className="sm:h-full sm:px-3 py-2 sm:py-4 overflow-y-auto bg-gray-50 sm:flex sm:justify-between sm:flex-col">
           <ul className="sm:space-y-2 font-medium sm:h-full flex flex-wrap sm:block justify-around">
             <li className="hidden sm:list-item">
               <Link
@@ -99,14 +99,14 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/home"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
                 end
               >
                 <HomeIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
-                <span className="flex-1 ms-3 whitespace-nowrap hidden sm:inline">
+                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Home
                 </span>
               </NavLink>
@@ -116,13 +116,13 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/employee/employee-list"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
                 <EmployeeIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
-                <span className="flex-1 ms-3 whitespace-nowrap hidden sm:inline">
+                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Employees
                 </span>
               </NavLink>
@@ -132,13 +132,13 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/tables"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
                 <TableIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
-                <span className="flex-1 ms-3 whitespace-nowrap hidden sm:inline">
+                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Tables
                 </span>
               </NavLink>
@@ -148,14 +148,14 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/foods"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-2 text-primary rounded-lg  bg-rose-200 text-primary group"
-                    : "flex items-center p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
                 <FoodIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
               
-                <span className="flex-1 ms-3 whitespace-nowrap hidden sm:inline">
+                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Foods
                 </span>
               </NavLink>
@@ -165,14 +165,14 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/new-order"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
                 <NewOrderIcon className="flex-shrink-0 w-5 h-5 text-primary  transition duration-75" />
                 
-                <span className="flex-1 ms-3 whitespace-nowrap hidden sm:inline">
+                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   New Order
                 </span>
               </NavLink>
@@ -182,14 +182,14 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/order"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
                 <OrderIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
                
-                <span className="flex-1 ms-3 whitespace-nowrap hidden sm:inline">
+                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Orders
                 </span>
               </NavLink>
