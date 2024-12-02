@@ -11,7 +11,7 @@ import {
   Filler,
 } from "chart.js";
 import OrderIcon from "../svg/OrderIcon.jsx";
-import useChartGradient from "../../hooks/useChartGradient.jsx";
+import useChartGradient from "../../customHooks/useChartGradient.js";
 
 ChartJS.register(
   CategoryScale,

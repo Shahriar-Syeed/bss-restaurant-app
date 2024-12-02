@@ -12,7 +12,7 @@ import {
   Legend,
 } from "chart.js";
 import EmployeesWithTieIcon from "../svg/EmployeesWithTieIcon.jsx";
-import useChartGradient from "../../hooks/useChartGradient.jsx";
+import useChartGradient from "../../customHooks/useChartGradient.js";
 
 ChartJS.register(
   CategoryScale,

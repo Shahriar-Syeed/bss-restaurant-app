@@ -12,7 +12,7 @@ import {
 } from "chart.js";
 import TableGraphIcon from "../svg/TableIGraphIcon";
 import FoodGraphIcon from "../svg/FoodGraphIcon";
-import useChartGradient from "../../hooks/useChartGradient";
+import useChartGradient from "../../customHooks/useChartGradient.js";
 
 ChartJS.register(
   CategoryScale,
