@@ -13,7 +13,7 @@ export default function UserInfoPage() {
     fetchInfo();
   }, []);
   return (
-    <section className="flex">
+    <section className="flex gap-3 md:justify-stretch justify-center ">
       <div className="bg-white shadow-lg  rounded-xl w-fit flex flex-col justify-center items-center gap-3 p-4">
         <div className="rounded-xl w-36 overflow-clip">
           <img
