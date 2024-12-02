@@ -100,9 +100,7 @@ input {
   fill: #cc080b;
 }
 
-.fill-currentcolor {
-  fill: currentColor;
-}
+
 
 .tracking-2px {
   letter-spacing: 0.125em;

@@ -36,29 +36,27 @@ export default function BarGraph() {
 
   const lineChartData = {
     labels: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ],
     datasets: [
       {
-        label: "Steps by s",
-        data: [3000, 5000, 4000, 6000, 8000, 7000, ],
-        borderColor: ["blue", "green", "orange", "black", "yellow","pink"],
+        label: "Sales Figures",
+        data: [30000, 50000, 40000, 60000, 80000, 70000, 20100, 35200, 45300, 78400, 55500, 42600,],
         borderWidth: 3,
-        backgroundColor: 'skyblue',
+        backgroundColor: '#cc080b',
         fill: false,
         borderRadius: '1.5rem',
-      },
-      {
-        label: "Steps by a",
-        data: [2500, 4500, 5500, 5000, 1200, 3000, 6500],
-        borderColor: "red",
-        fill: false,
       },
     ],
   };

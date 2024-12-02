@@ -111,12 +111,12 @@ const router = createBrowserRouter([
             ],
           },
 
-          { path: "order", 
+          { path: "new-order", 
             
             element: <NewOrderPage />,
           },
           {
-            path: "new-order",
+            path: "order",
             element: <OrderListPage /> 
           },
         ],
