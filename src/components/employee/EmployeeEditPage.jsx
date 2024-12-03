@@ -49,8 +49,7 @@ export default function EmployeeEditPage() {
           const res = await dispatch(
             editEmployeeDesignation(param.employeeId, e.target[0].value)
           );
-          console.log(typeof e.target[0].value);
-          console.log(res);
+
 
           res === "success" && navigate("../employee-list");
         } catch (error) {

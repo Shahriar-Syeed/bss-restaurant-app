@@ -5,6 +5,7 @@ const initialCart = {
     items: [],
   },
   selectedTableId: null,
+  selectedTableNumber: null,
   success: false,
   loading: false,
   error: null,
@@ -31,6 +32,14 @@ const cartSlice = createSlice({
         delete state.cartItem.tableId;
       } 
 
+    },
+    setSelectedTableNumber(state, action) { 
+      if(state.selectedTableNumber === action.payload) {
+        state.selectedTableNumber = null;
+      }
+      else{
+        state.selectedTableNumber = action.payload;
+      }       
     },
     removeTableIdInCart(state) {
       delete state.cartItem.tableId;

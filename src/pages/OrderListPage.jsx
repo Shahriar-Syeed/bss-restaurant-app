@@ -15,6 +15,7 @@ import Modal from "../components/UI/Modal.jsx";
 import CustomSelect from "../components/UI/CustomSelect.jsx";
 import OrderCard from "../components/order/OrderCard.jsx";
 import usePageItems from "../customHooks/usePagesItems.js";
+import PageHeader from "../components/PageHeader.jsx";
 
 export default function OrderListPage() {
   const dispatch = useDispatch();
@@ -118,14 +119,15 @@ export default function OrderListPage() {
           </div>
         </Modal>
       )}
+      <PageHeader title='All Orders'/>
       <div className="grid sm:justify-between justify-center auto-cols-auto 2xl:grid-cols-3 lg:grid-cols-3 sm:grid-cols-2 lg:gap-5 md:gap-3.5 sm:gap-3 gap-2">
-        {orderInfo?.data?.map((eachOrderItem, eachOrderItemIndex) =>
+        {orderInfo?.data?.length !== 0 ? orderInfo?.data?.map((eachOrderItem, eachOrderItemIndex) =>
           orderInfo.data.length !== eachOrderItemIndex + 1 ? (
             <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} />
           ) : (
             <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} ref={lastElementRef}/>
           )
-        )}
+        ) : <h1 className="text-center text-lg font-bold p-5 bg-white rounded-lg shadow-md col-start-1 -col-end-1">No Order has been created!</h1>}
       </div>
     </>
   );

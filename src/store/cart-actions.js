@@ -2,9 +2,16 @@ import axios from "axios";
 import { cartActions } from "./cart-slice.js";
 import { modalActions } from "./modal-slice.js";
 
-export const setTableIdInCart = (tableId) => {
+export const setTableIdInCart = (tableId, tableNumber) => {
   return async (dispatch) => {
-    const res = await dispatch(cartActions.setSelectedTableId(tableId));
+    try{
+
+      const res = await dispatch(cartActions.setSelectedTableId(tableId));
+       dispatch(cartActions.setSelectedTableNumber(tableNumber));
+    }catch(error){
+      console.log(error);
+    }
+
   };
 };
 export const addFood = (foodId, unitPrice, foodName, foodImage) => {
@@ -64,6 +71,7 @@ export const createOrder = (data) => {
       if (res.status === 204 || res.status === 200) {
         dispatch(cartActions.setCartItem({items:[]}));
         dispatch(cartActions.setSelectedTableId(null));
+        dispatch(cartActions.setSelectedTableNumber(null));
         dispatch(cartActions.setSuccess(true));
         dispatch(modalActions.id("Success"));
         dispatch(modalActions.open());

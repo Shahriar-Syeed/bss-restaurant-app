@@ -5,31 +5,33 @@ import { createOrder, toggleCartDrawer } from "../../store/cart-actions.js";
 import Loading from "../loader/Loading.jsx";
 import EmptyCartSvg from "../svg/EmptyCartSvg.jsx";
 import CloseIcon from "../svg/CloseIcon.jsx";
+import { getOrder } from "../../store/order-actions.js";
 
 export default function CartWithDrawer() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItem);
+  const selectedTableNumber = useSelector((state) => state.cart.selectedTableNumber);
 
   const showingCartDrawer = useSelector((state) => state.cart.showCartDrawer);
   const cartLoading = useSelector((state) => state.cart.loading);
-  const cartError = useSelector((state) => state.cart.error);
 
-  console.log(showingCartDrawer);
 
   function toggle() {
     dispatch(toggleCartDrawer());
   }
   function sentOrder(orders) {
-    const updatedOrders = {
-      ...orders,
-      items: orders.items.map(({ foodImage, foodName, ...rest }) => rest),
-      orderNumber: new Date().toISOString(),
-      phoneNumber: "",
-    };
-    cartError && console.log(cartError);
-    console.log(updatedOrders);
-    dispatch(createOrder(updatedOrders));
-  }
+    if(window.confirm("Do you really want to order?")){
+
+      const updatedOrders = {
+        ...orders,
+        items: orders.items.map(({ foodImage, foodName, ...rest }) => rest),
+        orderNumber: new Date().toISOString(),
+        phoneNumber: "",
+      };
+      dispatch(createOrder(updatedOrders));
+      dispatch(getOrder(6));
+    }
+    }
   return (
     <>
       {cartLoading && <Loading />}
@@ -73,9 +75,10 @@ export default function CartWithDrawer() {
           [&::-webkit-scrollbar-track]:bg-transparent
           [&::-webkit-scrollbar-thumb]:bg-red-300 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-clip-padding`}
         >
+          {selectedTableNumber && <h2 className="font-bold text-center">Order for {selectedTableNumber}</h2> }
           {cartItems?.items?.length > 0 ? cartItems.items.map((item) => (
             <OrderDetails key={item.foodId} cartItem={item} />
-          )) : <EmptyCartSvg/>}
+          )) : <EmptyCartSvg className="place-self-center opacity-90"/>}
         </div>
         <hr />
         <h3 className="text-lg font-bold pe-4 py-1">
