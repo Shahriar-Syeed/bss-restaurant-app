@@ -10,18 +10,18 @@ import { getOrder } from "../../store/order-actions.js";
 export default function CartWithDrawer() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItem);
-  const selectedTableNumber = useSelector((state) => state.cart.selectedTableNumber);
+  const selectedTableNumber = useSelector(
+    (state) => state.cart.selectedTableNumber
+  );
 
   const showingCartDrawer = useSelector((state) => state.cart.showCartDrawer);
   const cartLoading = useSelector((state) => state.cart.loading);
-
 
   function toggle() {
     dispatch(toggleCartDrawer());
   }
   function sentOrder(orders) {
-    if(window.confirm("Do you really want to order?")){
-
+    if (window.confirm("Do you really want to order?")) {
       const updatedOrders = {
         ...orders,
         items: orders.items.map(({ foodImage, foodName, ...rest }) => rest),
@@ -30,7 +30,7 @@ export default function CartWithDrawer() {
       };
       dispatch(createOrder(updatedOrders));
     }
-    }
+  }
   return (
     <>
       {cartLoading && <Loading />}
@@ -66,18 +66,28 @@ export default function CartWithDrawer() {
           className="text-gray-400 bg-primary hover:bg-opacity-35  rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center z-50"
           onClick={toggle}
         >
-          <CloseIcon className="w-3 h-3"/>
+          <CloseIcon className="w-3 h-3" />
           <span className="sr-only">Close menu</span>
         </Button>
         <div
-          className={`grid ${cartItems?.items?.length > 0 && 'content-start'} h-[calc(100%-8.4rem)] overflow-y-auto [&::-webkit-scrollbar]:w-2
+          className={`grid ${
+            cartItems?.items?.length > 0 && "content-start"
+          } h-[calc(100%-8.4rem)] overflow-y-auto [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-transparent
           [&::-webkit-scrollbar-thumb]:bg-red-300 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-clip-padding`}
         >
-          {selectedTableNumber && <h2 className="font-bold text-center">Order for {selectedTableNumber}</h2> }
-          {cartItems?.items?.length > 0 ? cartItems.items.map((item) => (
-            <OrderDetails key={item.foodId} cartItem={item} />
-          )) : <EmptyCartSvg className="place-self-center opacity-90"/>}
+          {selectedTableNumber && (
+            <h2 className="font-bold text-center">
+              Order for {selectedTableNumber}
+            </h2>
+          )}
+          {cartItems?.items?.length > 0 ? (
+            cartItems.items.map((item) => (
+              <OrderDetails key={item.foodId} cartItem={item} />
+            ))
+          ) : (
+            <EmptyCartSvg className="place-self-center opacity-90" />
+          )}
         </div>
         <hr />
         <h3 className="text-lg font-bold pe-4 py-1">
