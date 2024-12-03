@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from "react";
 export default function usePageItems(
   initialItemsPerPage,
   loadEveryLastElement,
-  data,
+  data={ totalRecords: 0 },
   isLoading
 ) {
   const [itemsPerPage, setItemsPerPage] = useState(initialItemsPerPage);

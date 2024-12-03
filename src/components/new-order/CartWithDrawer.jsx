@@ -29,7 +29,6 @@ export default function CartWithDrawer() {
         phoneNumber: "",
       };
       dispatch(createOrder(updatedOrders));
-      dispatch(getOrder(6));
     }
     }
   return (

@@ -19,10 +19,10 @@ import NewOrderTableList from "../components/new-order/NewOrderTableList";
 import usePageItems from "../customHooks/usePagesItems";
 
 export default function NewOrderPage() {
-  const [tableCount, setTableCount] = useState(10);
-  const [menuCount, setMenuCount] = useState(10);
+  // const [tableCount, setTableCount] = useState(10);
+  // const [menuCount, setMenuCount] = useState(10);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const tableInfo = useSelector(
@@ -41,20 +41,24 @@ export default function NewOrderPage() {
   const cartItems = useSelector((state) => state.cart.cartItem);
   const selectedTableId = useSelector((state) => state.cart.selectedTableId);
 
-  const hasMoreTable = tableInfo.totalRecords - tableCount;
-  const hasMoreMenu = foodInfo.totalRecords - menuCount;
+  const { itemsPerPage: tableCount, lastElementRef: lastTableElementRef } =
+    usePageItems(6, 3, tableInfo, tableLoading);
+  const { itemsPerPage: menuCount, lastElementRef: lastMenuElementRef } =
+    usePageItems(6, 3, foodInfo, foodLoading);
 
   useEffect(() => {
-    if (tableCount < tableInfo?.totalRecords) {
-      setTableCount(tableInfo.totalRecords);
+
+    if (tableCount > 0) {
+      dispatch(getEmployeeTables(1, tableCount));
     }
-    dispatch(getEmployeeTables(1, tableCount));
   }, [tableCount, dispatch]);
 
   useEffect(() => {
-    dispatch(getFoods(1, menuCount));
+    if (menuCount > 0) {
+      dispatch(getFoods(1, menuCount));
+    }
   }, [menuCount, dispatch]);
-  console.log(tableInfo);
+
   function handleSelection(tableId, tableNumber) {
     dispatch(setTableIdInCart(tableId, tableNumber));
   }
@@ -73,46 +77,6 @@ export default function NewOrderPage() {
   function toggleCart() {
     dispatch(toggleCartDrawer());
   }
-  const tableObserver = useRef();
-  const lastTableElementRef = useCallback(
-    (node) => {
-      if (tableLoading) return;
-      if (tableObserver.current) tableObserver.current.disconnect();
-      tableObserver.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMoreTable > 0) {
-          if (tableCount + 5 < tableInfo.totalRecords) {
-            setTableCount((prevTableCount) => prevTableCount + 5);
-          } else {
-            setTableCount(tableInfo.totalRecords);
-          }
-        }
-      });
-      if (node) tableObserver.current.observe(node);
-      console.log("node", node);
-    },
-    [tableLoading, hasMoreTable]
-  );
-  // menu intersection observer
-  const menuObserver = useRef();
-  const lastMenuElementRef = useCallback(
-    (node) => {
-      if (foodLoading) return;
-      if (menuObserver.current) menuObserver.current.disconnect();
-      menuObserver.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMoreMenu > 0) {
-          if (menuCount + 5 < foodInfo.totalRecords) {
-            setMenuCount((prevMenuCount) => prevMenuCount + 5);
-          } else {
-            setMenuCount(foodInfo.totalRecords);
-          }
-        }
-      });
-      if (node) tableObserver?.current?.observe(node);
-      console.log("node", node);
-    },
-    [foodLoading, hasMoreMenu]
-  );
-
   // Modal
 
   const isOpen = useSelector((state) => state.modal.open);
@@ -199,68 +163,6 @@ export default function NewOrderPage() {
           <div className="flex flex-col gap-2 viewport-hight pb-3 lg:pb-0 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-300  [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded">
             {foodInfo?.data?.map((menuItem, menuItemIndex) =>
               foodInfo.data.length !== menuItemIndex + 1 ? (
-                // <div
-                //   key={menuItem.id}
-                //   className="food-card p-3 shadow-md grid lg:grid-cols-4 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5 border hover:border-red-900 rounded-sm"
-                // >
-                //   <div className="lg:row-span-4 place-self-center max-w-52">
-                //     <img
-                //       src={
-                //         menuItem.image
-                //           ? `https://restaurantapi.bssoln.com/images/food/${menuItem.image}`
-                //           : defaultImage
-                //       }
-                //       alt={menuItem.name}
-                //       className="w-full object-cover rounded-lg"
-                //     />
-                //   </div>
-                //   <h2 className="text-2xl lg:col-start-2 lg:col-end-5 font-bold capitalize">
-                //     {menuItem.name}
-                //   </h2>
-                //   <p className="lg:col-start-2 lg:col-end-5 max-h-16 line-clamp-3 text-ellipsis ">
-                //     Description: {menuItem.description}
-                //   </p>
-                //   <div className="flex flex-col sm:flex-row flex-wrap sm:justify-between sm:items-center gap-y-3 lg:col-start-2 lg:col-end-5">
-                //     <h3 className="text-lg font-semibold text-nowrap min-w-44">
-                //       price: &nbsp;
-                //       <span
-                //         className={
-                //           menuItem.discountPrice === 0
-                //             ? `text-green-950`
-                //             : `line-through text-gray-500`
-                //         }
-                //       >
-                //         {menuItem.price}&#2547;
-                //       </span>{" "}
-                //       &nbsp;
-                //       {menuItem.discountPrice !== 0 && (
-                //         <span className="text-green-950">
-                //           {menuItem.discountPrice}&#2547;
-                //         </span>
-                //       )}
-                //     </h3>
-                //     <div className="flex gap-1 flex-wrap">
-                //       {cartItems.items.some(
-                //         (item) => item.foodId === menuItem.id
-                //       ) && (
-                //         <Button
-                //           className="button button__outline--primary py-2 px-4 text-white rounded"
-                //           type="button"
-                //           onClick={toggleCart}
-                //         >
-                //           GO TO CART
-                //         </Button>
-                //       )}
-                //       <Button
-                //         className="button button-primary py-2 px-4 text-white rounded"
-                //         type="button"
-                //         onClick={() => addFoodItemInCart(menuItem)}
-                //       >
-                //         ADD TO CART
-                //       </Button>
-                //     </div>
-                //   </div>
-                // </div>
                 <NewOrderMenuList
                   className="food-card p-3 shadow-md grid lg:grid-cols-4 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5 border hover:border-red-900 rounded-sm"
                   key={menuItem.id}
@@ -269,69 +171,6 @@ export default function NewOrderPage() {
                   addFoodItemInCart={addFoodItemInCart}
                 />
               ) : (
-                // <div
-                //   key={menuItem.id}
-                //   className="food-card p-3 shadow-md grid lg:grid-cols-4 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5 border hover:border-red-900 rounded-sm"
-                //   ref={lastMenuElementRef}
-                // >
-                //   <div className="lg:row-span-4 place-self-center max-w-52 rounded-lg overflow-hidden">
-                //     <img
-                //       src={
-                //         menuItem.image
-                //           ? `https://restaurantapi.bssoln.com/images/food/${menuItem.image}`
-                //           : defaultImage
-                //       }
-                //       alt={menuItem.name}
-                //       className="w-full object-cover rounded-lg"
-                //     />
-                //   </div>
-                //   <h2 className="text-2xl lg:col-start-2 lg:col-end-5 font-bold capitalize">
-                //     {menuItem.name}
-                //   </h2>
-                //   <p className="lg:col-start-2 lg:col-end-5 max-h-16 line-clamp-3 text-ellipsis ">
-                //     Description: {menuItem.description}
-                //   </p>
-                //   <div className="flex flex-wrap justify-between items-center gap-y-3 lg:col-start-2 lg:col-end-5">
-                //     <h3 className="text-lg font-semibold text-nowrap min-w-44">
-                //       price: &nbsp;
-                //       <span
-                //         className={
-                //           menuItem.discountPrice === 0
-                //             ? `text-green-950`
-                //             : `line-through text-gray-500`
-                //         }
-                //       >
-                //         {menuItem.price}&#2547;
-                //       </span>{" "}
-                //       &nbsp;
-                //       {menuItem.discountPrice !== 0 && (
-                //         <span className="text-green-950">
-                //           {menuItem.discountPrice}&#2547;
-                //         </span>
-                //       )}
-                //     </h3>
-                //     <div className="flex gap-1 flex-wrap">
-                //       {cartItems.items.some(
-                //         (item) => item.foodId === menuItem.id
-                //       ) && (
-                //         <Button
-                //           className="button button__outline--primary py-2 px-4 text-white rounded"
-                //           type="button"
-                //           onClick={toggleCart}
-                //         >
-                //           GO TO CART
-                //         </Button>
-                //       )}
-                //       <Button
-                //         className="button button-primary py-2 px-4 text-white rounded"
-                //         type="button"
-                //         onClick={() => addFoodItemInCart(menuItem)}
-                //       >
-                //         ADD TO CART
-                //       </Button>
-                //     </div>
-                //   </div>
-                // </div>
                 <NewOrderMenuList
                   className="food-card p-3 shadow-md grid lg:grid-cols-4 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5 border hover:border-red-900 rounded-sm"
                   key={menuItem.id}
