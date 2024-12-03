@@ -77,7 +77,7 @@ export default function Input({
             >
               {children}
             </label>
-            <input {...props} id={id} name={id} />
+            <input {...props} id={id ?? name} name={id ?? name} />
           </div>
           <div className={errorClass && errorClass}>{error && <p>{error}</p>}</div>
         </>

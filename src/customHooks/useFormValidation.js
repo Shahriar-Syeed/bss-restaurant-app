@@ -47,7 +47,6 @@ export default function useFormValidation(initialState, validateInput, isNumeric
     const updateTouched = {};
     Object.keys(formData).forEach((field) => {
       const fieldError = validateInput(field, formData[field]);
-      console.log('alif',field,fieldError,formData);
       if (fieldError) {
         finalErrors[field] = fieldError;
       }

@@ -5,9 +5,9 @@ const validateEmployeeEntry = (name, value) => {
     case "firstName":
       if (!value.trim()) {
         error = "First name is required.";
-      } else if (value.length < 2) {
+      } else if (value.trim().length < 2) {
         error = "Must be 2 characters.";
-      } else if (value.length > 10) {
+      } else if (value.trim().length > 10) {
         error = "10 char limit.";
       }
       break;
@@ -17,7 +17,7 @@ const validateEmployeeEntry = (name, value) => {
         error = "Middle name is required.";
       } else if (value.trim().length < 2) {
         error = "Must be 2 characters.";
-      } else if (value.length > 10) {
+      } else if (value.trim().length > 10) {
         error = "10 char limit.";
       }
       break;

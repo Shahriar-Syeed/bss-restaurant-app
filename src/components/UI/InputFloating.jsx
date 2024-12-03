@@ -1,9 +1,10 @@
-export default function InputFloating({ children, id, error, type, disabled, ...props }) {
+export default function InputFloating({ children, id, error, type, disabled, errorClassName, ...props  }) {
   return (
     <div className="relative group">
       <input
         {...props}
         id={id}
+        name={id ?? name}
         className={`block sm:p-3.5 p-1.5 w-full text-sm md:text-base text-gray-950 ${disabled? 'bg-stone-50' :'bg-transparent'} ${
           type !== "date" && " z-10"
         } rounded border border-gray-200 placeholder-shown:border-gray-200 group-hover:border-gray-400 appearance-none focus:outline-none focus:ring-0 ${type === "date"?"focus:border-blue-600":"focus:placeholder-shown:border-blue-600"} hover:focus:border-blue-900 focus:z-0 peer border-solid group-focus:border-blue-600 relative`}
@@ -17,7 +18,7 @@ export default function InputFloating({ children, id, error, type, disabled, ...
       >
         {children}
       </label>
-      <div className="control-error">{error && <p>{error}</p>}</div>
+      {error && <div className={errorClassName ?? ''}>{ <p>{error ?? 'Something went wrong'}</p>}</div>}
     </div>
   );
 }

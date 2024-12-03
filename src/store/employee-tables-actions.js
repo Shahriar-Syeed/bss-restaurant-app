@@ -86,12 +86,14 @@ export const createTable = (formData, imageFile) => {
         return 200;
       }
     } catch (error) {
+      dispatch(modalActions.id('create table fail'));
       dispatch(employeeTablesActions.setLoading(false));
       dispatch(employeeTablesActions.setErrorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
       }, 3000);
     }
   };

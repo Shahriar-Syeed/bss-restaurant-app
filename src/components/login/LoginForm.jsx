@@ -5,7 +5,7 @@ import Button from "../UI/Button.jsx";
 // import apiUrl from "../../apiUrl/ApiUrl.jsx";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import useLoading from "../../hooks/useLoading.jsx";
+import useLoading from "../../customHooks/useLoading.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../store/modal-slice.js";
 import Modal from "../UI/Modal.jsx";

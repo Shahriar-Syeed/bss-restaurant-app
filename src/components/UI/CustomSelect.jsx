@@ -22,7 +22,6 @@ const CustomSelect = ({
   useEffect(() => {
     const handler = (e) => {
       if (!showOption.current.contains(e.target)) {
-        console.log(e);
         dispatch(customSelectActions.setIsOpen(false));
       }
     };
@@ -62,11 +61,13 @@ const CustomSelect = ({
   };
 
   return (
-    <div className={`${className && className} relative`} ref={showOption}>
+    <div className={`${className ?? ''} relative`} ref={showOption}>
       <input
         type="hidden"
         value={selectedOption ? selectedOption.sendingValue : 0}
         onChange={(e) => onChanged(e)}
+        name={id ?? name}
+        id={id ?? name}
         {...props}
       />
 
