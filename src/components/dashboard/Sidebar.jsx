@@ -64,6 +64,19 @@ export default function Sidebar() {
           <path d="M3 18h18v-2H3zm0-5h18v-2H3zm0-7v2h18V6z"></path>
         </svg>
       </Button>
+      <Link
+                to="/bss-restaurant-app/admin"
+                className="sm:hidden flex items-center p-2 text-primary rounded-lg text-primary"
+              >
+                <div className="h-6 w-6 rounded-lg overflow-hidden">
+                  <img
+                    src={adminImage}
+                    alt="User Image"
+                    className="w-full object-cover"
+                  />
+                </div>
+    
+              </Link>
       <Button
         onClick={goToLoginPage}
         className="flex sm:hidden items-center p-1 text-sm text-primary rounded-lg xl:hidden hover:bg-red-800 focus:outline-none outline-none "
@@ -99,13 +112,13 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/home"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
                 end
               >
-                <HomeIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
+                <HomeIcon className="es:flex-shrink-0 es:w-5 w-4 es:h-5 h-4 text-primary transition duration-75" />
                 <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Home
                 </span>
@@ -116,12 +129,12 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/employee/employee-list"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
-                <EmployeeIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
+                <EmployeeIcon className="es:flex-shrink-0 es:w-5 w-4 es:h-5 h-4 text-primary transition duration-75" />
                 <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Employees
                 </span>
@@ -132,12 +145,12 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/tables"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
-                <TableIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
+                <TableIcon className="es:flex-shrink-0 es:w-5 w-4 es:h-5 h-4 text-primary transition duration-75" />
                 <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Tables
                 </span>
@@ -148,12 +161,12 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/foods"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
-                <FoodIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
+                <FoodIcon className="es:flex-shrink-0 es:w-5 w-4 es:h-5 h-4 text-primary transition duration-75" />
               
                 <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Foods
@@ -165,12 +178,12 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/new-order"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
-                <NewOrderIcon className="flex-shrink-0 w-5 h-5 text-primary  transition duration-75" />
+                <NewOrderIcon className="es:flex-shrink-0 es:w-5 w-4 es:h-5 h-4 text-primary  transition duration-75" />
                 
                 <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   New Order
@@ -182,12 +195,12 @@ export default function Sidebar() {
                 to="/bss-restaurant-app/admin/order"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  bg-rose-100 text-primary group"
-                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch p-2 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
+                    ? "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  bg-rose-100 text-primary group"
+                    : "flex items-center flex-col sm:flex-row justify-center sm:justify-stretch es:p-2 p-1 text-primary rounded-lg  hover:bg-rose-100 text-primary group"
                 }
                 onClick={sidebarToggle}
               >
-                <OrderIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
+                <OrderIcon className="es:flex-shrink-0 es:w-5 w-4 es:h-5 h-4 text-primary transition duration-75" />
                
                 <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Orders

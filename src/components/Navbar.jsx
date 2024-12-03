@@ -9,7 +9,7 @@ export default function Navbar({ children }) {
             <div className="mx-auto h-8">
               <img src={Logo} alt="Logo" className=" w-full h-full" />
             </div>
-            <h2 className=" text-center text-white font-semibold whitespace-nowrap">
+            <h2 className="hidden es:block text-center text-white font-semibold whitespace-nowrap">
               BSS RESTAURANT
             </h2>
           </div>
