@@ -106,7 +106,7 @@ export default function Sidebar() {
                 end
               >
                 <HomeIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
-                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
+                <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Home
                 </span>
               </NavLink>
@@ -122,7 +122,7 @@ export default function Sidebar() {
                 onClick={sidebarToggle}
               >
                 <EmployeeIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
-                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
+                <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Employees
                 </span>
               </NavLink>
@@ -138,7 +138,7 @@ export default function Sidebar() {
                 onClick={sidebarToggle}
               >
                 <TableIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
-                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
+                <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Tables
                 </span>
               </NavLink>
@@ -155,7 +155,7 @@ export default function Sidebar() {
               >
                 <FoodIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
               
-                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
+                <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Foods
                 </span>
               </NavLink>
@@ -172,7 +172,7 @@ export default function Sidebar() {
               >
                 <NewOrderIcon className="flex-shrink-0 w-5 h-5 text-primary  transition duration-75" />
                 
-                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
+                <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   New Order
                 </span>
               </NavLink>
@@ -189,7 +189,7 @@ export default function Sidebar() {
               >
                 <OrderIcon className="flex-shrink-0 w-5 h-5 text-primary transition duration-75" />
                
-                <span className="flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
+                <span className="hidden es:inline-block flex-1 sm:ms-3 whitespace-nowrap text-xs sm:text-base md:text-md md:font-bold">
                   Orders
                 </span>
               </NavLink>
