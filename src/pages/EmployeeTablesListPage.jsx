@@ -76,7 +76,7 @@ export default function EmployeeTablesListPage() {
         }
       />
       <div className="shadow-md sm:rounded-t-lg">
-        <table className="w-full text-left rtl:text-right text-gray-900 text-xs sm:text-sm ">
+        <table className="w-full text-left rtl:text-right text-gray-900 text-xs sm:text-sm lg:text-base">
           <thead className="text-xs text-primary uppercase bg-gray-50 hidden sm:table-header-group">
             <tr>
               {HEADING?.map((heading) => (

@@ -189,7 +189,7 @@ export default function FoodAddPage() {
             </div>
           </Modal>
         )}
-        <div className="grid lg:grid-cols-12 lg:gap-4 gap-4 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
+        <div className="grid lg:grid-cols-12 lg:gap-4 gap-5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
           <div
             className="lg:col-start-9 lg:col-end-13 lg:row-start-1 lg:row-span-4 border-dashed border border-gray-200 hover:border-gray-400 relative min-h-36 rounded"
             onDragOver={(e) => e.preventDefault()}

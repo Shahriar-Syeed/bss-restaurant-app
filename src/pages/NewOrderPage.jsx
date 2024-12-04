@@ -42,12 +42,11 @@ export default function NewOrderPage() {
   const selectedTableId = useSelector((state) => state.cart.selectedTableId);
 
   const { itemsPerPage: tableCount, lastElementRef: lastTableElementRef } =
-    usePageItems(6, 3, tableInfo, tableLoading);
+    usePageItems(10, 3, tableInfo, tableLoading);
   const { itemsPerPage: menuCount, lastElementRef: lastMenuElementRef } =
-    usePageItems(6, 3, foodInfo, foodLoading);
+    usePageItems(10, 3, foodInfo, foodLoading);
 
   useEffect(() => {
-
     if (tableCount > 0) {
       dispatch(getEmployeeTables(1, tableCount));
     }
@@ -124,28 +123,21 @@ export default function NewOrderPage() {
             </h2>
           </header>
           <div className="flex lg:flex-col gap-3 viewport-hight overflow-x-auto lg:overflow-x-visible lg:overflow-y-auto lg:[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2 lg:[&::-webkit-scrollbar]:h-auto [&::-webkit-scrollbar-track]:bg-gray-300  [&::-webkit-scrollbar-thumb]:bg-gray-700 [&::-webkit-scrollbar-thumb]:rounded px-2 lg:px-0 pb-3 lg:pb-0">
-            {tableInfo?.data?.map((table, tableIndex) =>
-              tableInfo.data.length !== tableIndex + 1 ? (
-                <NewOrderTableList
-                  className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600/90 hover:text-white lg:border-dotted lg:border-b-2 lg:border-collapse shadow-md ${
-                    selectedTableId === table.id && "bg-red-600/95 text-white"
-                  }`}
-                  table={table}
-                  key={table.id}
-                  onClick={() => handleSelection(table.id, table.tableNumber)}
-                />
-              ) : (
-                <NewOrderTableList
-                  className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600/90 hover:text-white lg:border-dotted lg:border-b-2 lg:border-collapse shadow-md ${
-                    selectedTableId === table.id && "bg-red-600/95 text-white"
-                  }`}
-                  table={table}
-                  key={table.id}
-                  onClick={() => handleSelection(table.id, table.tableNumber)}
-                  ref={lastTableElementRef}
-                />
-              )
-            )}
+            {tableInfo?.data?.map((table, tableIndex) => (
+              <NewOrderTableList
+                className={`card flex flex-col lg:flex-row gap-2 items-center justify-evenly py-3 px-3 lg:px-0 rounded-lg cursor-pointer hover:bg-red-600/90 hover:text-white lg:border-dotted lg:border-b-2 lg:border-collapse shadow-md ${
+                  selectedTableId === table.id && "bg-red-600/95 text-white"
+                }`}
+                table={table}
+                key={table.id}
+                onClick={() => handleSelection(table.id, table.tableNumber)}
+                ref={
+                  tableInfo.data.length === tableIndex + 1
+                    ? lastTableElementRef
+                    : null
+                }
+              />
+            ))}
           </div>
         </section>
         <section className="lg:col-start-2 lg:col-end-5 p-3 bg-white rounded-lg relative">
