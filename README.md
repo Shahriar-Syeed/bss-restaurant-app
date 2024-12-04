@@ -34,4 +34,35 @@ The main challenge is to implement the functionalities like table management, em
 3. Primary Font: Josefin Sans, sans-serif
 4. Secondary Font: Quattrocento, serif;
 
+## 🔗 Live Site Link
+[![Live](https://img.shields.io/badge/Click_Here_For_Restaurant_APP-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://restaurant-bss.netlify.app)
 
+
+## Admin Login Credential
+
+Username: admin@mail.com \
+Password: Admin@123
+
+## Project Setup
+
+Install the App with npm
+
+```bash
+  npm install
+```
+
+Run the App with npm
+
+```bash
+  npm run dev
+```
+
+Build the App with npm
+
+```bash
+  npm run build
+```
+    
+## Output for Desktop Mode
+
+=> This is the login page. Admin can login using credential.
