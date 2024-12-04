@@ -11,6 +11,7 @@ import { modalActions } from "../store/modal-slice";
 import Button from "../components/UI/Button.jsx";
 import { deleteEmployee, getEmployees } from "../store/employee-actions.js";
 import Loading from "../components/loader/Loading.jsx";
+import usePaginationCall from "../customHooks/usePaginationCall.js";
 
 const HEADING = [
   { id: "image", label: "Image" },
@@ -23,8 +24,8 @@ const HEADING = [
 ];
 
 export default function EmployeeListPage() {
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [pageNumber, setPageNumber] = useState(1);
+  // const [itemsPerPage, setItemsPerPage] = useState(10);
+  // const [pageNumber, setPageNumber] = useState(1);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export default function EmployeeListPage() {
   );
   const loading = useSelector((state) => state.employees.loading);
   const errorMess = useSelector((state) => state.employees.error);
+  const [itemsPerPage, setItemsPerPage, pageNumber, setPageNumber] = usePaginationCall(10,1)
   // Modal
   const modalId = useSelector(state=>  state.modal.id);
 
