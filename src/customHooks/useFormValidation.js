@@ -8,7 +8,6 @@ export default function useFormValidation(initialState, validateInput, isNumeric
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-
       let sanitizedValue= value;
       if(isNumericInput.includes(name)){
         sanitizedValue = value.replace(/\D/g,'');
@@ -44,16 +43,16 @@ export default function useFormValidation(initialState, validateInput, isNumeric
 
   const validateFields = () => {
     const finalErrors = {};
-    const updateTouched = {};
+    const updatedTouched = {};
     Object.keys(formData).forEach((field) => {
       const fieldError = validateInput(field, formData[field]);
       if (fieldError) {
         finalErrors[field] = fieldError;
       }
-      updateTouched[field] = true;
+      updatedTouched[field] = true;
     });
     setErrors(finalErrors);
-    setTouched(updateTouched);
+    setTouched(updatedTouched);
     return finalErrors;
   };
   const hasError = () => Object.values(errors).some((error) => error !== "");

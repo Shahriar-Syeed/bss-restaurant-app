@@ -7,6 +7,7 @@ const CustomSelect = ({
   options = [],
   className,
   id,
+  name,
   maximumHeight,
   onChanged,
   ...props
@@ -66,7 +67,7 @@ const CustomSelect = ({
         type="hidden"
         value={selectedOption ? selectedOption.sendingValue : 0}
         onChange={(e) => onChanged(e)}
-        name={id ?? name}
+        name={name ?? id}
         id={id ?? name}
         {...props}
       />

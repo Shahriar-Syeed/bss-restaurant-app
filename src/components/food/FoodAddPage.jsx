@@ -199,8 +199,7 @@ export default function FoodAddPage() {
               <Input
                 type="file"
                 hidden
-                id="foodImage"
-                name="image"
+                id="image"
                 labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
                 onChange={onSelectFile}
               >
@@ -216,8 +215,7 @@ export default function FoodAddPage() {
           </div>
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1">
             <InputFloating
-              id="FoodName"
-              name="name"
+              id="name"
               onChange={handleChange}
               onBlur={handleBlur}
             >
@@ -231,8 +229,8 @@ export default function FoodAddPage() {
           </div>
           <div className="lg:col-start-1 lg:col-end-9 row-start-2 row-end-5">
             <TextAreaFloating
-              id="descriptionOfFood"
-              name="description"
+
+              id="description"
               onChange={handleChange}
               onBlur={handleBlur}
             >
@@ -246,8 +244,8 @@ export default function FoodAddPage() {
           </div>
           <div className="lg:col-start-1 lg:col-end-4 lg:row-start-5">
             <InputFloating
-              id="foodPrice"
-              name="price"
+
+              id="price"
               onChange={(e) => {
                 setPrice(e.target.value);
                 handleChange(e);
@@ -266,8 +264,7 @@ export default function FoodAddPage() {
 
           <div className="lg:col-start-4 lg:col-end-7 lg:row-start-5">
             <CustomSelect
-              id="foodDiscountType"
-              name="discountType"
+              id="discountType"
               label="Select Discount Type"
               options={discountOption}
               onChanged={(e) => handleDiscountSelect(e)}
@@ -276,9 +273,8 @@ export default function FoodAddPage() {
           </div>
 
           <div className="lg:col-start-7 lg:col-end-10 lg:row-start-5">
-            <InputFloating
-              id="foodDiscount"
-              name="discount"
+            <InputFloating 
+              id="discount"
               type="number"
               disabled={disableDiscountFields}
               value={discount}
@@ -290,7 +286,7 @@ export default function FoodAddPage() {
 
           <div className="lg:col-start-10 lg:col-end-13 lg:row-start-5">
             <InputFloating
-              id="foodDiscountPrice"
+              
               name="discountPrice"
               type="number"
               disabled={true}
