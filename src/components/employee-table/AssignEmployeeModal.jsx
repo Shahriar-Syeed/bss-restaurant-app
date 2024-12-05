@@ -29,7 +29,7 @@ export default function AssignEmployeeModal({
 
   // console.log(tableInfoData);
   const info = { ...tableInfoData };
-  // console.log("info", info);
+  console.log("info", info);
 
   const employeesToAssign = employeesList?.map(
     (employee) =>
@@ -70,9 +70,13 @@ export default function AssignEmployeeModal({
 
         <div className="grid grid-col-6 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5">
           <div className="flex items-center justify-center sm:col-end-3 col-start-1 col-end-7">
-            <div className=" sm:h-36 h-16 rounded-lg">
+            <div className=" sm:min-h-36 min-h-16 max-w-40 rounded-lg">
               <img
-                src={defaultImage}
+                src={
+                  info.image !== ""
+                    ? `https://restaurantapi.bssoln.com/images/table/${info.image}`
+                    : defaultImage
+                }
                 alt=""
                 className=" h-full sm:max-w-full object-cover rounded-lg"
               />
