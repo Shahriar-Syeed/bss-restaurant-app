@@ -65,22 +65,24 @@ Build the App with npm
     
 ## Output for Desktop Mode
 
-![loginPage](https://github.com/firose-munna/restauremt/assets/105736440/ee005fca-1f88-485d-af61-d19597b21ee5)
+=> This is the login page. Admin can login using credential.
+
+![loginPage](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-login.png)
 
 
 => This is Employee List page. Here admin can see all kinds of information about an employee. Admin can update all employees information by clicking on edit button. Also, the employees information can be deleted by clicking on the delete button.
 
-![allEmployee](https://github.com/firose-munna/restauremt/assets/105736440/7e23ccb0-c45f-4b25-8a79-28829727498c)
+![allEmployee](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-employee-list.png)
 
 
 => This page is for add a new employee. This page will open when admin click on the Add Employee button of the employee list.
 
-![addEmployee](https://github.com/firose-munna/restauremt/assets/105736440/ab7c9a9d-b8fa-42aa-9c55-555173896429)
+![addEmployee](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/ab7c9a9d-b8fa-42aa-9c55-555173896429)
 
 
 => Here is the validation check for add a new employee. So all fields except middle name and image field must be filled.
 
-![error](https://github.com/firose-munna/restauremt/assets/105736440/4d515c09-5181-4734-a444-3b2cfd4fdafa)
+![error](https://github.com//Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/4d515c09-5181-4734-a444-3b2cfd4fdafa)
 
 
 => This is Table List page. Here admin can see all kinds of information about table. The tables information can be deleted by clicking on the delete button.
