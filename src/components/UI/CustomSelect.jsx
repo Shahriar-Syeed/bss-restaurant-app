@@ -24,11 +24,13 @@ const CustomSelect = ({
     const handler = (e) => {
       if (!showOption.current.contains(e.target)) {
         dispatch(customSelectActions.setIsOpen(false));
+        if (!selectedOption) {
+          dispatch(customSelectActions.setIsOpen(false));
+        }
       }
     };
     document.addEventListener("mousedown", handler);
     dispatch(customSelectActions.setSelectedOption(null));
-    dispatch(customSelectActions.setIsFocused(false));
 
     return () => {
       document.removeEventListener("mousedown", handler);
@@ -46,10 +48,9 @@ const CustomSelect = ({
   const handleSelect = (option) => {
     dispatch(customSelectActions.setSelectedOption(option));
 
-    dispatch(customSelectActions.setIsOpen(false));
-    
+    dispatch(customSelectActions.setIsOpen(false));    
 
-    if (selectedOption) {
+    if (!selectedOption) {
       dispatch(customSelectActions.setIsFocused(true));
     }
 
@@ -99,11 +100,7 @@ const CustomSelect = ({
         <span
           className={`flex-1 max-h-16 overflow-y-auto [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-neutral-700
-          [&::-webkit-scrollbar-thumb]:bg-neutral-300 ${
-            selectedOption
-              ? "text-xsm sm:text-sm md:text-base"
-              : "text-gray-400 "
-          }`}
+          [&::-webkit-scrollbar-thumb]:bg-neutral-300 text-xs sm:text-sm md:text-base text-gray-600`}
         >
           {selectedOption?.label}
         </span>

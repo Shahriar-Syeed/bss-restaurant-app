@@ -69,8 +69,8 @@ export default function AssignEmployeeModal({
         </h1>
 
         <div className="grid grid-col-6 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5">
-          <div className="flex items-center justify-center sm:col-end-3 col-start-1 col-end-7">
-            <div className=" sm:min-h-40 min-h-16 max-w-40 rounded-lg">
+          <div className="place-self-center sm:col-end-3 col-start-1 col-end-7">
+            <div className="sm:min-h-32 min-h-10 max-h-11 sm:max-w-40 max-w-14 rounded-lg overflow-hidden">
               <img
                 src={
                   info.image !== ""
@@ -78,7 +78,7 @@ export default function AssignEmployeeModal({
                     : defaultImage
                 }
                 alt=""
-                className=" h-full sm:max-w-full object-cover rounded-lg"
+                className="h-full rounded-lg "
               />
             </div>
           </div>
