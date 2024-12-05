@@ -139,15 +139,15 @@ Build the App with npm
 
 => For mobile responsive, sidebar shown bottom navigation bar and logout will be in top navigation bar. 
 
-![drawer](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/94469896-048b-46a6-902d-caebebefe2a4)
+![drawer](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-employee-list-mobile.png)
 
 => All table such as employees list, tables list, and food list will converted into card ui in mobile responsive.
 
-![All Employee](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshotresturant-dahboard-employee-list-mobile.png)
+![All Employee](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-employee-list-mobile.png)
 
-![All Table](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/resturant-dahboard-table-list-mobile.png)
+![All Table](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-table-list-mobile.png)
 
-![All Food](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/resturant-dahboard-food-list-mobile.png)
+![All Food](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-food-list-mobile.png)
 
 => For mobile responsive, Modal will resized as small. Also the modal contents will shown as column view.
 
