@@ -26,7 +26,7 @@ export default function OrderListPage() {
   const status = useSelector((state) => state.order.status);
   const errorMessage = useSelector((state) => state.order.error);
 
-  const { itemsPerPage, lastElementRef} = usePageItems(2,1, orderInfo, orderLoading );
+  const { itemsPerPage, lastElementRef} = usePageItems(3,3, orderInfo, orderLoading );
 
 
   const statusOption = [
@@ -125,7 +125,7 @@ export default function OrderListPage() {
           orderInfo.data.length !== eachOrderItemIndex + 1 ? (
             <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} />
           ) : (
-            <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} ref={lastElementRef}/>
+            <OrderCard eachOrderItem={eachOrderItem} key={eachOrderItem.id} deleteOrder={deleteOrder} editStatus={editStatus} orderRef={lastElementRef}/>
           )
         ) : <h1 className="text-center text-lg font-bold p-5 bg-white rounded-lg shadow-md col-start-1 -col-end-1">No Order has been created!</h1>}
       </div>

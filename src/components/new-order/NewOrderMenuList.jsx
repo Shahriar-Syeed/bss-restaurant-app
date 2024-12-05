@@ -1,17 +1,18 @@
 import { useSelector } from "react-redux";
 import Button from "../UI/Button";
 import defaultImage from "../../assets/default-image-preview.png";
+import { forwardRef } from "react";
 
-export default function NewOrderMenuList({
+const NewOrderMenuList = forwardRef(function NewOrderMenuList({
   menuItem,
   toggleCart,
   addFoodItemInCart,
   ...props
-}) {
+}, tableRef) {
   const cartItems = useSelector((state) => state.cart.cartItem);
   return (
     <div
-      {...props}
+      {...props} ref={tableRef}
     >
       <div className="lg:row-span-4 place-self-center max-w-52">
         <img
@@ -70,4 +71,6 @@ export default function NewOrderMenuList({
       </div>
     </div>
   );
-}
+});
+
+export default  NewOrderMenuList;

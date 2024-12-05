@@ -1,13 +1,12 @@
+import { forwardRef } from "react";
 import defaultImage from "../../assets/default-image-preview.png";
 
-export default function NewOrderTableList({
+const NewOrderTableList = forwardRef(function NewOrderTableList({
   table,
-  handleSelection,
-  isSelected,
   ...props
-}) {
+}, tableRef) {
   return (
-    <div {...props}>
+    <div {...props} ref={tableRef}>
       <img
         src={
           table.image === ""
@@ -22,4 +21,6 @@ export default function NewOrderTableList({
       </span>
     </div>
   );
-}
+});
+
+export default  NewOrderTableList;

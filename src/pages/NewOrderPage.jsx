@@ -42,9 +42,9 @@ export default function NewOrderPage() {
   const selectedTableId = useSelector((state) => state.cart.selectedTableId);
 
   const { itemsPerPage: tableCount, lastElementRef: lastTableElementRef } =
-    usePageItems(10, 3, tableInfo, tableLoading);
+    usePageItems(6, 3, tableInfo, tableLoading);
   const { itemsPerPage: menuCount, lastElementRef: lastMenuElementRef } =
-    usePageItems(10, 3, foodInfo, foodLoading);
+    usePageItems(6, 3, foodInfo, foodLoading);
 
   useEffect(() => {
     if (tableCount > 0) {
