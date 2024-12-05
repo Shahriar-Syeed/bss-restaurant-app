@@ -70,7 +70,7 @@ export default function AssignEmployeeModal({
 
         <div className="grid grid-col-6 lg:gap-4 md:gap-3.5 sm:gap-3 gap-2.5">
           <div className="flex items-center justify-center sm:col-end-3 col-start-1 col-end-7">
-            <div className=" sm:min-h-36 min-h-16 max-w-40 rounded-lg">
+            <div className=" sm:min-h-40 min-h-16 max-w-40 rounded-lg">
               <img
                 src={
                   info.image !== ""
