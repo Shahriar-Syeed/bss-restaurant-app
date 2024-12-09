@@ -14,7 +14,7 @@ export const getFoods = (page, perPage) => {
     } catch (error) {
       dispatch(foodActions.loading(false));
       dispatch(foodActions.errorMessage(error.message));
-      dispatch(modalActions.id("foodGetFail"));
+      dispatch(modalActions.id("Food Getting Fail"));
       dispatch(modalActions.open());
       setTimeout(() => {
         dispatch(modalActions.close());
@@ -37,12 +37,14 @@ export const deleteFood = (foodId) => {
       }
       dispatch(foodActions.loading(false));
     } catch (error) {
+      dispatch(modalActions.id("Food Deleting Fail"));
       dispatch(foodActions.loading(false));
       dispatch(foodActions.errorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
       }, 3000);
     }
   };
@@ -51,8 +53,6 @@ export const deleteFood = (foodId) => {
 export const createFood = (formData) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
-    console.log("discount price NAN", formData);
-
     const updatedData = {
       ...formData,
       discount: Number(formData.discount),
@@ -72,7 +72,7 @@ export const createFood = (formData) => {
       }
       return response;
     } catch (error) {
-      dispatch(modalActions.id("foodAddFail"));
+      dispatch(modalActions.id("Food Adding Fail"));
       dispatch(foodActions.loading(false));
       dispatch(foodActions.errorMessage(error.message));
       dispatch(modalActions.open());
@@ -96,7 +96,7 @@ export const getSingleFoodItem = (id) => {
       dispatch(foodActions.setFoodItem(response.data));
       dispatch(foodActions.loading(false));
     } catch (error) {
-      dispatch(modalActions.id("getSingleFoodFail"));
+      dispatch(modalActions.id("Single Food Getting Fail"));
       dispatch(foodActions.loading(false));
       dispatch(foodActions.errorMessage(error.message));
       dispatch(modalActions.open());
@@ -126,7 +126,7 @@ export const updateSingleFoodItem = (id, data) => {
       }
       dispatch(foodActions.loading(false));
     } catch (error) {
-      dispatch(modalActions.id("updateSingleFoodFail"));
+      dispatch(modalActions.id("Food Update Fail"));
       dispatch(foodActions.loading(false));
       dispatch(foodActions.errorMessage(error.message));
       dispatch(modalActions.open());

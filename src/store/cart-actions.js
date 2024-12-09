@@ -86,7 +86,7 @@ export const createOrder = (data) => {
     } catch (error) {
       dispatch(cartActions.loading(false));
       dispatch(cartActions.errorMessage(error.message));
-      dispatch(modalActions.id('cart-error'));
+      dispatch(modalActions.id('Order Create Failed'));
       dispatch(modalActions.open());
       setTimeout(() => {
         dispatch(modalActions.close());

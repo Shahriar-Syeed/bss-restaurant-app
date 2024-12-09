@@ -50,7 +50,6 @@ export default function FoodAddPage() {
   const selectedOption = useSelector(
     (state) => state.customSelect.selectedOption
   );
-  const errorMessage = useSelector((state) => state.foods.error);
   const previewImage = useSelector((state) => state.foods.preview);
 
   const discountOption = [
@@ -144,21 +143,6 @@ export default function FoodAddPage() {
 
   return (
     <>
-      {errorMessage && modalId === "foodAddFail" && (
-        <Modal open={isOpen} onClose={closeModal}>
-          <h1>Failed!</h1>
-          {errorMessage ? <p>{errorMessage}</p> : <p>Failed to add food!</p>}
-          <div className="modal-action p-2">
-            <Button
-              className="float-end button-primary px-4 py-2 rounded-lg"
-              onClick={closeModal}
-              type="button"
-            >
-              Close
-            </Button>
-          </div>
-        </Modal>
-      )}
       <PageHeader
         title="Add Food Item"
         buttonLabel="BACK"
@@ -229,7 +213,6 @@ export default function FoodAddPage() {
           </div>
           <div className="lg:col-start-1 lg:col-end-9 row-start-2 row-end-5">
             <TextAreaFloating
-
               id="description"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -244,7 +227,6 @@ export default function FoodAddPage() {
           </div>
           <div className="lg:col-start-1 lg:col-end-4 lg:row-start-5">
             <InputFloating
-
               id="price"
               onChange={(e) => {
                 setPrice(e.target.value);
@@ -273,7 +255,7 @@ export default function FoodAddPage() {
           </div>
 
           <div className="lg:col-start-7 lg:col-end-10 lg:row-start-5">
-            <InputFloating 
+            <InputFloating
               id="discount"
               type="number"
               disabled={disableDiscountFields}
@@ -286,7 +268,6 @@ export default function FoodAddPage() {
 
           <div className="lg:col-start-10 lg:col-end-13 lg:row-start-5">
             <InputFloating
-              
               name="discountPrice"
               type="number"
               disabled={true}

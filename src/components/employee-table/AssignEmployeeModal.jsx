@@ -1,12 +1,10 @@
 import Button from "../UI/Button.jsx";
-// import CustomSelect from "../UI/CustomSelect.jsx";
 import EmployeeSelect from "../UI/EmployeeSelect.jsx";
 import Modal from "../UI/Modal.jsx";
 import defaultImage from "../../assets/default-image-preview.png";
 import { useDispatch, useSelector } from "react-redux";
 import { postAssignEmployeesTable } from "../../store/employee-tables-actions";
 
-// import { customSelectActions } from "../../store/custom-select-slice";
 import { employeeSelectActions } from "../../store/employee-select-slice.js";
 
 export default function AssignEmployeeModal({
@@ -15,21 +13,16 @@ export default function AssignEmployeeModal({
   tableInfoData,
 }) {
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.employeeTables.loading);
   const selectedEmployees = useSelector(
     (state) => state.employeeSelect.selectedOption
   );
-  // const assignEmployeeAndTableDetails = useSelector(state=>state.employeeTables.assignEmployeeAndTableDetails)
   const isOpen = useSelector((state) => state.modal.open);
   const employeesList = useSelector(
     (state) => state.employeeTables.nonAssignedEmployee
   );
 
-  const error = useSelector((state) => state.employeeTables.error);
 
-  // console.log(tableInfoData);
   const info = { ...tableInfoData };
-  console.log("info", info);
 
   const employeesToAssign = employeesList?.map(
     (employee) =>
@@ -54,7 +47,6 @@ export default function AssignEmployeeModal({
 
   return (
     <>
-      {error && <p>{error.message}</p>}
       <Modal open={isOpen} onClose={closeModal} className=" overflow-unset">
         <Button
           className="button-primary sm:px-3 sm:py-1.5 px-2 py-1 rounded-lg absolute right-3 top-3 font-extrabold"

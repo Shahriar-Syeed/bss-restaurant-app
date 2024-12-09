@@ -3,17 +3,13 @@ import Button from "../UI/Button";
 import defaultImage from "../../assets/default-image-preview.png";
 import { forwardRef } from "react";
 
-const NewOrderMenuList = forwardRef(function NewOrderMenuList({
-  menuItem,
-  toggleCart,
-  addFoodItemInCart,
-  ...props
-}, tableRef) {
+const NewOrderMenuList = forwardRef(function NewOrderMenuList(
+  { menuItem, toggleCart, addFoodItemInCart, ...props },
+  tableRef
+) {
   const cartItems = useSelector((state) => state.cart.cartItem);
   return (
-    <div
-      {...props} ref={tableRef}
-    >
+    <div {...props} ref={tableRef}>
       <div className="lg:row-span-4 place-self-center max-w-52">
         <img
           src={
@@ -53,7 +49,7 @@ const NewOrderMenuList = forwardRef(function NewOrderMenuList({
         <div className="flex gap-1 flex-wrap">
           {cartItems.items.some((item) => item.foodId === menuItem.id) && (
             <Button
-              className="button button__outline--primary py-2 px-4 text-white rounded"
+              className="button button__outline--primary py-2 px-4 text-white rounded-md order-2 "
               type="button"
               onClick={toggleCart}
             >
@@ -61,7 +57,7 @@ const NewOrderMenuList = forwardRef(function NewOrderMenuList({
             </Button>
           )}
           <Button
-            className="button button-primary py-2 px-4 text-white rounded"
+            className="button button-primary py-2 px-4 text-white rounded-md sm:order-3"
             type="button"
             onClick={() => addFoodItemInCart(menuItem)}
           >
@@ -73,4 +69,4 @@ const NewOrderMenuList = forwardRef(function NewOrderMenuList({
   );
 });
 
-export default  NewOrderMenuList;
+export default NewOrderMenuList;

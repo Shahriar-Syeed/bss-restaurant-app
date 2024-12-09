@@ -39,7 +39,7 @@ export default function EmployeeForm() {
       designation: "",
       dob: "",
       joinDate: "",
-      nid: '',
+      nid: "",
     },
     validateEmployeeEntry,
     ["phoneNumber", "nid"]

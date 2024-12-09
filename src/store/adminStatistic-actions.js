@@ -32,7 +32,7 @@ export const getAdminStatistics = () => {
       
       dispatch(adminStatisticsActions.loading(false));
     } catch (error) {
-      dispatch(modalActions.id("statistic-fail"));
+      dispatch(modalActions.id("Statistic Getting fail"));
       dispatch(adminStatisticsActions.loading(false));
       dispatch(adminStatisticsActions.errorMessage(error.message));
       dispatch(modalActions.open());

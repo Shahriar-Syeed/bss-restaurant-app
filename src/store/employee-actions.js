@@ -15,12 +15,12 @@ export const getEmployees = (page, perPage) => {
       }
     } catch (error) {
       dispatch(employeeActions.loading(false));
-      console.log(error);
-      dispatch(modalActions.id("employee-list-fail"));
+      dispatch(modalActions.id("Employees list get fail"));
       dispatch(employeeActions.errorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
+        dispatch(modalActions.id(null));
         dispatch(modalActions.close());
       }, 3000);
     }
@@ -41,6 +41,7 @@ export const deleteEmployee = (employeeId) => {
       }
       dispatch(employeeActions.loading(false));
     } catch (error) {
+      dispatch(modalActions.id('Delete Employee Fail.'));
       dispatch(employeeActions.loading(false));
       dispatch(employeeActions.errorMessage(error.message));
       dispatch(modalActions.open());
@@ -113,11 +114,13 @@ export const editEmployeeDesignation = (id, data) => {
         return Promise.resolve("success");
       }
     } catch (error) {
+      dispatch(modalActions.id('Edit Employee Fail'));
       dispatch(employeeActions.errorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
       }, 3000);
     }
   };

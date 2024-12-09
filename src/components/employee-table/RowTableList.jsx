@@ -61,21 +61,7 @@ export default function RowEmployeeTableList({
   }
   return (
     <>
-      {errorMessage && modalTableId === "employeeTableError" && (
-        <Modal open={isOpen}>
-          <h1>Failed!</h1>
-          {errorMessage ? <p>{errorMessage}</p> : <p>Something went wrong</p>}
-          <div className="modal-action p-2">
-            <Button
-              className="float-end button-primary px-4 py-2 rounded-lg"
-              onClick={closeNormalModal}
-              type="button"
-            >
-              Close
-            </Button>
-          </div>
-        </Modal>
-      )}
+
       {modalTableId?.id === tableInfoData.id && (
         <Modal open={isOpen}>
           <h1>Confirmation!</h1>

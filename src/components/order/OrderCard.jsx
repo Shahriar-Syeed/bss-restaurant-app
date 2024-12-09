@@ -1,16 +1,13 @@
 import DeleteIcon from "../svg/DeleteIcon.jsx";
 import Button from "../UI/Button.jsx";
-import defaultImage from "../../assets/default-image-preview.png" ;
 import EditIcon from "../svg/EditIcon.jsx";
 import OrderICardFoodItems from "./OrderICardFoodItems.jsx";
 import { forwardRef } from "react";
 
-const OrderCard= forwardRef(function OrderCard({
-  eachOrderItem,
-  deleteOrder,
-  editStatus,
-  ...props
-}, orderRef) {
+const OrderCard = forwardRef(function OrderCard(
+  { eachOrderItem, deleteOrder, editStatus, ...props },
+  orderRef
+) {
   return (
     <div
       {...props}
@@ -41,7 +38,11 @@ const OrderCard= forwardRef(function OrderCard({
           [&::-webkit-scrollbar-thumb]:bg-red-300 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-clip-padding"
       >
         {eachOrderItem?.orderItems?.map((item) => (
-          <OrderICardFoodItems key={item.id} item={item} className="flex gap-3 items-center mb-2" />
+          <OrderICardFoodItems
+            key={item.id}
+            item={item}
+            className="flex gap-3 items-center mb-2"
+          />
         ))}
       </div>
 
@@ -83,10 +84,10 @@ const OrderCard= forwardRef(function OrderCard({
             editStatus(eachOrderItem.id, eachOrderItem.orderNumber)
           }
         >
-         <EditIcon className="p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100" />
+          <EditIcon className="p-0.5 rounded shadow-sm stroke-green-700 bg-slate-50 hover:stroke-green-900 w-7 hover:bg-slate-100" />
         </Button>
       </div>
     </div>
   );
 });
-export default  OrderCard;
+export default OrderCard;

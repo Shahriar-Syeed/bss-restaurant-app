@@ -16,11 +16,13 @@ export const getOrder = ( perPage) => {
       dispatch(orderActions.setLoading(false));
       console.log(error);
       dispatch(orderActions.errorMessage(error.message));
-      dispatch(modalActions.id('orderList'))
+      dispatch(modalActions.id('orderList'));
+      console.log("orderListFail")
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
       }, 3000);
     }
   };
@@ -43,6 +45,7 @@ export const changeOrderStatus = (id, status) => {
       }
       dispatch(orderActions.setLoading(false));
     } catch (error) {
+      dispatch(modalActions.id('orderList'))
       dispatch(orderActions.setLoading(false));
       console.log(error);
       dispatch(orderActions.errorMessage(error.message));
@@ -50,6 +53,7 @@ export const changeOrderStatus = (id, status) => {
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
       }, 3000);
     }
   };
@@ -83,12 +87,14 @@ export const removeOrder = (id) => {
       dispatch(orderActions.setLoading(false));
     } catch (error) {
       dispatch(orderActions.setLoading(false));
+      dispatch(modalActions.id('orderList'))
       console.log(error);
       dispatch(orderActions.errorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
       }, 3000);
     }
   };

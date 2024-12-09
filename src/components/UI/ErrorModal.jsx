@@ -1,4 +1,3 @@
-
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "../UI/Modal";
 import Button from "../UI/Button";
@@ -13,11 +12,17 @@ const ErrorModal = () => {
   const foodErrorMessage = useSelector((state) => state.foods.error);
   const employeeErrorMessage = useSelector((state) => state.employees.error);
   const tableErrorMessage = useSelector((state) => state.employeeTables.error);
+  const statisticsErrorMessage = useSelector(
+    (state) => state.adminStatistics.error
+  );
+  const cartSuccess = useSelector((state) => state.cart.success);
+  const orderErrorMessage = useSelector((state) => state.order.error);
   const cartErrorMessage = useSelector((state) => state.cart.error);
 
   // Close modal function
   const closeModal = () => {
     dispatch(modalActions.close());
+    dispatch(modalActions.id(null));
   };
 
   // Determine the title and message dynamically
@@ -28,28 +33,46 @@ const ErrorModal = () => {
     : cartErrorMessage
     ? "Cart Error"
     : employeeErrorMessage
-    ? "Cart Error"
+    ? "Employee Error"
+    : orderErrorMessage
+    ? "Order Error"
+    : statisticsErrorMessage
+    ? "Statistics Error"
+    : cartSuccess
+    ? "Order Success"
     : "Error";
-
   const message =
-    foodErrorMessage ||
-    tableErrorMessage ||
-    cartErrorMessage ||
-    `Something went wrong! (ID: ${errorModalId})`;
+    foodErrorMessage ??
+    employeeErrorMessage ??
+    tableErrorMessage ??
+    orderErrorMessage ??
+    cartErrorMessage ??
+    statisticsErrorMessage ??
+    cartSuccess ??
+    null;
+  console.log(errorModalId);
 
-  // Render the modal only when there's an error
-  if (!isOpen || (!foodErrorMessage && !tableErrorMessage && !cartErrorMessage)) {
-    return null;
-  }
-
-  return (
+  const returnModal = message ? (
     <Modal open={isOpen} onClose={closeModal}>
       <div className="p-4">
-        <h1 className="text-xl font-semibold mb-2">{title}</h1>
-        <p className="text-md text-gray-700 mb-4">{message}</p>
-        <div className="modal-action">
+        {cartSuccess && (
+          <h1 className="text-xl font-bold mb-2 text-green-900">
+            Order Successful!
+          </h1>
+        )}
+        {!cartSuccess && (
+          <>
+            <h1 className="text-xl font-semibold mb-2 text-red-900">{title}</h1>
+            <p className="text-md text-gray-700 mb-1">
+              Something went wrong! {errorModalId}
+            </p>
+            <p className="text-xs text-gray-700 mb-4">{message}</p>
+          </>
+        )}
+
+        <div className="">
           <Button
-            className="button-primary px-4 py-2 rounded-lg"
+            className="button-primary px-4 py-2 rounded-lg float-end"
             type="button"
             onClick={closeModal}
           >
@@ -58,7 +81,10 @@ const ErrorModal = () => {
         </div>
       </div>
     </Modal>
-  );
+  ) : null;
+  console.log(returnModal);
+
+  return returnModal;
 };
 
 export default ErrorModal;

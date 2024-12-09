@@ -18,7 +18,7 @@ export const getEmployeeTables = (page, perPage) => {
       dispatch(employeeTablesActions.setLoading(false));
       console.log(error);
       dispatch(employeeTablesActions.setErrorMessage(error.message));
-      dispatch(modalActions.id('tableList'))
+      dispatch(modalActions.id('Table List Getting Fail'));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
@@ -42,12 +42,14 @@ export const deleteEmployeeTable = (employeeTableId) => {
         dispatch(employeeTablesActions.setLoading(false));
       }
     } catch (error) {
+      dispatch(modalActions.id('Table Employee Delete Fail'))
       dispatch(employeeTablesActions.setLoading(false));
       dispatch(employeeTablesActions.setErrorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
         dispatch(employeeTablesActions.setErrorMessage(undefined));
       }, 3000);
     }
@@ -86,7 +88,7 @@ export const createTable = (formData, imageFile) => {
         return 200;
       }
     } catch (error) {
-      dispatch(modalActions.id('create table fail'));
+      dispatch(modalActions.id('Fail to Create Table.'));
       dispatch(employeeTablesActions.setLoading(false));
       dispatch(employeeTablesActions.setErrorMessage(error.message));
       dispatch(modalActions.open());
@@ -112,6 +114,7 @@ export const getNonAssignEmployees = (tableId) => {
         dispatch(employeeTablesActions.setLoading(false));
       }
     } catch (error) {
+      dispatch(modalActions.id('Get NonAssign Employee Fail'))
       dispatch(employeeTablesActions.setLoading(false));
       dispatch(employeeTablesActions.setErrorMessage(error.message));
       dispatch(modalActions.open());
@@ -119,42 +122,45 @@ export const getNonAssignEmployees = (tableId) => {
       setTimeout(() => {
         dispatch(modalActions.close());
         dispatch(employeeTablesActions.setErrorMessage(undefined));
+        dispatch(modalActions.id(null));
       }, 3000);
     }
   };
 };
 
-export const getAssignEmployeeAndTableDetails = () => {
-  return async (dispatch) => {
-    dispatch(employeeTablesActions.setLoading(true));
-    try {
-      const response = await axios.get(
-        `https://restaurantapi.bssoln.com/api/EmployeeTable/get`
-      );
-      // console.log('EmployeesListOfTables',JSON.stringify(response.data));
-      if (response.status === 200) {
-        const updatedData = response?.data?.map((value) => ({
-          tableId: value["table"]["tableId"],
-          employeeTableId: value["employeeTableId"],
-          name: value["employee"]["name"],
-        }));
-        dispatch(
-          employeeTablesActions.setAssignEmployeeAndTableDetails(updatedData)
-        );
-        dispatch(employeeTablesActions.setLoading(false));
-      }
-    } catch (error) {
-      dispatch(employeeTablesActions.setLoading(false));
-      dispatch(employeeTablesActions.setErrorMessage(error.message));
-      dispatch(modalActions.open());
-      console.log(error);
-      setTimeout(() => {
-        dispatch(modalActions.close());
-        dispatch(employeeTablesActions.setErrorMessage(undefined));
-      }, 3000);
-    }
-  };
-};
+// export const getAssignEmployeeAndTableDetails = () => {
+//   return async (dispatch) => {
+//     dispatch(employeeTablesActions.setLoading(true));
+//     try {
+//       const response = await axios.get(
+//         `https://restaurantapi.bssoln.com/api/EmployeeTable/get`
+//       );
+//       // console.log('EmployeesListOfTables',JSON.stringify(response.data));
+//       if (response.status === 200) {
+//         const updatedData = response?.data?.map((value) => ({
+//           tableId: value["table"]["tableId"],
+//           employeeTableId: value["employeeTableId"],
+//           name: value["employee"]["name"],
+//         }));
+//         dispatch(
+//           employeeTablesActions.setAssignEmployeeAndTableDetails(updatedData)
+//         );
+//         dispatch(employeeTablesActions.setLoading(false));
+//       }
+//     } catch (error) {
+//       dispatch(modalActions.id('Getting Table & Employee Fail'))
+//       dispatch(employeeTablesActions.setLoading(false));
+//       dispatch(employeeTablesActions.setErrorMessage(error.message));
+//       dispatch(modalActions.open());
+//       console.log(error);
+//       setTimeout(() => {
+//         dispatch(modalActions.close());
+//         dispatch(employeeTablesActions.setErrorMessage(undefined));
+//         dispatch(modalActions.id(null));
+//       }, 3000);
+//     }
+//   };
+// };
 
 export const deleteEmployeeFromTableDetail = (id,employeeTableId) => {
   return async (dispatch) => {
@@ -170,7 +176,7 @@ export const deleteEmployeeFromTableDetail = (id,employeeTableId) => {
         dispatch(employeeTablesActions.setLoading(false));
       }
     } catch (error) {
-      dispatch(modalActions.id("employeeTableError"))
+      dispatch(modalActions.id("Delete Employee Table Fail"))
       dispatch(employeeTablesActions.setLoading(false));
       dispatch(employeeTablesActions.setErrorMessage(error.message));
       dispatch(modalActions.open());
@@ -188,7 +194,7 @@ export const deleteEmployeeFromTableDetail = (id,employeeTableId) => {
 export const postAssignEmployeesTable = (data,id) => {
   return async (dispatch) => {
     dispatch(employeeTablesActions.setLoading(true));
-    console.log("data", data);
+
     try {
       const updatedData = [...data];
 
@@ -212,12 +218,14 @@ export const postAssignEmployeesTable = (data,id) => {
         dispatch(employeeTablesActions.setLoading(false));
       }
     } catch (error) {
+      dispatch(modalActions.id("Assign Employee Fail"));
       dispatch(employeeTablesActions.setLoading(false));
       dispatch(employeeTablesActions.setErrorMessage(error.message));
       dispatch(modalActions.open());
       console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
+        dispatch(modalActions.id(null));
       }, 3000);
     }
   };

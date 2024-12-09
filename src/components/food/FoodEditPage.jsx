@@ -12,11 +12,8 @@ import {
   getSingleFoodItem,
   updateSingleFoodItem,
 } from "../../store/food-actions.js";
-import { modalActions } from "../../store/modal-slice.js";
-
 import { foodActions } from "../../store/food-slice.js";
 import { convertBase64 } from "../../store/employee-actions.js";
-import Modal from "../UI/Modal.jsx";
 import useFormValidation from "../../customHooks/useFormValidation.js";
 import validateFoodEntry from "../utility/foodValidationUtility.js";
 
@@ -45,7 +42,6 @@ export default function FoodEditPage() {
   const dispatch = useDispatch();
   const foodData = useSelector((state) => state.foods.singleFoodItem);
   const isLoading = useSelector((state) => state.foods.loading);
-  const errorEditFood = useSelector((state) => state.foods.error);
   const previewImage = useSelector((state) => state.foods.preview);
 
   console.log(foodData, "high");
@@ -55,15 +51,6 @@ export default function FoodEditPage() {
     { value: 1, label: "Flat" },
     { value: 2, label: "Percentage" },
   ];
-
-  // Modal
-  const isOpen = useSelector((state) => state.modal.open);
-  const modalId = useSelector((state) => state.modal.id);
-
-  function closeModal() {
-    dispatch(modalActions.id(null));
-    dispatch(modalActions.close());
-  }
 
   useEffect(() => {
     dispatch(getSingleFoodItem(param.foodId));
@@ -152,44 +139,7 @@ export default function FoodEditPage() {
   return (
     <>
       {isLoading && <Loading fullHeightWidth />}
-      {errorEditFood && modalId === "updateSingleFoodFail" && (
-        <Modal open={isOpen} onClose={closeModal}>
-          <h1>Failed!</h1>
-          {errorEditFood ? (
-            <p>{errorEditFood}</p>
-          ) : (
-            <p>Failed to update food!</p>
-          )}
-          <div className="modal-action p-2">
-            <Button
-              className="float-end button-primary px-4 py-2 rounded-lg"
-              onClick={closeModal}
-              type="button"
-            >
-              Close
-            </Button>
-          </div>
-        </Modal>
-      )}
-      {errorEditFood && modalId === "getSingleFoodFail" && (
-        <Modal open={isOpen} onClose={closeModal}>
-          <h1>Failed!</h1>
-          {errorEditFood ? (
-            <p>{errorEditFood}</p>
-          ) : (
-            <p>Failed to get food item!</p>
-          )}
-          <div className="modal-action p-2">
-            <Button
-              className="float-end button-primary px-4 py-2 rounded-lg"
-              onClick={closeModal}
-              type="button"
-            >
-              Close
-            </Button>
-          </div>
-        </Modal>
-      )}
+
       <PageHeader
         title="Edit Food"
         buttonLabel="BACK"
@@ -329,7 +279,6 @@ export default function FoodEditPage() {
             <Input
               placeholder={foodData?.discountPrice}
               defaultValue={foodData?.discountPrice}
-              value={formData.discountPrice}
               className="placeholder:text-stone-950 border border-solid border-stone-500 rounded p-0.5 w-full"
               outerClassName="block "
               labelClassName="text-stone-900 font-bold"

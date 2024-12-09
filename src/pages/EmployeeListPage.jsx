@@ -3,12 +3,9 @@ import Pagination from "../components/Pagination.jsx";
 import PageHeader from "../components/PageHeader.jsx";
 import HeadTable from "../components/HeadTable.jsx";
 import RowTableEmployeeList from "../components/employee/RowTableEmployeeList.jsx";
-import { useEffect, useState } from "react";
-
-import Modal from "../components/UI/Modal.jsx";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../store/modal-slice";
-import Button from "../components/UI/Button.jsx";
 import { deleteEmployee, getEmployees } from "../store/employee-actions.js";
 import Loading from "../components/loader/Loading.jsx";
 import usePaginationCall from "../customHooks/usePaginationCall.js";
@@ -24,8 +21,6 @@ const HEADING = [
 ];
 
 export default function EmployeeListPage() {
-  // const [itemsPerPage, setItemsPerPage] = useState(10);
-  // const [pageNumber, setPageNumber] = useState(1);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,12 +29,9 @@ export default function EmployeeListPage() {
     (state) => state.employees.employeeDataTable
   );
   const loading = useSelector((state) => state.employees.loading);
-  const errorMess = useSelector((state) => state.employees.error);
-  const [itemsPerPage, setItemsPerPage, pageNumber, setPageNumber] = usePaginationCall(10,1)
-  // Modal
-  const modalId = useSelector(state=>  state.modal.id);
 
-  const isOpen = useSelector((state) => state.modal.open);
+  const [itemsPerPage, setItemsPerPage, pageNumber, setPageNumber] =
+    usePaginationCall(10, 1);
   function closeModal() {
     dispatch(modalActions.close());
   }
@@ -48,29 +40,12 @@ export default function EmployeeListPage() {
     dispatch(getEmployees(pageNumber, itemsPerPage));
   }, [pageNumber, itemsPerPage, dispatch]);
   function handleDelete(employeeId) {
-
     closeModal();
     dispatch(deleteEmployee(employeeId));
   }
-  
 
   return (
     <>
-
-      {modalId === 'employee-list-fail' && <Modal open={isOpen} onClose={closeModal}>
-        <h1>Failed fetching data!</h1>
-        {errorMess ? <p>{errorMess}</p> : <p>Invalid Password or Username</p>}
-        <div className="modal-action p-2">
-          <Button
-            className="float-end button-primary px-4 py-2 rounded-lg"
-            type="button"
-            onClick={closeModal}
-          >
-            Close
-          </Button>
-        </div>
-      </Modal>}
-      
       <PageHeader
         title="All Employee"
         buttonLabel="ADD EMPLOYEE"
@@ -89,9 +64,7 @@ export default function EmployeeListPage() {
             </tr>
           </thead>
           <tbody className="block sm:table-row-group text-center sm:text-start ">
-            <RowTableEmployeeList
-              deleteEmployee={handleDelete}
-            />
+            <RowTableEmployeeList deleteEmployee={handleDelete} />
           </tbody>
         </table>
       </div>
@@ -102,7 +75,7 @@ export default function EmployeeListPage() {
         onChangePageNumber={setPageNumber}
         onChangeItemsPerPage={setItemsPerPage}
       />
-      {loading && <Loading fullHeightWidth/>}
+      {loading && <Loading fullHeightWidth />}
     </>
   );
 }
