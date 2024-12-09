@@ -49,7 +49,7 @@ export default function FoodsListPage() {
 
   return (
     <>
-     {errorMess && foodListId === 'foodList' && <Modal open={isOpen} onClose={closeModal}>
+     {errorMess && foodListId === 'foodGetFail' && <Modal open={isOpen} onClose={closeModal}>
         <h1>Failed fetching data!</h1>
         {errorMess ? <p>{errorMess}</p> : <p>Invalid Password or Username</p>}
         <div className="modal-action p-2">

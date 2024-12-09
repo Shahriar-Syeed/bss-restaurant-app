@@ -12,10 +12,9 @@ export const getFoods = (page, perPage) => {
       dispatch(foodActions.getFoodsDataTable(response.data));
       dispatch(foodActions.loading(false));
     } catch (error) {
-      dispatch(modalActions.id("foodAddFail"));
       dispatch(foodActions.loading(false));
       dispatch(foodActions.errorMessage(error.message));
-      dispatch(modalActions.id("foodList"));
+      dispatch(modalActions.id("foodGetFail"));
       dispatch(modalActions.open());
       setTimeout(() => {
         dispatch(modalActions.close());
