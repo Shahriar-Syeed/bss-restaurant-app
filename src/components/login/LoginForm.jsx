@@ -15,8 +15,11 @@ export default function LoginForm() {
     userName: "admin@mail.com",
     password: "Admin@123",
   });
+  const [error, setError] = useState(null);
   const { loader, startLoad, endLoad } = useLoading();
   const navigate = useNavigate();
+
+  const modalId = useSelector((state)=>state.modal.id);
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -25,10 +28,6 @@ export default function LoginForm() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    // const fetchData =new FormData(event.target);
-    // const loginData = Object.fromEntries(fetchData.entries());
-    // console.log(loginData);
-    // const logData = JSON.stringify(loginData);
     startLoad();
     try {
       console.log(formData);
@@ -47,13 +46,13 @@ export default function LoginForm() {
       }
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        setError(error.message);
+        
       } else if (error.request) {
+        setError(  error.message );
         console.log(error.request);
       } else {
-        console.log("Error", error.message);
+        setError( "Invalid Password or Username!");
       }
       openModal();
       setTimeout(() => {
@@ -68,6 +67,7 @@ export default function LoginForm() {
   console.log(isOpen);
   const dispatch = useDispatch();
   function openModal() {
+    dispatch(modalActions.id("Login Error"))
     dispatch(modalActions.open());
   }
   function closeModal() {
@@ -77,9 +77,10 @@ export default function LoginForm() {
   return (
     <>
       <div className="login__right__container">
-        <Modal open={isOpen} onClose={closeModal}>
-          <h1>Failed To Login</h1>
-          <p>Invalid Password or Username</p>
+        {modalId === "Login Error" && <Modal open={isOpen} onClose={closeModal}>
+          <h1 className="text-xl font-semibold mb-2 text-red-900">Failed To Login</h1>
+           <p>Invalid Password or Username</p>
+           <p className="text-xs">{error}</p>
           <div className="modal-action p-2">
             <Button
               className="float-end button-primary px-4 py-2 rounded-lg"
@@ -89,7 +90,7 @@ export default function LoginForm() {
               Close
             </Button>
           </div>
-        </Modal>
+        </Modal>}
         <header className="mb-5">
           <img src={Logo} alt="Logo" className=" mx-auto w-28" />
           <h1 className=" text-center text-white font-bold">BSS RESTAURANT</h1>

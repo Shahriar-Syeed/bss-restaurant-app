@@ -52,7 +52,7 @@ const ErrorModal = () => {
     null;
   console.log(errorModalId);
 
-  const returnModal = message ? (
+  const returnModal = message && errorModalId !== "Login Error" ? (
     <Modal open={isOpen} onClose={closeModal}>
       <div className="p-4">
         {cartSuccess && (
