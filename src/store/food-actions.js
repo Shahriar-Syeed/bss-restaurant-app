@@ -129,6 +129,12 @@ export const getSingleFoodItem = (id) => {
   };
 };
 
+export const setSingleFoodNull = () => {
+  return  (dispatch) => {
+    dispatch(foodActions.setFoodItem(null));
+  };
+};
+
 export const updateSingleFoodItem = (id, data) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
