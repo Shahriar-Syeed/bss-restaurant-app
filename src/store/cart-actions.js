@@ -1,6 +1,7 @@
 import axios from "axios";
 import { cartActions } from "./cart-slice.js";
 import { modalActions } from "./modal-slice.js";
+import { token } from "../routers/Router.jsx";
 
 export const setTableIdInCart = (tableId, tableNumber) => {
   return async (dispatch) => {
@@ -65,7 +66,11 @@ export const createOrder = (data) => {
     console.log(data)
     try {
       const res = await axios.post(
-        `https://restaurantapi.bssoln.com/api/Order/create`,data
+        `https://restaurantapi.bssoln.com/api/Order/create`,{
+          headers:{
+            Authorization: token,
+          }
+        },data
       );
       console.log(res);
       if (res.status === 204 || res.status === 200) {

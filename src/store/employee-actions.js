@@ -1,13 +1,18 @@
 import axios from "axios";
 import { employeeActions } from "./employee-slice";
 import { modalActions } from "./modal-slice";
+import { token } from "../routers/Router";
 
 export const getEmployees = (page, perPage) => {
   return async (dispatch) => {
     dispatch(employeeActions.loading(true));
     try {
       const response = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Employee/datatable?Page=${page}&Per_Page=${perPage}`
+        `https://restaurantapi.bssoln.com/api/Employee/datatable?Page=${page}&Per_Page=${perPage}`,{
+          headers:{
+            Authorization: token,
+          }
+        }
       );
       if(response.status === 200){
         dispatch(employeeActions.getEmployeesDataTable(response.data));
@@ -33,7 +38,11 @@ export const deleteEmployee = (employeeId) => {
     dispatch(employeeActions.loading(true));
     try {
       const res = await axios.delete(
-        `https://restaurantapi.bssoln.com/api/Employee/delete/${employeeId}`
+        `https://restaurantapi.bssoln.com/api/Employee/delete/${employeeId}`,{
+          headers:{
+            Authorization: token,
+          }
+        }
       );
 
       if (res.status === 204) {
@@ -68,7 +77,11 @@ export const createEmployee = (formData) => {
     console.log("updatedData", updatedData);
     try {
       const response = await axios.post(
-        "https://restaurantapi.bssoln.com/api/Employee/create",
+        "https://restaurantapi.bssoln.com/api/Employee/create",{
+          headers:{
+            Authorization: token,
+          }
+        },
         updatedData
       );
       dispatch(employeeActions.setStatus(response.status));
@@ -99,7 +112,11 @@ export const editEmployeeDesignation = (id, data) => {
     console.log("data", data);
     try {
       const response = await axios.put(
-        `https://restaurantapi.bssoln.com/api/Employee/update/${id}`,
+        `https://restaurantapi.bssoln.com/api/Employee/update/${id}`,{
+          headers:{
+            Authorization: token,
+          }
+        },
         { designation: data }
       );
       console.log(response);
