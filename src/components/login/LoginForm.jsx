@@ -39,21 +39,14 @@ export default function LoginForm() {
       if (response.status === 200) {
         const token = "Bearer " + response.data.token;
         const user = response.data.user;
-        console.log(user, JSON.stringify(user));
+        const refreshToken = response.data.refreshToken;
         sessionStorage.setItem("token", token);
+        sessionStorage.setItem("refreshToken", refreshToken);
         sessionStorage.setItem("user", JSON.stringify(user));
         navigate(`/bss-restaurant-app/${user.fullName}`);
       }
     } catch (error) {
-      if (error.response) {
         setError(error.message);
-        
-      } else if (error.request) {
-        setError(  error.message );
-        console.log(error.request);
-      } else {
-        setError( "Invalid Password or Username!");
-      }
       openModal();
       setTimeout(() => {
         endLoad();

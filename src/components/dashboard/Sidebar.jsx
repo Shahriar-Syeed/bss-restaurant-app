@@ -42,6 +42,7 @@ export default function Sidebar() {
   function goToLoginPage() {
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("refreshToken");
     navigate("/bss-restaurant-app/login");
   }
 

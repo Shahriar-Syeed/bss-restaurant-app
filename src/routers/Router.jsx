@@ -20,7 +20,10 @@ import FoodEditPage from "../components/food/FoodEditPage.jsx";
 import NewOrderPage from "../pages/NewOrderPage.jsx";
 import OrderListPage from "../pages/OrderListPage.jsx";
 import RegistrationPage from "../pages/RegistrationPage.jsx";
+import axios from "axios";
 export const token = sessionStorage.getItem("token");
+export const refreshToken = sessionStorage.getItem("refreshToken");
+export const refreshTokenExpiryTime = sessionStorage.getItem("refreshTokenExpiryTime");
 
 
 const requireAuth = async () => {
@@ -124,6 +127,12 @@ const router = createBrowserRouter([
   },
 ]);
 
+export const apiClient = axios.create({
+  baseURL: "https://restaurantapi.bssoln.com/api/",
+  headers: {
+    Authorization: token,
+  },
+});
 
 
 export default router;

@@ -1,38 +1,23 @@
 import axios from "axios";
 import { modalActions } from "./modal-slice.js";
 import { adminStatisticsActions } from "./adminStatistics-slice.js";
-import { token } from "../routers/Router.jsx";
+import { apiClient, token } from "../routers/Router.jsx";
+
 export const getAdminStatistics = () => {
   return async (dispatch) => {
     dispatch(adminStatisticsActions.loading(true));
     try {
-      const employeeResponse = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Employee/get`,{
-          headers:{
-            Authorization: token,
-          }
-        }
+      const employeeResponse = await apiClient.get(
+        `https://restaurantapi.bssoln.com/api/Employee/get`
       );
-      const tableResponse = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Table/get`,{
-          headers:{
-            Authorization: token,
-          }
-        }
+      const tableResponse = await apiClient.get(
+        `https://restaurantapi.bssoln.com/api/Table/get`
       );
-      const foodResponse = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Food/get`,{
-          headers:{
-            Authorization: token,
-          }
-        }
+      const foodResponse = await apiClient.get(
+        `https://restaurantapi.bssoln.com/api/Food/get`
       );
-      const orderResponse = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Order/get`,{
-          headers:{
-            Authorization: token,
-          }
-        }
+      const orderResponse = await apiClient.get(
+        `https://restaurantapi.bssoln.com/api/Order/get`
       );
       if(employeeResponse.status === 200){
         dispatch(adminStatisticsActions.getEmployeesStatistics(employeeResponse.data));
