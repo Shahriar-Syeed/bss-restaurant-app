@@ -12,7 +12,7 @@ export default function MainPage() {
         <div>
           <h1 className="2xl:text-3xl xl:text-2xl lg:text-xl text-md mb-3 text-center">Do You want to login or register</h1>
           <Link to='/bss-restaurant-app/login' className="button-primary rounded-lg font-bold 2xl:text-3xl xl:text-2xl lg:text-xl text-md block text-center px-6 py-3 w-full mb-3">Login</Link>
-          <Link to='/bss-restaurant-app/' className="bg-slate-600 text-white rounded-lg font-bold 2xl:text-3xl xl:text-2xl lg:text-xl text-md block text-center px-6 py-3 w-full mb-3">Register</Link>
+          <Link to='/bss-restaurant-app/registration' className="bg-slate-600 text-white rounded-lg font-bold 2xl:text-3xl xl:text-2xl lg:text-xl text-md block text-center px-6 py-3 w-full mb-3">Register</Link>
         </div>
 
       </section>
