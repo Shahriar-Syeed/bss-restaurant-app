@@ -13,8 +13,7 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
   );
   const modalId = useSelector((state) => state.modal.id);
   const isOpen = useSelector((state) => state.modal.open);
-  function openModal(id, name) {
-    console.log(name);
+  function openModal(id) {
     dispatch(modalActions.id(id));
     dispatch(modalActions.open());
   }
@@ -59,11 +58,11 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
             className="flex sm:table-cell justify-center md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
           >
             <img
-             src={
-              employee.user.image !== ''
-                ? `${apiUrl.getImage}${employee.user.image}`
-                : defaultImage
-            }
+              src={
+                employee.user.image !== ""
+                  ? `${apiUrl.getImage}${employee.user.image}`
+                  : defaultImage
+              }
               alt="Admin image"
               className="sm:w-10 sm:h-10 w-16 h-16 rounded-lg object-cover"
             />

@@ -4,12 +4,10 @@ import Modal from "../UI/Modal.jsx";
 import defaultImage from "../../assets/default-image-preview.png";
 import { useDispatch, useSelector } from "react-redux";
 import { postAssignEmployeesTable } from "../../store/employee-tables-actions";
-
 import { employeeSelectActions } from "../../store/employee-select-slice.js";
 import apiUrl from "../../apiUrl/ApiUrl.jsx";
 
 export default function AssignEmployeeModal({
-  // open,
   closeModal,
   tableInfoData,
 }) {
@@ -21,7 +19,6 @@ export default function AssignEmployeeModal({
   const employeesList = useSelector(
     (state) => state.employeeTables.nonAssignedEmployee
   );
-
 
   const info = { ...tableInfoData };
 
@@ -35,12 +32,10 @@ export default function AssignEmployeeModal({
   );
 
   function handleAssignEmployee(info) {
-    console.log("selectedEmployees", selectedEmployees);
     const updatedSelected = selectedEmployees?.map(
       (employee) =>
         (employee = { employeeId: employee.employeeId, tableId: info.id })
     );
-    console.log("info", info);
     dispatch(postAssignEmployeesTable(updatedSelected, info.id));
     dispatch(employeeSelectActions.setSelectedOption([]));
     closeModal();

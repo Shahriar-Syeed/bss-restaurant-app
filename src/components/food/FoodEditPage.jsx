@@ -87,9 +87,10 @@ export default function FoodEditPage() {
   }
 
   async function submitEditedValues(data) {
-    console.log({ ...data });
     try {
-      const res = await dispatch(updateSingleFoodItem(param.foodId, data));
+      const res = await dispatch(
+        updateSingleFoodItem(param.foodId, { ...data })
+      );
 
       console.log(res);
 
@@ -104,7 +105,6 @@ export default function FoodEditPage() {
     if (!hasError()) {
       const fetchData = new FormData(e.target);
       const initialData = Object.fromEntries(fetchData.entries());
-      console.log(initialData.description);
 
       delete initialData.foodImage;
       const data = {
@@ -123,23 +123,6 @@ export default function FoodEditPage() {
         foodData?.price === data.price &&
         foodData?.description === data.description &&
         !foodImageRef?.current;
-      console.log(
-        foodData.discountType,
-        DISCOUNT_OPTION.find((option) => option.value, data.discountType)
-          ?.label,
-        "discount",
-        foodData.discount,
-        data.discount,
-        "discountPrice",
-        foodData.discountPrice,
-        data.discountPrice,
-        "price",
-        foodData.price,
-        data.price,
-        foodData.description,
-        data.description,
-        !foodImageRef?.current
-      );
       console.log("conditionCheck", conditionCheck);
 
       if (conditionCheck) {
@@ -202,7 +185,8 @@ export default function FoodEditPage() {
         buttonLabel="BACK"
         buttonOnClick={() => {
           dispatch(setSingleFoodNull());
-          return navigate("../");}}
+          return navigate("../");
+        }}
       />
       <form onSubmit={handleEdit}>
         <section className="grid lg:grid-cols-12 md:grid-cols-2 gap-x-4 gap-y-5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">

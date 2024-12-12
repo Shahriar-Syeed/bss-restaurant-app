@@ -8,7 +8,6 @@ export const getFoods = (page, perPage) => {
       const response = await api.get(
         `Food/datatable?Page=${page}&Per_Page=${perPage}`
       );
-      console.log(response);
       dispatch(foodActions.getFoodsDataTable(response.data));
       dispatch(foodActions.loading(false));
     } catch (error) {
@@ -28,9 +27,7 @@ export const deleteFood = (foodId) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
     try {
-      const res = await api.delete(
-        `Food/delete/${foodId}`
-      );
+      const res = await api.delete(`Food/delete/${foodId}`);
 
       if (res.status === 204) {
         dispatch(foodActions.removeFood(foodId));
@@ -41,7 +38,6 @@ export const deleteFood = (foodId) => {
       dispatch(foodActions.loading(false));
       dispatch(foodActions.errorMessage(error.message));
       dispatch(modalActions.open());
-      console.log(error);
       setTimeout(() => {
         dispatch(modalActions.close());
         dispatch(modalActions.id(null));
@@ -61,10 +57,7 @@ export const createFood = (formData) => {
       discountType: Number(formData.discountType),
     };
     try {
-      const response = await api.post(
-        "Food/create",
-        updatedData
-      );
+      const response = await api.post("Food/create", updatedData);
       if (response.status === 200) {
         dispatch(foodActions.loading(false));
         dispatch(foodActions.showPreview(undefined));
@@ -76,7 +69,6 @@ export const createFood = (formData) => {
       dispatch(foodActions.loading(false));
       dispatch(foodActions.errorMessage(error.message));
       dispatch(modalActions.open());
-      console.log(error);
       setTimeout(() => {
         dispatch(modalActions.id(null));
         dispatch(modalActions.close());
@@ -89,10 +81,7 @@ export const getSingleFoodItem = (id) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
     try {
-      const response = await api.get(
-        `Food/get/${id}`
-      );
-      console.log(response);
+      const response = await api.get(`Food/get/${id}`);
       dispatch(foodActions.setFoodItem(response.data));
       dispatch(foodActions.loading(false));
     } catch (error) {
@@ -109,7 +98,7 @@ export const getSingleFoodItem = (id) => {
 };
 
 export const setSingleFoodNull = () => {
-  return  (dispatch) => {
+  return (dispatch) => {
     dispatch(foodActions.setFoodItem(null));
   };
 };
@@ -117,14 +106,10 @@ export const setSingleFoodNull = () => {
 export const updateSingleFoodItem = (id, data) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
-    console.log(id,data);
     try {
-      const response = await api.put(
-        `Food/update/${id}`, data
-      );
-      console.log(response);
+      const response = await api.put(`Food/update/${id}`, data);
       if (response.status === 200 || response.status === 204) {
-        dispatch(foodActions.updateFood({id,data}))
+        dispatch(foodActions.updateFood({ id, data }));
         dispatch(foodActions.loading(false));
         dispatch(foodActions.showPreview(undefined));
         dispatch(foodActions.selectedFoodImage(undefined));
@@ -140,6 +125,6 @@ export const updateSingleFoodItem = (id, data) => {
         dispatch(modalActions.close());
         dispatch(modalActions.id(null));
       }, 3000);
-    }    
+    }
   };
 };

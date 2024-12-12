@@ -2,10 +2,10 @@ import { forwardRef } from "react";
 import defaultImage from "../../assets/default-image-preview.png";
 import apiUrl from "../../apiUrl/ApiUrl";
 
-const NewOrderTableList = forwardRef(function NewOrderTableList({
-  table,
-  ...props
-}, tableRef) {
+const NewOrderTableList = forwardRef(function NewOrderTableList(
+  { table, ...props },
+  tableRef
+) {
   return (
     <div {...props} ref={tableRef}>
       <img
@@ -24,4 +24,4 @@ const NewOrderTableList = forwardRef(function NewOrderTableList({
   );
 });
 
-export default  NewOrderTableList;
+export default NewOrderTableList;

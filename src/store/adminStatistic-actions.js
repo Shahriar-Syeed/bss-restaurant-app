@@ -6,31 +6,29 @@ export const getAdminStatistics = () => {
   return async (dispatch) => {
     dispatch(adminStatisticsActions.loading(true));
     try {
-      const employeeResponse = await api.get(
-        `Employee/get`
-      );
-      const tableResponse = await api.get(
-        `Table/get`
-      );
-      const foodResponse = await api.get(
-        `Food/get`
-      );
-      const orderResponse = await api.get(
-        `Order/get`
-      );
-      if(employeeResponse.status === 200){
-        dispatch(adminStatisticsActions.getEmployeesStatistics(employeeResponse.data));
+      const employeeResponse = await api.get(`Employee/get`);
+      const tableResponse = await api.get(`Table/get`);
+      const foodResponse = await api.get(`Food/get`);
+      const orderResponse = await api.get(`Order/get`);
+      if (employeeResponse.status === 200) {
+        dispatch(
+          adminStatisticsActions.getEmployeesStatistics(employeeResponse.data)
+        );
       }
-      if(tableResponse.status === 200){
-        dispatch(adminStatisticsActions.getTablesStatistics(tableResponse.data));
+      if (tableResponse.status === 200) {
+        dispatch(
+          adminStatisticsActions.getTablesStatistics(tableResponse.data)
+        );
       }
-      if(foodResponse.status === 200){
+      if (foodResponse.status === 200) {
         dispatch(adminStatisticsActions.getFoodsStatistics(foodResponse.data));
       }
-      if(orderResponse.status === 200){
-        dispatch(adminStatisticsActions.getOrdersStatistics(orderResponse.data));
+      if (orderResponse.status === 200) {
+        dispatch(
+          adminStatisticsActions.getOrdersStatistics(orderResponse.data)
+        );
       }
-      
+
       dispatch(adminStatisticsActions.loading(false));
     } catch (error) {
       dispatch(modalActions.id("Statistic Getting fail"));
@@ -155,6 +153,6 @@ export const getAdminStatistics = () => {
 //         dispatch(modalActions.close());
 //         dispatch(modalActions.id(null));
 //       }, 3000);
-//     }    
+//     }
 //   };
 // };

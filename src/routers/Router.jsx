@@ -20,31 +20,36 @@ import FoodEditPage from "../components/food/FoodEditPage.jsx";
 import NewOrderPage from "../pages/NewOrderPage.jsx";
 import OrderListPage from "../pages/OrderListPage.jsx";
 import RegistrationPage from "../pages/RegistrationPage.jsx";
-import axios from "axios";
 export const token = sessionStorage.getItem("token");
 export const refreshToken = sessionStorage.getItem("refreshToken");
-export const refreshTokenExpiryTime = sessionStorage.getItem("refreshTokenExpiryTime");
-
+export const refreshTokenExpiryTime = sessionStorage.getItem(
+  "refreshTokenExpiryTime"
+);
 
 const requireAuth = async () => {
   const user = await JSON.parse(sessionStorage.getItem("user"));
 
-  // Check if user is Admin and token starts with "Bearer"
-  if (user?.id === "eb87aaa2-bf85-48d5-56a4-08d906dd12b1" && token?.startsWith("Bearer")) {
-    return null; // Allow access
+  if (
+    user?.id === "eb87aaa2-bf85-48d5-56a4-08d906dd12b1" &&
+    token?.startsWith("Bearer")
+  ) {
+    return null;
   } else {
-    return redirect("/bss-restaurant-app/login"); 
+    return redirect("/bss-restaurant-app/login");
   }
 };
 const checkAlreadyLogin = async () => {
   const userName = await JSON.parse(sessionStorage.getItem("user"));
   const saveToken = sessionStorage.getItem("token");
-  if (userName?.id === "eb87aaa2-bf85-48d5-56a4-08d906dd12b1" && saveToken?.startsWith("Bearer")) {
+  if (
+    userName?.id === "eb87aaa2-bf85-48d5-56a4-08d906dd12b1" &&
+    saveToken?.startsWith("Bearer")
+  ) {
     return redirect("/bss-restaurant-app/admin");
   } else {
     return null;
   }
-}
+};
 
 const router = createBrowserRouter([
   {
@@ -58,7 +63,7 @@ const router = createBrowserRouter([
       },
       {
         path: "registration",
-        element: <RegistrationPage/>,
+        element: <RegistrationPage />,
       },
       {
         path: "login",
@@ -113,26 +118,19 @@ const router = createBrowserRouter([
             ],
           },
 
-          { path: "new-order", 
-            
+          {
+            path: "new-order",
+
             element: <NewOrderPage />,
           },
           {
             path: "order",
-            element: <OrderListPage /> 
+            element: <OrderListPage />,
           },
         ],
       },
     ],
   },
 ]);
-
-// export const apiClient = axios.create({
-//   baseURL: "https://restaurantapi.bssoln.com/api/",
-//   headers: {
-//     Authorization: token,
-//   },
-// });
-
 
 export default router;

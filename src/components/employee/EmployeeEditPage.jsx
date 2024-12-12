@@ -51,7 +51,6 @@ export default function EmployeeEditPage() {
             editEmployeeDesignation(param.employeeId, e.target[0].value)
           );
 
-
           res === "success" && navigate("../employee-list");
         } catch (error) {
           console.error("Failed to update designation:", error);
@@ -61,7 +60,6 @@ export default function EmployeeEditPage() {
   }
   return (
     <>
-    
       {isLoading && <Loading fullHeightWidth />}
       <PageHeader
         title="Edit Employee"
