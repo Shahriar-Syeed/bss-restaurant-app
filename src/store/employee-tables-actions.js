@@ -1,7 +1,6 @@
 import { employeeTablesActions } from "./employee-tables-slice.js";
 import { modalActions } from "./modal-slice.js";
 import { convertBase64 } from "./employee-actions.js";
-import { token } from "../routers/Router.jsx";
 import { api } from "./axiosInstance.js";
 export const getEmployeeTables = (page, perPage) => {
   return async (dispatch) => {
@@ -67,15 +66,7 @@ export const createTable = (formData, imageFile) => {
         image: imageFile?.name || "",
         base64: base64String ? base64String : "",
       };
-      const response = await api.post(
-        "Table/create",
-        {
-          headers: {
-            Authorization: token,
-          },
-        },
-        finalData
-      );
+      const response = await api.post("Table/create", finalData);
       if (response.status === 200) {
         dispatch(employeeTablesActions.setLoading(false));
         dispatch(employeeTablesActions.showPreview(undefined));
