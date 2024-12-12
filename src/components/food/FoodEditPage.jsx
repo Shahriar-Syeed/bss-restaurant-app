@@ -19,6 +19,7 @@ import useFormValidation from "../../customHooks/useFormValidation.js";
 import validateFoodEntry from "../utility/foodValidationUtility.js";
 import Modal from "../UI/Modal.jsx";
 import { modalActions } from "../../store/modal-slice.js";
+import apiUrl from "../../apiUrl/ApiUrl.jsx";
 
 export default function FoodEditPage() {
   const foodImageRef = useRef();
@@ -230,7 +231,7 @@ export default function FoodEditPage() {
                     previewImage
                       ? previewImage
                       : foodData?.image
-                      ? `https://restaurantapi.bssoln.com/images/food/${foodData?.image}`
+                      ? `${apiUrl.getFoodImage}${foodData?.image}`
                       : defaultImage
                   }
                   alt={foodData?.name}

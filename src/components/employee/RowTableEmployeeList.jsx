@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../UI/Modal.jsx";
 import { modalActions } from "../../store/modal-slice.js";
 import defaultImage from "../../assets/default-image-preview.png";
+import apiUrl from "../../apiUrl/ApiUrl.jsx";
 
 export default function RowTableEmployeeList({ deleteEmployee }) {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
             <img
              src={
               employee.user.image !== ''
-                ? `https://restaurantapi.bssoln.com/images/user/${employee.user.image}`
+                ? `${apiUrl.getImage}${employee.user.image}`
                 : defaultImage
             }
               alt="Admin image"

@@ -1,18 +1,14 @@
-import axios from "axios";
+
 import { modalActions } from "./modal-slice.js";
 import { orderActions } from "./order-slice.js";
 import { customSelectActions } from "./custom-select-slice.js";
-import { token } from "../routers/Router.jsx";
+import { api } from "./axiosInstance.js";
 export const getOrder = ( perPage) => {
   return async (dispatch) => {
     dispatch(orderActions.setLoading(true));
     try {
-      const response = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Order/datatable?Page=1&Per_Page=${perPage}`,{
-          headers:{
-            Authorization: token,
-          }
-        }
+      const response = await api.get(
+        `Order/datatable?Page=1&Per_Page=${perPage}`
       );
       console.log(response);
       dispatch(orderActions.setOrderDataTable(response.data));
@@ -38,12 +34,8 @@ export const changeOrderStatus = (id, status) => {
     dispatch(orderActions.setLoading(true));
     const updatedStatus ={status:status};
     try {
-      const response = await axios.put(
-        `https://restaurantapi.bssoln.com/api/Order/update-status/${id}`,{
-          headers:{
-            Authorization: token,
-          }
-        }, updatedStatus
+      const response = await api.put(
+        `Order/update-status/${id}`, updatedStatus
       );
       console.log(response);
       if(response.status === 200){
@@ -86,12 +78,8 @@ export const removeOrder = (id) => {
   return async (dispatch) => {
     dispatch(orderActions.setLoading(true));
     try {
-      const response = await axios.delete(
-        `https://restaurantapi.bssoln.com/api/Order/delete/${id}`,{
-          headers:{
-            Authorization: token,
-          }
-        }
+      const response = await api.delete(
+        `Order/delete/${id}`
       );
       console.log(response);
       if(response.status === 204){

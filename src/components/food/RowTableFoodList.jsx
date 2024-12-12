@@ -3,6 +3,7 @@ import Button from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../UI/Modal";
 import { modalActions } from "../../store/modal-slice";
+import apiUrl from "../../apiUrl/ApiUrl";
 
 export default function RowTableFoodList({ food, deleteFood }) {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ export default function RowTableFoodList({ food, deleteFood }) {
             <img
               src={
                 food.image
-                  ? `https://restaurantapi.bssoln.com/images/food/${food.image}`
+                  ? `${apiUrl.getFoodImage}${food.image}`
                   : "../assets/default-image-preview.png"
               }
               alt={food.name}

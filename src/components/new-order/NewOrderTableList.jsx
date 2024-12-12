@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import defaultImage from "../../assets/default-image-preview.png";
+import apiUrl from "../../apiUrl/ApiUrl";
 
 const NewOrderTableList = forwardRef(function NewOrderTableList({
   table,
@@ -11,7 +12,7 @@ const NewOrderTableList = forwardRef(function NewOrderTableList({
         src={
           table.image === ""
             ? defaultImage
-            : `https://restaurantapi.bssoln.com/images/table/${table.image}`
+            : `${apiUrl.getTableImage}${table.image}`
         }
         alt="table"
         className="w-24 max-h-16 rounded-lg object-cover"

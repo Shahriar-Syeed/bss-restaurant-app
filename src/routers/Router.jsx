@@ -127,12 +127,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const apiClient = axios.create({
-  baseURL: "https://restaurantapi.bssoln.com/api/",
-  headers: {
-    Authorization: token,
-  },
-});
+// export const apiClient = axios.create({
+//   baseURL: "https://restaurantapi.bssoln.com/api/",
+//   headers: {
+//     Authorization: token,
+//   },
+// });
 
 
 export default router;

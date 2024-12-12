@@ -1,17 +1,12 @@
-import axios from "axios";
 import { foodActions } from "./food-slice.js";
 import { modalActions } from "./modal-slice.js";
-import { token } from "../routers/Router.jsx";
+import { api } from "./axiosInstance.js";
 export const getFoods = (page, perPage) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
     try {
-      const response = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Food/datatable?Page=${page}&Per_Page=${perPage}`,{
-          headers:{
-            Authorization: token,
-          }
-        }
+      const response = await api.get(
+        `Food/datatable?Page=${page}&Per_Page=${perPage}`
       );
       console.log(response);
       dispatch(foodActions.getFoodsDataTable(response.data));
@@ -33,12 +28,8 @@ export const deleteFood = (foodId) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
     try {
-      const res = await axios.delete(
-        `https://restaurantapi.bssoln.com/api/Food/delete/${foodId}`,{
-          headers:{
-            Authorization: token,
-          }
-        }
+      const res = await api.delete(
+        `Food/delete/${foodId}`
       );
 
       if (res.status === 204) {
@@ -70,16 +61,8 @@ export const createFood = (formData) => {
       discountType: Number(formData.discountType),
     };
     try {
-      const response = await axios.post(
-        "https://restaurantapi.bssoln.com/api/Food/create",{
-          headers:{
-            Authorization: token,
-          }
-        },{
-          headers:{
-            Authorization: token,
-          }
-        },
+      const response = await api.post(
+        "Food/create",
         updatedData
       );
       if (response.status === 200) {
@@ -106,12 +89,8 @@ export const getSingleFoodItem = (id) => {
   return async (dispatch) => {
     dispatch(foodActions.loading(true));
     try {
-      const response = await axios.get(
-        `https://restaurantapi.bssoln.com/api/Food/get/${id}`,{
-          headers:{
-            Authorization: token,
-          }
-        }
+      const response = await api.get(
+        `Food/get/${id}`
       );
       console.log(response);
       dispatch(foodActions.setFoodItem(response.data));
@@ -140,12 +119,8 @@ export const updateSingleFoodItem = (id, data) => {
     dispatch(foodActions.loading(true));
     console.log(id,data);
     try {
-      const response = await axios.put(
-        `https://restaurantapi.bssoln.com/api/Food/update/${id}`,{
-          headers:{
-            Authorization: token,
-          }
-        }, data
+      const response = await api.put(
+        `Food/update/${id}`, data
       );
       console.log(response);
       if (response.status === 200 || response.status === 204) {

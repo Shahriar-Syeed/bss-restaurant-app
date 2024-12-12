@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postAssignEmployeesTable } from "../../store/employee-tables-actions";
 
 import { employeeSelectActions } from "../../store/employee-select-slice.js";
+import apiUrl from "../../apiUrl/ApiUrl.jsx";
 
 export default function AssignEmployeeModal({
   // open,
@@ -66,7 +67,7 @@ export default function AssignEmployeeModal({
               <img
                 src={
                   info.image !== ""
-                    ? `https://restaurantapi.bssoln.com/images/table/${info.image}`
+                    ? `${apiUrl.getTableImage}${info.image}`
                     : defaultImage
                 }
                 alt=""

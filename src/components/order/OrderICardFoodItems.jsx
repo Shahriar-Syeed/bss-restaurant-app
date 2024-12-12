@@ -1,3 +1,4 @@
+import apiUrl from "../../apiUrl/ApiUrl";
 import defaultImage from "../../assets/default-image-preview.png" ;
 export default function OrderICardFoodItems({item, ...props}) {
   return (
@@ -7,7 +8,7 @@ export default function OrderICardFoodItems({item, ...props}) {
                 src={
                   item.food.image === ""
                     ? defaultImage
-                    : `https://restaurantapi.bssoln.com/images/food/${item.food.image}`
+                    : `${apiUrl.getFoodImage}${item.food.image}`
                 }
                 alt="food image"
                 className="w-full object-cover rounded-lg"

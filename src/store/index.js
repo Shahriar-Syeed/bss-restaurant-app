@@ -10,9 +10,11 @@ import foodSlice from "./food-slice.js";
 import orderSlice from "./order-slice.js";
 import cartSlice from "./cart-slice.js";
 import  adminStatisticsSlice  from "./adminStatistics-slice.js";
+import loginSlice from "./login-slice.js"
 
 const store = configureStore({
   reducer: {
+    login: loginSlice,
     modal: modalReducer,
     loader: loaderSlice,
     employees: employeeSlice,

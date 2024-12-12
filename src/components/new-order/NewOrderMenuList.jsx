@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import Button from "../UI/Button";
 import defaultImage from "../../assets/default-image-preview.png";
 import { forwardRef } from "react";
+import apiUrl from "../../apiUrl/ApiUrl";
 
 const NewOrderMenuList = forwardRef(function NewOrderMenuList(
   { menuItem, toggleCart, addFoodItemInCart, ...props },
@@ -14,7 +15,7 @@ const NewOrderMenuList = forwardRef(function NewOrderMenuList(
         <img
           src={
             menuItem.image
-              ? `https://restaurantapi.bssoln.com/images/food/${menuItem.image}`
+              ? `${apiUrl.getFoodImage}${menuItem.image}`
               : defaultImage
           }
           alt={menuItem.name}

@@ -1,23 +1,22 @@
-import axios from "axios";
 import { modalActions } from "./modal-slice.js";
 import { adminStatisticsActions } from "./adminStatistics-slice.js";
-import { apiClient, token } from "../routers/Router.jsx";
+import { api } from "./axiosInstance.js";
 
 export const getAdminStatistics = () => {
   return async (dispatch) => {
     dispatch(adminStatisticsActions.loading(true));
     try {
-      const employeeResponse = await apiClient.get(
-        `https://restaurantapi.bssoln.com/api/Employee/get`
+      const employeeResponse = await api.get(
+        `Employee/get`
       );
-      const tableResponse = await apiClient.get(
-        `https://restaurantapi.bssoln.com/api/Table/get`
+      const tableResponse = await api.get(
+        `Table/get`
       );
-      const foodResponse = await apiClient.get(
-        `https://restaurantapi.bssoln.com/api/Food/get`
+      const foodResponse = await api.get(
+        `Food/get`
       );
-      const orderResponse = await apiClient.get(
-        `https://restaurantapi.bssoln.com/api/Order/get`
+      const orderResponse = await api.get(
+        `Order/get`
       );
       if(employeeResponse.status === 200){
         dispatch(adminStatisticsActions.getEmployeesStatistics(employeeResponse.data));

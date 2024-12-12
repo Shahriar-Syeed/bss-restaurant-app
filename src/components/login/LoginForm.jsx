@@ -9,81 +9,84 @@ import useLoading from "../../customHooks/useLoading.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../store/modal-slice.js";
 import Modal from "../UI/Modal.jsx";
+import Loading from "../loader/Loading.jsx";
+import { setLoginData, submitLogin } from "../../store/login-actions.js";
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState({
-    userName: "admin@mail.com",
-    password: "Admin@123",
-  });
-  const [error, setError] = useState(null);
-  const { loader, startLoad, endLoad } = useLoading();
+  // const [formData, setFormData] = useState({
+  //   userName: "admin@mail.com",
+  //   password: "Admin@123",
+  // });
+  // const [error, setError] = useState(null);
+  // const { loader, startLoad, endLoad } = useLoading();
   const navigate = useNavigate();
+
+  const loginData = useSelector((state)=> state.login.formData);
+  const isLoading = useSelector((state)=> state.login.loading);
+  const error = useSelector((state)=> state.login.error);
 
   const modalId = useSelector((state)=>state.modal.id);
   function handleChange(e) {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    dispatch(setLoginData({...loginData, [name]:value}))
+    // setFormData({ ...formData, [name]: value });
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    startLoad();
-    try {
-      console.log(formData);
-      const response = await axios.post(
-        `https://restaurantapi.bssoln.com/api/Auth/SignIn`,
-        formData
-      );
-      console.log(response);
-      if (response.status === 200) {
-        const token = "Bearer " + response.data.token;
-        const user = response.data.user;
-        const refreshToken = response.data.refreshToken;
-        sessionStorage.setItem("token", token);
-        sessionStorage.setItem("refreshToken", refreshToken);
-        sessionStorage.setItem("user", JSON.stringify(user));
-        navigate(`/bss-restaurant-app/${user.fullName}`);
-      }
-    } catch (error) {
-        setError(error.message);
-      openModal();
-      setTimeout(() => {
-        endLoad();
-        closeModal();
-        return;
-      }, 3000);
+    // startLoad();
+    // try {
+    //   console.log(formData);
+    //   const response = await axios.post(
+    //     `https://restaurantapi.bssoln.com/api/Auth/SignIn`,
+    //     formData
+    //   );
+    //   console.log(response);
+    //   if (response.status === 200) {
+    //     const token = "Bearer " + response.data.token;
+    //     const user = response.data.user;
+    //     const refreshToken = response.data.refreshToken;
+    //     sessionStorage.setItem("token", token);
+    //     sessionStorage.setItem("refreshToken", refreshToken);
+    //     sessionStorage.setItem("user", JSON.stringify(user));
+    //     navigate(`/bss-restaurant-app/${user.fullName}`);
+    //   }
+    // } catch (error) {
+    //     setError(error.message);
+    //   openModal();
+    //   setTimeout(() => {
+    //     endLoad();
+    //     closeModal();
+    //     return;
+    //   }, 3000);
+    // }
+    // endLoad();
+    try{
+      const res = await dispatch(submitLogin(loginData));
+
+      navigate(res);
+    } catch (error){
+      console.log(error);
     }
-    endLoad();
+
   }
   const isOpen = useSelector((state) => state.modal.open);
   console.log(isOpen);
   const dispatch = useDispatch();
-  function openModal() {
-    dispatch(modalActions.id("Login Error"))
-    dispatch(modalActions.open());
-  }
+  // function openModal() {
+  //   dispatch(modalActions.id("Login Error"))
+  //   dispatch(modalActions.open());
+  // }
   function closeModal() {
     dispatch(modalActions.close());
+    dispatch(modalActions.id(null));
   }
 
   return (
     <>
+    {isLoading && <Loading/>}
       <div className="login__right__container">
-        {modalId === "Login Error" && <Modal open={isOpen} onClose={closeModal}>
-          <h1 className="text-xl font-semibold mb-2 text-red-900">Failed To Login</h1>
-           <p>Invalid Password or Username</p>
-           <p className="text-xs">{error}</p>
-          <div className="modal-action p-2">
-            <Button
-              className="float-end button-primary px-4 py-2 rounded-lg"
-              onClick={closeModal}
-              type="button"
-            >
-              Close
-            </Button>
-          </div>
-        </Modal>}
         <header className="mb-5">
           <img src={Logo} alt="Logo" className=" mx-auto w-28" />
           <h1 className=" text-center text-white font-bold">BSS RESTAURANT</h1>
@@ -94,8 +97,9 @@ export default function LoginForm() {
               type="text"
               required
               id="userName"
+              name="userName"
               className="block rounded border border-solid w-full border-slate-250 h-6 leading-6 px-3.5 py-8 "
-              value={formData.userName}
+              value={loginData.userName}
               onChange={(event) => handleChange(event)}
             >
               Username
@@ -105,9 +109,10 @@ export default function LoginForm() {
             <Input
               required
               id="password"
+              name="password"
               className="h-6 leading-6 p-3"
               eyeButton
-              value={formData.password}
+              value={loginData.password}
               onChange={(event) => handleChange(event)}
             >
               Password
@@ -127,7 +132,6 @@ export default function LoginForm() {
           </Link>
         </form>
       </div>
-      {loader}
     </>
   );
 }

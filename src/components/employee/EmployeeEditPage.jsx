@@ -10,6 +10,7 @@ import Loading from "../loader/Loading.jsx";
 import useFormValidation from "../../customHooks/useFormValidation.js";
 import validateEmployeeEntry from "../utility/employeeValidationUtility.js";
 import ForwardIcon from "../svg/ForwardIcon.jsx";
+import apiUrl from "../../apiUrl/ApiUrl.jsx";
 
 export default function EmployeeEditPage() {
   const {
@@ -60,6 +61,7 @@ export default function EmployeeEditPage() {
   }
   return (
     <>
+    
       {isLoading && <Loading fullHeightWidth />}
       <PageHeader
         title="Edit Employee"
@@ -75,7 +77,7 @@ export default function EmployeeEditPage() {
             <img
               src={
                 employeeInfo?.user?.image
-                  ? `https://restaurantapi.bssoln.com/images/user/${employeeInfo.user.image}`
+                  ? `${apiUrl.getImage}${employeeInfo.user.image}`
                   : defaultImage
               }
               alt={employeeInfo?.user?.fullName}

@@ -9,8 +9,9 @@ const ErrorModal = () => {
   // State selectors
   const isOpen = useSelector((state) => state.modal.open);
   const errorModalId = useSelector((state) => state.modal.id);
-  const foodErrorMessage = useSelector((state) => state.foods.error);
+  const loginErrorMessage = useSelector((state) => state.login.error);
   const employeeErrorMessage = useSelector((state) => state.employees.error);
+  const foodErrorMessage = useSelector((state) => state.foods.error);
   const tableErrorMessage = useSelector((state) => state.employeeTables.error);
   const statisticsErrorMessage = useSelector(
     (state) => state.adminStatistics.error
@@ -27,20 +28,22 @@ const ErrorModal = () => {
 
   // Determine the title and message dynamically
   const title = foodErrorMessage
-    ? "Food Error"
+    ? "Food Error!"
+    : loginErrorMessage
+    ? "Failed To Login!"
     : tableErrorMessage
-    ? "Table Error"
+    ? "Table Error!"
     : cartErrorMessage
-    ? "Cart Error"
+    ? "Cart Error!"
     : employeeErrorMessage
-    ? "Employee Error"
+    ? "Employee Error!"
     : orderErrorMessage
-    ? "Order Error"
+    ? "Order Error!"
     : statisticsErrorMessage
-    ? "Statistics Error"
+    ? "Statistics Error!"
     : cartSuccess
-    ? "Order Success"
-    : "Error";
+    ? "Order Success!"
+    : "Error!";
   const message =
     foodErrorMessage ??
     employeeErrorMessage ??
@@ -48,11 +51,12 @@ const ErrorModal = () => {
     orderErrorMessage ??
     cartErrorMessage ??
     statisticsErrorMessage ??
+    loginErrorMessage ??
     cartSuccess ??
     null;
   console.log(errorModalId);
 
-  const returnModal = message && errorModalId !== "Login Error" ? (
+  const returnModal = message ? (
     <Modal open={isOpen} onClose={closeModal}>
       <div className="p-4">
         {cartSuccess && (
@@ -62,11 +66,12 @@ const ErrorModal = () => {
         )}
         {!cartSuccess && (
           <>
-            <h1 className="text-xl font-semibold mb-2 text-red-900">{title}</h1>
-            <p className="text-md text-gray-700 mb-1">
+           <h1 className="text-xl font-bold mb-2 text-red-900">{title}</h1>
+            {errorModalId !== "Failed To Login" &&<p className="text-md text-gray-700 mb-1">
               Something went wrong! {errorModalId}
-            </p>
-            <p className="text-xs text-gray-700 mb-4">{message}</p>
+            </p>}
+            {errorModalId === "Failed To Login" && <p>Invalid Password or Username.</p>}
+            <p className="text-xs text-gray-700 mb-3">{message}</p>
           </>
         )}
 
