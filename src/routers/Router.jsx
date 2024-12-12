@@ -20,18 +20,13 @@ import FoodEditPage from "../components/food/FoodEditPage.jsx";
 import NewOrderPage from "../pages/NewOrderPage.jsx";
 import OrderListPage from "../pages/OrderListPage.jsx";
 import RegistrationPage from "../pages/RegistrationPage.jsx";
-export const token = sessionStorage.getItem("token");
-export const refreshToken = sessionStorage.getItem("refreshToken");
-export const refreshTokenExpiryTime = sessionStorage.getItem(
-  "refreshTokenExpiryTime"
-);
 
 const requireAuth = async () => {
   const user = await JSON.parse(sessionStorage.getItem("user"));
-
+  const saveToken = sessionStorage.getItem("token");
   if (
     user?.id === "eb87aaa2-bf85-48d5-56a4-08d906dd12b1" &&
-    token?.startsWith("Bearer")
+    saveToken?.startsWith("Bearer")
   ) {
     return null;
   } else {

@@ -34,7 +34,7 @@ export default function LoginForm() {
           <img src={Logo} alt="Logo" className=" mx-auto w-28" />
           <h1 className=" text-center text-white font-bold">BSS RESTAURANT</h1>
         </header>
-        <form onSubmit={(event) => handleSubmit(event)}>
+        <form onSubmit={handleSubmit}>
           <div className="mb-5">
             <Input
               type="text"
