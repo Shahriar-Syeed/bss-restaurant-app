@@ -7,6 +7,13 @@ const validateEmployeeEntry = (name, value) => {
         error = "First name is required.";
       } else if (value.trim().length < 2) {
         error = "Must be 2 characters.";
+      } 
+      break;
+    case "userName":
+      if (!value.trim()) {
+        error = "User name is required.";
+      } else if (value.trim().length < 2) {
+        error = "Must be 2 characters.";
       } else if (value.trim().length > 10) {
         error = "10 char limit.";
       }

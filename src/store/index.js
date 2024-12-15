@@ -11,9 +11,11 @@ import orderSlice from "./order-slice.js";
 import cartSlice from "./cart-slice.js";
 import adminStatisticsSlice from "./adminStatistics-slice.js";
 import loginSlice from "./login-slice.js";
+import registerSlice from "./register-slice.js";
 
 const store = configureStore({
   reducer: {
+    register: registerSlice,
     login: loginSlice,
     modal: modalReducer,
     loader: loaderSlice,
