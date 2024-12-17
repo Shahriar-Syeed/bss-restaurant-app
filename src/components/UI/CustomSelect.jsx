@@ -87,10 +87,10 @@ const CustomSelect = ({
         tabIndex={0}
       >
         <label
-          className={`absolute ps-1.5 text-xs sm:text-sm md:text-base transform pointer-events-none transition-all duration-300 text-gray-500 group-focus:text-blue-500 group-focus-within:text-blue-500
+          className={`absolute ps-0.5 text-xs sm:text-sm md:text-base transform pointer-events-none transition-all duration-300 text-gray-500 group-focus:text-blue-500 group-focus-within:text-blue-500
           ${
             isFocused
-              ? "scale-75 top-2 bg-white sm:-translate-x-4 -translate-y-3.5 origin-[0] z-10"
+              ? "scale-75 top-2 bg-white sm:-translate-x-2 sm:-translate-y-5 -translate-y-3.5 origin-[0] z-10"
               : "top-1/2 -translate-y-1/2 rtl:translate-x-1/4 rtl:left-auto"
           }`}
         >
