@@ -154,14 +154,14 @@ export default function RegistrationPage() {
 
           <div className="modal-action p-2 flex justify-end gap-2 flex-wrap">
             <Button
-              className="button__outline--primary px-4 py-2 rounded-lg"
+              className="button__outline--primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg"
               onClick={closeModal}
               type="button"
             >
               Cancel
             </Button>
             <Button
-              className="button-primary px-4 py-2 rounded-lg"
+              className="button-primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg"
               type="button"
               onClick={handleSubmit}
             >
@@ -183,7 +183,7 @@ export default function RegistrationPage() {
           <h1 className="2xl:text-3xl xl:text-2xl lg:text-xl text-md mb-3 text-center">
             Do You want to login or register
           </h1>
-          <Button className='absolute right-10 top-8 button button-primary px-4 py-2 rounded-lg' onClick={()=> navigate('../')}> back</Button>
+          <Button className='absolute right-10 top-8 button button-primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg' onClick={()=> navigate('../')}> back</Button>
           <div>
             <form ref={formRef}>
               <div className="grid lg:grid-cols-12 lg:gap-6 gap-5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">

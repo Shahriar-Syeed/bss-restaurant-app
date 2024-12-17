@@ -45,7 +45,7 @@ export default function AssignEmployeeModal({
     <>
       <Modal open={isOpen} onClose={closeModal} className=" overflow-unset">
         <Button
-          className="button-primary sm:px-3 sm:py-1.5 px-2 py-1 rounded-lg absolute right-3 top-3 font-extrabold"
+          className="button-primary sm:px-3 sm:py-1.5 px-2 py-1 rounded-lg absolute right-3 top-3 font-extrabold border-solid border-2 border-primary"
           onClick={closeModal}
           type="button"
         >

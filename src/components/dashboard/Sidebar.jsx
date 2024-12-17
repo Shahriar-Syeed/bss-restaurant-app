@@ -212,7 +212,7 @@ export default function Sidebar() {
             <li>
               <Button
                 onClick={goToLoginPage}
-                className="w-full button__outline--primary rounded-lg"
+                className="w-full button__outline--primary rounded-lg py-2 "
                 type="button"
               >
                 <LogoutIcon className="w-5 h-5 fill-inherit" />

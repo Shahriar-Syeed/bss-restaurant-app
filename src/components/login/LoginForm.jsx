@@ -63,7 +63,7 @@ export default function LoginForm() {
           </div>
           <Button
             type="submit"
-            className="w-full text-white px-4 py-2 button-primary rounded uppercase mb-5 tracking-2px"
+            className="w-full text-white sm:py-2 sm:px-4 py-1.5 px-3 button-primary rounded uppercase mb-5 tracking-2px"
           >
             LOGIN
           </Button>

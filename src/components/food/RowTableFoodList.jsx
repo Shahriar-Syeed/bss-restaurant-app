@@ -31,14 +31,14 @@ export default function RowTableFoodList({ food, deleteFood }) {
           <h1>Do you want to delete this ?</h1>
           <div className="flex flex-wrap justify-end gap-2 p-2">
             <Button
-              className="button__outline-primary px-4 py-2 rounded-lg"
+              className="button__outline-primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg"
               type="button"
               onClick={closeModal}
             >
               Cancel
             </Button>
             <Button
-              className="button-primary px-4 py-2 rounded-lg"
+              className="button-primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg"
               type="button"
               onClick={deleteThisFood}
             >
