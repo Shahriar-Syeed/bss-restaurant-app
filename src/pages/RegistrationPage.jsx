@@ -76,7 +76,6 @@ export default function RegistrationPage() {
     dispatch(modalActions.id(null));
   }
 
-
   function onSelectFile(event) {
     if (!event.target.files || event.target.files.length === 0) {
       return;
@@ -102,7 +101,11 @@ export default function RegistrationPage() {
     const fetchData = new FormData(formRef.current);
     const data = Object.fromEntries(fetchData.entries());
     delete data.confirmPassword;
-    let updatedData = { ...data, dob: dateConvertToString(data?.dob), genderId: Number(data?.genderId) };
+    let updatedData = {
+      ...data,
+      dob: dateConvertToString(data?.dob),
+      genderId: Number(data?.genderId),
+    };
     console.log(data, updatedData);
     if (imageCaptureRef.current) {
       const base64 = await convertBase64(imageCaptureRef.current);
@@ -118,7 +121,7 @@ export default function RegistrationPage() {
     }
     try {
       const response = await dispatch(createUser(updatedData));
-      console.log('registerActions', response)
+      console.log("registerActions", response);
       switch (response?.status) {
         case 200:
           imageCaptureRef.current = null;
@@ -170,46 +173,52 @@ export default function RegistrationPage() {
           </div>
         </Modal>
       )}
-      <Navbar>
+      <Navbar className="flex gap-2 sm:gap-3 flex-wrap">
         <NavLink
           to="/bss-restaurant-app/login"
-          className="button__outline--primary px-6 py-3 rounded-md text-lg font-semibold hover:border-white"
+          className="button__outline--primary sm:px-6 sm:py-3 es:px-3 es:py-1.5 px-2 py-1 rounded-md sm:text-lg es:text-base text-sm font-semibold hover:border-white"
         >
           Login
         </NavLink>
+          <Button
+            className=" button__outline--primary sm:px-6 sm:py-3 es:px-3 es:py-1.5 px-2 py-1 rounded-md sm:text-lg es:text-base text-sm font-semibold hover:border-white"
+            onClick={() => navigate("../")}
+          >
+            {" "}
+            back
+          </Button>
       </Navbar>
       <section className="min-h-lvh bg--page xl:p-20 lg:p-16 md:p-10">
         <div className="bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded relative">
-          <h1 className="2xl:text-3xl xl:text-2xl lg:text-xl text-md mb-3 text-center">
-            Do You want to login or register
+          <h1 className="2xl:text-3xl xl:text-2xl lg:text-xl text-md mb-3 text-center font-bold">
+            Please write information correctly.
           </h1>
-          <Button className='absolute right-10 top-8 button button-primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg' onClick={()=> navigate('../')}> back</Button>
           <div>
             <form ref={formRef}>
-              <div className="grid lg:grid-cols-12 lg:gap-6 gap-5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
-                  <div
-                    className="lg:col-start-9 lg:col-end-13 lg:row-span-4 border-dashed border border-gray-200 hover:border-gray-400 relative min-h-36 rounded"
-                    onDragOver={(e) => e.preventDefault()}
-                    onDrop={handleDrop}
-                  >
-                    <div className="h-full flex items-center justify-center">
-                      <Input
-                        type="file"
-                        hidden
-                        required
-                        id="image"
-                        name="image"
-                        labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
-                        onChange={onSelectFile}
-                      >{``}</Input>
-                      <div className="max-w-36 h-36 overflow-hidden rounded-lg">
-                        <img
-                          src={previewImage || defaultImage}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+              <div className="grid lg:grid-cols-12 lg:gap-6 gap-5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded pt-3">
+                <div
+                  className="lg:col-start-9 lg:col-end-13 lg:row-span-4 border-dashed border border-gray-200 hover:border-gray-400 relative min-h-36 rounded"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={handleDrop}
+                >
+                  <div className="h-full flex items-center justify-center">
+                    <Input
+                      type="file"
+                      hidden
+                      required
+                      id="image"
+                      name="image"
+                      labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
+                      onChange={onSelectFile}
+                    >{``}</Input>
+                    <div className="max-w-36 h-36 overflow-hidden rounded-lg">
+                      <img
+                        src={previewImage || defaultImage}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   </div>
+                </div>
                 <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1 relative">
                   <InputFloating
                     id="userName"
@@ -239,7 +248,6 @@ export default function RegistrationPage() {
                     onBlur={handleBlur}
                     error={errors.middleName}
                     errorClassName="absolute text-xs text-red-600 py-0.5 ps-3"
-
                   >
                     Middle Name
                   </InputFloating>
@@ -278,7 +286,7 @@ export default function RegistrationPage() {
                     Phone Number
                   </InputFloating>
                 </div>
-                
+
                 <div className="lg:col-span-4">
                   <InputFloating
                     id="fatherName"
@@ -294,7 +302,7 @@ export default function RegistrationPage() {
                   <InputFloating
                     id="motherName"
                     onChange={handleChange}
-                    onBlur={handleBlur} 
+                    onBlur={handleBlur}
                     error={errors.motherName}
                     errorClassName="absolute text-xs text-red-600 py-0.5 ps-3"
                   >
@@ -348,18 +356,10 @@ export default function RegistrationPage() {
                   </InputFloating>
                 </div>
                 <div className="lg:col-span-3">
-                  <InputFloating
-                    id="facebook"
-                  >
-                    Facebook
-                  </InputFloating>
+                  <InputFloating id="facebook">Facebook</InputFloating>
                 </div>
                 <div className="lg:col-span-3">
-                  <InputFloating
-                    id="instagram"
-                  >
-                    Instagram
-                  </InputFloating>
+                  <InputFloating id="instagram">Instagram</InputFloating>
                 </div>
                 <div className="lg:col-span-6">
                   <InputFloating
