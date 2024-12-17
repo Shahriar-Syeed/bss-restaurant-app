@@ -19,29 +19,14 @@ const registerSlice = createSlice({
     showPreview(state, action) {
       state.preview = action.payload;
     },
-    setSelectedEmployeeImage(state, action) {
-      state.selectedEmployeeImage = action.payload;
+    setSelectedUserImage(state, action) {
+      state.selectedUserImage = action.payload;
     },
     loading(state, action) {
       state.loading = action.payload;
     },
     errorMessage(state, action) {
       state.error = action.payload;
-    },
-    removeEmployee(state, action) {
-      state.employeeDataTable = {
-        ...state.employeeDataTable,
-        data: state.employeeDataTable.data.filter(
-          (employee) => employee.id !== action.payload
-        ),
-      };
-    },
-    changeEmployeeDesignation(state, action) {
-      state.employeeDataTable.data = state.employeeDataTable.data.map((item) =>
-        item.id === action.payload.id
-          ? { ...item, designation: action.payload.designation }
-          : item
-      );
     },
   },
 });

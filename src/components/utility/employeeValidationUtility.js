@@ -1,4 +1,4 @@
-const validateEmployeeEntry = (name, value) => {
+const validateEmployeeEntry = (name, value, formData) => {
   let error = "";
 
   switch (name) {
@@ -125,6 +125,20 @@ const validateEmployeeEntry = (name, value) => {
         error = "NID is required.";
       } else if (!nidRegex.test(value)) {
         error = "10 or 17 digits.";
+      }
+      break;
+    case "password":
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      if (!value.trim()) {
+        error = "Password is required.";
+      } else if (!passwordRegex.test(value)) {
+        error = "8 chars include 1 letter & 1 number.";
+      }
+      break;
+    case "confirmPassword":
+      
+      if (value !== formData?.password) {
+        error = "Passwords do not match.";
       }
       break;
 

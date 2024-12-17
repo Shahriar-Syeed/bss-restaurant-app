@@ -10,7 +10,6 @@ import useFormValidation from "../customHooks/useFormValidation.js";
 import {
   convertBase64,
   dateConvertToString,
-  nullStatus,
 } from "../store/employee-actions.js";
 import { modalActions } from "../store/modal-slice.js";
 import { registerActions } from "../store/register-slice.js";
@@ -41,6 +40,8 @@ export default function RegistrationPage() {
       phoneNumber: "",
       dob: "",
       nid: "",
+      password: "",
+      confirmPassword: "",
     },
     validateEmployeeEntry,
     ["phoneNumber", "nid"]
@@ -62,14 +63,10 @@ export default function RegistrationPage() {
   const modalId = useSelector((state) => state.modal.id);
   const isOpen = useSelector((state) => state.modal.open);
 
-  function openModal(event) {
-    event?.preventDefault();
-
-    const fetchData = new FormData(formRef.current);
-    const data = Object.fromEntries(fetchData.entries());
+  function openModal() {
     const validationError = validateFields();
     if (!hasError() && Object.keys(validationError).length === 0) {
-      dispatch(modalActions.id("employee-create-confirmation"));
+      dispatch(modalActions.id("user-create-confirmation"));
       dispatch(modalActions.open());
     }
   }
@@ -79,10 +76,6 @@ export default function RegistrationPage() {
     dispatch(modalActions.id(null));
   }
 
-  useEffect(() => {
-    dispatch(nullStatus());
-    return () => dispatch(nullStatus());
-  }, [dispatch]);
 
   function onSelectFile(event) {
     if (!event.target.files || event.target.files.length === 0) {
@@ -104,33 +97,32 @@ export default function RegistrationPage() {
       event.dataTransfer.clearData();
     }
   }
-  async function handleSubmit() {
+  async function handleSubmit(event) {
+    event?.preventDefault();
     const fetchData = new FormData(formRef.current);
     const data = Object.fromEntries(fetchData.entries());
-    let updatedData = { ...data, dob: dateConvertToString(formData.dob) };
+    delete data.confirmPassword;
+    let updatedData = { ...data, dob: dateConvertToString(data?.dob), genderId: Number(data?.genderId) };
+    console.log(data, updatedData);
     if (imageCaptureRef.current) {
       const base64 = await convertBase64(imageCaptureRef.current);
 
       updatedData = {
-        ...data,
+        ...updatedData,
         image: imageCaptureRef.current.name,
-        base64: base64,
       };
       console.log(updatedData);
     } else {
       console.log(updatedData);
-      updatedData = { ...data, image: "", base64: "" };
+      updatedData = { ...updatedData, image: "" };
     }
     try {
       const response = await dispatch(createUser(updatedData));
+      console.log('registerActions', response)
       switch (response?.status) {
         case 200:
           imageCaptureRef.current = null;
-          navigate("../");
-          break;
-        case 204:
-          imageCaptureRef.current = null;
-          navigate("../");
+          navigate("/bss-restaurant-app/login");
           break;
         default:
           break;
@@ -193,7 +185,7 @@ export default function RegistrationPage() {
           </h1>
           <Button className='absolute right-10 top-8 button button-primary px-4 py-2 rounded-lg' onClick={()=> navigate('../')}> back</Button>
           <div>
-            <form onSubmit={openModal} ref={formRef}>
+            <form ref={formRef}>
               <div className="grid lg:grid-cols-12 lg:gap-6 gap-5 bg-white xl:p-10 lg:p-8 md:p-6 sm:p-4 p-3 rounded">
                   <div
                     className="lg:col-start-9 lg:col-end-13 lg:row-span-4 border-dashed border border-gray-200 hover:border-gray-400 relative min-h-36 rounded"
@@ -323,6 +315,7 @@ export default function RegistrationPage() {
                 <div className="lg:col-span-4">
                   <CustomSelect
                     id="genderId"
+                    name="genderId"
                     label="Gender"
                     options={genderOptions}
                     maximumHeight="60"
@@ -357,8 +350,6 @@ export default function RegistrationPage() {
                 <div className="lg:col-span-3">
                   <InputFloating
                     id="facebook"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
                   >
                     Facebook
                   </InputFloating>
@@ -366,16 +357,37 @@ export default function RegistrationPage() {
                 <div className="lg:col-span-3">
                   <InputFloating
                     id="instagram"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
                   >
                     Instagram
                   </InputFloating>
                 </div>
+                <div className="lg:col-span-6">
+                  <InputFloating
+                    id="password"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={errors.password}
+                    errorClassName="absolute text-xs text-red-600 py-0.5 ps-3"
+                  >
+                    Password
+                  </InputFloating>
+                </div>
+                <div className="lg:col-span-6">
+                  <InputFloating
+                    id="confirmPassword"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={errors.confirmPassword}
+                    errorClassName="absolute text-xs text-red-600 py-0.5 ps-3"
+                  >
+                    Confirm Password
+                  </InputFloating>
+                </div>
                 <div className="lg:col-span-12">
                   <Button
-                    type="submit"
+                    type="button"
                     className="button-primary w-full py-2 text-white rounded"
+                    onClick={openModal}
                   >
                     SUBMIT
                   </Button>
@@ -385,7 +397,7 @@ export default function RegistrationPage() {
           </div>
         </div>
       </section>
-      {loading && <Loading fullHeightWidth />}
+      {loading && <Loading />}
     </>
   );
 }
