@@ -106,7 +106,7 @@ For Netlify Deployment Add The _redirects File Into Public Folder And Paste This
 
 => After login initially dashboard will show user information, who is admin.
 
-![User Info Page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-user-info.png)
+![User Info Page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-user-info.png)
 
 =>This is Home page of dashboard. Here admin can see all kind of report taking data form data warehouse (now dummy data).
 
@@ -262,7 +262,7 @@ For Netlify Deployment Add The _redirects File Into Public Folder And Paste This
 
 => For mobile responsive, New Order page After selecting table.
 
-![New Order page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-new-order-after-select-table.png)
+![New Order page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-new-order-after-select-table-mobile.png)
 
 => For mobile responsive, Modal will resized as small. Also the modal contents will shown as column view.
 
