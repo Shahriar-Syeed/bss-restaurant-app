@@ -1,4 +1,5 @@
-import Button from "./UI/Button";
+import Button from "./UI/Button.jsx";
+import BackIcon from "./svg/BackIcon.jsx"
 
 export default function PageHeader({
   title,
@@ -12,7 +13,7 @@ export default function PageHeader({
       </h1>
       {buttonLabel && (
         <Button
-          className="button__outline--primary rounded-md text-sm leading-none sm:py-2 sm:px-4 py-1.5 px-3"
+          className="button__outline--primary rounded-md text-xs es:text-sm sm:text-base leading-none sm:py-2 sm:px-4 es:py-1.5 es:px-3 py-1 px-2"
           onClick={buttonOnClick}
           type='button'
         >

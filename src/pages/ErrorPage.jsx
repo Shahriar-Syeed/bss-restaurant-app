@@ -45,7 +45,7 @@ export default function ErrorPage() {
         </svg>
         <h1 className="text-3xl font-bold ">{title}</h1>
         <p className="text-lg pb-3">{message}</p>
-        <Link to="/bss-restaurant-app" className="button-primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg">
+        <Link to="/bss-restaurant-app" className="button-primary sm:py-2 sm:px-4 es:py-1.5 es:px-3 py-2 px-2 text-xs es:text-sm sm:text-base rounded-lg">
         Back to Home Page
         </Link>
       </div>
