@@ -62,7 +62,8 @@ export default function RowEmployeeTableList({
   return (
     <>
 
-      {modalTableId?.id === tableInfoData.id && (
+      {modalTableId?.id === tableInfoData.id &&
+        modalTableId?.employeeTableId !== "deleteWholeTable" && (
         <Modal open={isOpen}>
           <h1>Confirmation!</h1>
           <p>Are you sure you want to remove this employee from this table?</p>

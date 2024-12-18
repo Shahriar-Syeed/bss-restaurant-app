@@ -1,11 +1,10 @@
+
 export default function BackIcon({ className }) {
   return (
     <>
-      <svg
+       <svg
         className={className}
         fill="currentColor"
-        focusable="false"
-        aria-hidden="true"
         viewBox="0 0 26.676 26.676"
       >
         <g>
