@@ -94,37 +94,35 @@ For Netlify Deployment Add The _redirects File Into Public Folder And Paste This
 
 => This is the Main page. User can go to register page or login page.
 
-![loginPage](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-main.png)
+![Main Home Page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-main.png)
 
 => This is the register page. User can register with correct information.
 
-![loginPage](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-registration.png)
+![Registration Page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-registration.png)
 
 => This is the login page. Admin can login using credential or go back to the main page.
 
-![loginPage](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-login.png)
+![login Page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-login.png)
 
 => After login initially dashboard will show user information, who is admin.
 
-![loginPage](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-user-info.png)
-
+![User Info Page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-user-info.png)
 
 =>This is Home page of dashboard. Here admin can see all kind of report taking data form data warehouse (now dummy data).
 
-![loginPage](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-home.png)
-
+![Home Page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-home.png)
 
 => This is Employee List page. Here admin can see all kinds of information about an employee. Admin can update all employees information by clicking on edit button. Also, the employees information can be deleted by clicking on the delete button.
 
-![allEmployee](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-employee-list.png)
+![All Employee](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-employee-list.png)
 
 => This page is for add a new employee. This page will open when admin click on the Add Employee button of the employee list.
 
-![addEmployee](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-employee-add.png)
+![Add Employee](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-employee-add.png)
 
 => Here is the validation check for add a new employee. So all fields except middle name and image field must be filled.
 
-![addEmployee](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-employee-add-validation.png)
+![Add Employee Validation](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-employee-add-validation.png)
 
 => This page is for edit designation of an employee. This page will open when admin click on the edit button of an employee in the employee list.
 
@@ -158,7 +156,7 @@ For Netlify Deployment Add The _redirects File Into Public Folder And Paste This
 
 ![Add Food Validation](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-food-add-validation.png)
 
-=> This page is for edit every info of a food item. This page will open when admin click on the edit button of a food in the food list.
+=> This page is for food edit, every info of a food item. This page will open when admin click on the edit button of a food in the food list.
 
 ![Food Edit](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-food-edit.png)
 
@@ -256,7 +254,7 @@ For Netlify Deployment Add The _redirects File Into Public Folder And Paste This
 
 => For mobile responsive, New Order page.
 
-![New Order page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-new-order.png)
+![New Order page](https://github.com/Shahriar-Syeed/bss-restaurant-app/blob/main/src/assets/screenshot/resturant-dahboard-new-order-mobie.png)
 
 => For mobile responsive, Cart Drawer.
 
