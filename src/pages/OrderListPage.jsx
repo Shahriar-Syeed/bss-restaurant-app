@@ -76,7 +76,7 @@ export default function OrderListPage() {
       {orderLoading && <Loading fullHeightWidth />}
       {orderListId?.id === orderId && (
         <Modal open={isOpen} onClose={closeModal} className="overflow-visible">
-          <h1 className="text-center text-xl mb-2">Change The Order Status</h1>
+          <h1 className="text-center text-xl mb-2">Change the order status.</h1>
           <p className="mb-2">
             {" "}
             Order No: <strong>{orderListId?.orderNumber}</strong>
