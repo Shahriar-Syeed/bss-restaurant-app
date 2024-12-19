@@ -21,6 +21,7 @@ export default function FoodAddPage() {
   const [disableDiscountFields, setDisableDiscountFields] = useState(true);
   const [discountPrice, setDiscountPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
+  const [discountError, setDiscountError] = useState('');
   const {
     formData,
     errors,
@@ -33,6 +34,7 @@ export default function FoodAddPage() {
       name: "",
       description: "",
       price: 0,
+      discountPrice: 0,
     },
     validateFoodEntry,
     ["price"]
@@ -68,7 +70,7 @@ export default function FoodAddPage() {
 
   function openSubmitConfirmation() {
     const validationError = validateFields();
-    if (!hasError() && Object.keys(validationError).length === 0) {
+    if (!hasError() && Object.keys(validationError).length === 0 && !discountError) {
       dispatch(modalActions.id({ id: null, text: "food-create-confirmation" }));
       dispatch(modalActions.open());
     }
@@ -94,11 +96,11 @@ export default function FoodAddPage() {
   function handleDiscountSelect(event) {
     console.log("selectedOption add food", selectedOption, event);
     if (event.sendingValue === 0) {
-      setDisableDiscountFields(() => true);
-      setDiscountPrice(() => 0);
-      setDiscount(() => 0);
+      setDisableDiscountFields(true);
+      setDiscountPrice(0);
+      setDiscount(0);
     } else {
-      setDisableDiscountFields(() => false);
+      setDisableDiscountFields(false);
     }
   }
 
@@ -125,9 +127,20 @@ export default function FoodAddPage() {
   }
   useEffect(() => {
     if (selectedOption?.sendingValue === 1) {
-      setDiscountPrice(() => price - discount);
+      if(price - discount < 0){
+        setDiscountError("Discount price can not be negative.")
+      }else{        
+        setDiscountError("");
+        setDiscountPrice(() => price - discount);
+      }      
     } else if (selectedOption?.sendingValue === 2) {
-      setDiscountPrice(() => price - price * (discount / 100));
+      if(price - price * (discount / 100) < 0){
+        setDiscountError("Discount price can not be negative.")
+      }else{
+        
+        setDiscountError("");
+        setDiscountPrice(() => price - price * (discount / 100));
+      }
     }
   }, [discount, price, selectedOption]);
   useEffect(() => {
@@ -238,7 +251,7 @@ export default function FoodAddPage() {
               }}
               onBlur={handleBlur}
               value={formData.price}
-            >
+              >
               Price
             </InputFloating>
             {errors?.price && (
@@ -271,23 +284,30 @@ export default function FoodAddPage() {
             >
               Discount in (&#2547;){" "}
             </InputFloating>
+            {discountError && (
+              <span className="absolute text-xs text-red-600 py-0.5 ps-3">
+                Correct the discount.
+              </span>
+            )}
           </div>
 
-          <div className="lg:col-start-10 lg:col-end-13 lg:row-start-5">
+          <div className="lg:col-start-10 lg:col-end-13 lg:row-start-5 relative">
             <InputFloating
               id="discountPrice"
               name="discountPrice"
               type="number"
               disabled={true}
               value={discountPrice}
-              onChange={(e)=>{handleChange(e);
-                console.log(e, 'discountPrice dfdsfdf');
-              }}
               errorClassName="absolute text-xs text-red-600 py-0.5 ps-3"
               error={errors?.discountPrice }
             >
               Discount Price
             </InputFloating>
+              {discountError && (
+                <span className="absolute text-xs text-red-600 py-0.5 ps-3">
+                  {discountError}
+                </span>
+              )}
           </div>
 
           <div className="lg:col-start-1 lg:-col-end-1 pt-1">
