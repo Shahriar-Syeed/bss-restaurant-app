@@ -392,7 +392,7 @@ export default function EmployeeForm() {
               className="button-primary w-full py-2 text-white rounded"
               onClick={openModal}
             >
-              SUBMIT
+              Submit
             </Button>
           </div>
         </div>

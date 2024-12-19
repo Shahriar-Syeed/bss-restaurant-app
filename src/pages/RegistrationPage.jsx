@@ -186,7 +186,7 @@ export default function RegistrationPage() {
           onClick={() => navigate("../")}
         >
           <BackIcon className="w-3 md:w-3.5 lg:w-5" />
-          <span className="hidden es:inline">BACK</span>
+          <span className="hidden es:inline">Back</span>
         </Button>
       </Navbar>
       <section className="min-h-lvh bg--page xl:p-20 lg:p-16 md:p-10">
@@ -390,7 +390,7 @@ export default function RegistrationPage() {
                     className="button-primary w-full py-2 text-white rounded"
                     onClick={openModal}
                   >
-                    SUBMIT
+                    Submit
                   </Button>
                 </div>
               </div>

@@ -152,7 +152,7 @@ export default function TableAddPage() {
       )}
       <PageHeader
         title="Add Table"
-        buttonLabel="BACK"
+        buttonLabel="Back"
         buttonOnClick={() => navigate("../")}
       />
       <form onSubmit={handleSubmit} className="bg-white">
@@ -206,7 +206,7 @@ export default function TableAddPage() {
               type="submit"
               className="button-primary w-full py-2 text-white rounded "
             >
-              SUBMIT
+              Submit
             </Button>
           </div>
         </div>

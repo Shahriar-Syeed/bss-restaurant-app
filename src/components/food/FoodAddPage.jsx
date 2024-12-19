@@ -145,7 +145,7 @@ export default function FoodAddPage() {
     <>
       <PageHeader
         title="Add Food Item"
-        buttonLabel="BACK"
+        buttonLabel="Back"
         buttonOnClick={() => navigate("../")}
       />
       <form ref={formRef} className="bg-white">
@@ -184,6 +184,7 @@ export default function FoodAddPage() {
                 type="file"
                 hidden
                 id="image"
+                name="image"
                 labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
                 onChange={onSelectFile}
               >
@@ -200,6 +201,7 @@ export default function FoodAddPage() {
           <div className="lg:col-start-1 lg:col-end-9 lg:row-start-1">
             <InputFloating
               id="name"
+              name="name"
               onChange={handleChange}
               onBlur={handleBlur}
             >
@@ -214,6 +216,7 @@ export default function FoodAddPage() {
           <div className="lg:col-start-1 lg:col-end-9 row-start-2 row-end-5">
             <TextAreaFloating
               id="description"
+              name="description"
               onChange={handleChange}
               onBlur={handleBlur}
             >
@@ -228,6 +231,7 @@ export default function FoodAddPage() {
           <div className="lg:col-start-1 lg:col-end-4 lg:row-start-5">
             <InputFloating
               id="price"
+              name="price"
               onChange={(e) => {
                 setPrice(e.target.value);
                 handleChange(e);
@@ -247,16 +251,19 @@ export default function FoodAddPage() {
           <div className="lg:col-start-4 lg:col-end-7 lg:row-start-5">
             <CustomSelect
               id="discountType"
+              name="discountType"
               label="Select Discount Type"
               options={discountOption}
               onChanged={(e) => handleDiscountSelect(e)}
               maximumHeight="60"
+              optionSelected='None'
             />
           </div>
 
           <div className="lg:col-start-7 lg:col-end-10 lg:row-start-5">
             <InputFloating
               id="discount"
+              name="discount"
               type="number"
               disabled={disableDiscountFields}
               value={discount}
@@ -268,10 +275,16 @@ export default function FoodAddPage() {
 
           <div className="lg:col-start-10 lg:col-end-13 lg:row-start-5">
             <InputFloating
+              id="discountPrice"
               name="discountPrice"
               type="number"
               disabled={true}
               value={discountPrice}
+              onChange={(e)=>{handleChange(e);
+                console.log(e, 'discountPrice dfdsfdf');
+              }}
+              errorClassName="absolute text-xs text-red-600 py-0.5 ps-3"
+              error={errors?.discountPrice }
             >
               Discount Price
             </InputFloating>
@@ -283,7 +296,7 @@ export default function FoodAddPage() {
               className="button-primary w-full py-2 text-white rounded "
               onClick={openSubmitConfirmation}
             >
-              SUBMIT
+              Submit
             </Button>
           </div>
         </div>

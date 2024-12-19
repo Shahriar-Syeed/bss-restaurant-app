@@ -182,7 +182,7 @@ export default function FoodEditPage() {
 
       <PageHeader
         title="Edit Food"
-        buttonLabel="BACK"
+        buttonLabel="Back"
         buttonOnClick={() => {
           dispatch(setSingleFoodNull());
           return navigate("../");
@@ -333,7 +333,7 @@ export default function FoodEditPage() {
               type="submit"
               className="button-primary w-full py-2 text-white rounded "
             >
-              SUBMIT
+              Submit
             </Button>
           </div>
         </section>
