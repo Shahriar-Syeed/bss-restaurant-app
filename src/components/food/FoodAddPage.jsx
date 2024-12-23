@@ -127,20 +127,26 @@ export default function FoodAddPage() {
   }
   useEffect(() => {
     if (selectedOption?.sendingValue === 1) {
-      if(price - discount < 0){
+      const newDiscountPrice = price - discount;
+      if(newDiscountPrice < 0){
         setDiscountError("Discount price can not be negative.")
       }else{        
         setDiscountError("");
-        setDiscountPrice(() => price - discount);
+        setDiscountPrice(newDiscountPrice);
       }      
     } else if (selectedOption?.sendingValue === 2) {
-      if(price - price * (discount / 100) < 0){
+      const newDiscountPrice = price - price * (discount / 100);
+      if(newDiscountPrice < 0){
         setDiscountError("Discount price can not be negative.")
       }else{
         
         setDiscountError("");
-        setDiscountPrice(() => price - price * (discount / 100));
+        setDiscountPrice(newDiscountPrice);
       }
+    }  else {
+      setDisableDiscountFields(true);
+      setDiscountError("");
+      setDiscountPrice(0);
     }
   }, [discount, price, selectedOption]);
   useEffect(() => {
