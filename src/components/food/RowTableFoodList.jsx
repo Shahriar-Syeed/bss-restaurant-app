@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../UI/Modal";
 import { modalActions } from "../../store/modal-slice";
 import apiUrl from "../../apiUrl/ApiUrl";
+import defaultImage from "../../assets/default-image-preview.png";
 
 export default function RowTableFoodList({ food, deleteFood }) {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ export default function RowTableFoodList({ food, deleteFood }) {
               Cancel
             </Button>
             <Button
-              className="button-primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg"
+              className="button-primary sm:py-2 sm:px-4 es:py-1.5 es:px-3 py-2 px-2 text-xs es:text-sm sm:text-base rounded-lg"
               type="button"
               onClick={deleteThisFood}
             >
@@ -57,7 +58,7 @@ export default function RowTableFoodList({ food, deleteFood }) {
               src={
                 food.image
                   ? `${apiUrl.getFoodImage}${food.image}`
-                  : "../assets/default-image-preview.png"
+                  : defaultImage
               }
               alt={food.name}
               className="w-full h-full object-cover"

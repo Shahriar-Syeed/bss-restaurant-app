@@ -126,7 +126,7 @@ export default function TableAddPage() {
           {errorMessage ? <p>{errorMessage}</p> : <p>Submit fail!</p>}
           <div className="modal-action p-2">
             <Button
-              className="float-end button-primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg border-solid border-2 border-primary"
+              className="float-end button-primary sm:py-2 sm:px-4 es:py-1.5 es:px-3 py-2 px-2 text-xs es:text-sm sm:text-base rounded-lg border-solid border-2 border-primary"
               onClick={closeModal}
               type="button"
             >
@@ -141,7 +141,7 @@ export default function TableAddPage() {
           <p>Please fill up table number and number of seats.</p>
           <div className=" p-2">
             <Button
-              className="float-end button-primary sm:py-2 sm:px-4 py-1.5 px-3 rounded-lg"
+              className="float-end button-primary sm:py-2 sm:px-4 es:py-1.5 es:px-3 py-2 px-2 text-xs es:text-sm sm:text-base rounded-lg"
               onClick={closeModal}
               type="button"
             >
@@ -152,7 +152,7 @@ export default function TableAddPage() {
       )}
       <PageHeader
         title="Add Table"
-        buttonLabel="BACK"
+        buttonLabel="Back"
         buttonOnClick={() => navigate("../")}
       />
       <form onSubmit={handleSubmit} className="bg-white">
@@ -167,7 +167,7 @@ export default function TableAddPage() {
                 type="file"
                 hidden
                 id="image"
-                labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-40 cursor-pointer"
+                labelClass="absolute top-0 bottom-0 left-0 right-0 opacity-0 z-30 cursor-pointer"
                 onChange={onSelectFile}
               >
                 {""}
@@ -206,7 +206,7 @@ export default function TableAddPage() {
               type="submit"
               className="button-primary w-full py-2 text-white rounded "
             >
-              SUBMIT
+              Submit
             </Button>
           </div>
         </div>
