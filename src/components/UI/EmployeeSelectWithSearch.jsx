@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { employeeSelectActions } from "../../store/employee-select-slice";
 
-const EmployeeSelect = ({
+const EmployeeSelectWithSearch = ({
   label = "",
   options = [],
   onChange,
@@ -20,7 +20,6 @@ const EmployeeSelect = ({
   useEffect(() => {
     const handler = (e) => {
       if (showOption.current && !showOption.current.contains(e.target)) {
-
         dispatch(employeeSelectActions.setIsOpen(false));
         if (!selectedOption) {
           dispatch(employeeSelectActions.setIsFocused(false));
@@ -32,6 +31,10 @@ const EmployeeSelect = ({
       document.removeEventListener("mousedown", handler);
     };
   }, []);
+
+  const handleOpen = () =>{
+    dispatch(employeeSelectActions.setIsOpen(true));
+  }
 
   const handleToggle = () => {
     dispatch(employeeSelectActions.setIsOpen(!isOpen));
@@ -77,7 +80,7 @@ const EmployeeSelect = ({
       <div
         className={`group border rounded cursor-pointer w-full p-2 sm:p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
         ${isFocused ? "border-blue-900" : "border-gray-200"}`}
-        onClick={handleToggle}
+        onClick={handleOpen}
         onBlur={handleBlur}
         role="combobox"
         aria-expanded={isOpen}
@@ -93,15 +96,17 @@ const EmployeeSelect = ({
         >
           {label}
         </label>
-
+       
         <span
           className={`flex-1 max-h-16 overflow-y-auto [&::-webkit-scrollbar]:w-2
-          [&::-webkit-scrollbar-track]:bg-neutral-700
-          [&::-webkit-scrollbar-thumb]:bg-neutral-400 text-gray-800 text-xs sm:text-sm md:text-base`}
+            [&::-webkit-scrollbar-track]:bg-neutral-700
+            [&::-webkit-scrollbar-thumb]:bg-neutral-400 text-gray-800 text-xs sm:text-sm md:text-base`}
         >
           {selectedOption?.map((employee) => (
-            <p key={employee.employeeId}>{employee.name}</p>
+            <span key={employee.employeeId}>{employee.name}</span>
           ))}
+          <input type="search" className="w-11/12"></input>
+          
         </span>
         <svg
           className={`transform transition-transform ${
@@ -118,9 +123,11 @@ const EmployeeSelect = ({
       </div>
 
       {isOpen && (
-        <ul className="absolute z-20 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-24 sm:max-h-32 bottom-105 overflow-y-auto [&::-webkit-scrollbar]:w-2
+        <ul
+          className="absolute z-20 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-24 sm:max-h-28 bottom-105 overflow-y-auto [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-neutral-700
-          [&::-webkit-scrollbar-thumb]:bg-neutral-400">
+          [&::-webkit-scrollbar-thumb]:bg-neutral-400"
+        >
           {options?.map((option) => (
             <li
               key={option.value}
@@ -150,4 +157,4 @@ const EmployeeSelect = ({
   );
 };
 
-export default EmployeeSelect;
+export default EmployeeSelectWithSearch;

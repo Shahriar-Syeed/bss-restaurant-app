@@ -151,6 +151,10 @@ input {
   }
 }
 
+.bottom-105{
+  bottom: 105%;
+}
+
 .bg--page {
   background: linear-gradient(0deg, #fff9, #fff),
     url('/bss-restaurant-app/src/assets/login-bg-left.png') no-repeat left center /
