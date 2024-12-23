@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { employeeSelectActions } from "../../store/employee-select-slice";
+import Button from "./Button";
 
 const EmployeeSelectWithSearch = ({
   label = "",
@@ -9,6 +10,7 @@ const EmployeeSelectWithSearch = ({
   className = "",
   ...props
 }) => {
+  const [query, setQuery] = useState("");
   const isOpen = useSelector((state) => state.employeeSelect.isOpen);
   const isFocused = useSelector((state) => state.employeeSelect.isFocused);
   const selectedOption = useSelector(
@@ -16,6 +18,11 @@ const EmployeeSelectWithSearch = ({
   );
   const dispatch = useDispatch();
   const showOption = useRef(null);
+
+  const filteredItems = options?.filter((item) =>
+    item.label.toLowerCase().includes(query.toLowerCase())
+  );
+  console.log("options", options);
 
   useEffect(() => {
     const handler = (e) => {
@@ -32,9 +39,10 @@ const EmployeeSelectWithSearch = ({
     };
   }, []);
 
-  const handleOpen = () =>{
+  const handleOpen = (e) => {
+    e.stopPropagation();
     dispatch(employeeSelectActions.setIsOpen(true));
-  }
+  };
 
   const handleToggle = () => {
     dispatch(employeeSelectActions.setIsOpen(!isOpen));
@@ -66,6 +74,14 @@ const EmployeeSelectWithSearch = ({
     }
   };
 
+  function unCheckedEmployee(employee) {
+    const updatedEmployeeList = selectedOption.filter(
+      (selected) => selected.employeeId !== employee.employeeId
+    );
+    console.log(selectedOption);
+    dispatch(employeeSelectActions.setSelectedOption(updatedEmployeeList));
+  }
+
   const handleBlur = () => {
     if (selectedOption) {
       dispatch(employeeSelectActions.setIsFocused(true));
@@ -80,46 +96,67 @@ const EmployeeSelectWithSearch = ({
       <div
         className={`group border rounded cursor-pointer w-full p-2 sm:p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
         ${isFocused ? "border-blue-900" : "border-gray-200"}`}
-        onClick={handleOpen}
+        onClick={(e)=>handleOpen(e)}
         onBlur={handleBlur}
         role="combobox"
         aria-expanded={isOpen}
         tabIndex={0}
       >
-        <label
-          className={`absolute text-xs sm:text-sm md:text-base transform pointer-events-none transition-all duration-300 
-          ${
-            isFocused
-              ? "scale-75 top-2 bg-white px-1  -translate-y-4 origin-[0] z-10 group-focus-within:text-blue-500"
-              : "text-gray-500 top-1/2 -translate-y-1/2 rtl:translate-x-1/4 rtl:left-auto"
-          }`}
-        >
-          {label}
-        </label>
-       
         <span
-          className={`flex-1 max-h-16 overflow-y-auto [&::-webkit-scrollbar]:w-2
+          className={`flex-1 flex flex-wrap gap-2 max-h-16 overflow-y-auto [&::-webkit-scrollbar]:w-2
             [&::-webkit-scrollbar-track]:bg-neutral-700
             [&::-webkit-scrollbar-thumb]:bg-neutral-400 text-gray-800 text-xs sm:text-sm md:text-base`}
         >
           {selectedOption?.map((employee) => (
-            <span key={employee.employeeId}>{employee.name}</span>
+            <span
+              key={employee.employeeId}
+              className="inline-flex items-center whitespace-nowrap bg-stone-100 hover:bg-stone-200 rounded-2xl p-1"
+            >
+              {employee.name}
+              <Button
+                textOnly={true}
+                className="rounded-50 h-6 w-6 grid place-items-center text-stone-400 hover:text-red-500 stroke-transparent"
+                type="button"
+                onClick={() => {
+                  unCheckedEmployee(employee);
+                  console.log(employee);
+                }}
+              >
+                <svg
+                  className="fill-current stroke-inherit"
+                  focusable="false"
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                >
+                  <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path>
+                </svg>
+              </Button>
+            </span>
           ))}
-          <input type="search" className="w-11/12"></input>
-          
+          <input
+            type="search"
+            className="w-11/12"
+            placeholder="Select employees"
+            autoComplete="off"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          ></input>
         </span>
-        <svg
-          className={`transform transition-transform ${
-            isOpen ? "rotate-180" : ""
-          }`}
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="24"
-          viewBox="0 0 20 20"
-          fill="none"
-        >
-          <path d="M5 7L10 12L15 7H5Z" fill="black" />
-        </svg>
+        <Button type="button" className="p-2" onClick={console.log("click Hoise")}>
+          <svg
+            className={`transform transition-transform ${
+              isOpen ? "rotate-180" : ""
+            }`}
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="24"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path d="M5 7L10 12L15 7H5Z" fill="black" />
+          </svg>
+        </Button>
       </div>
 
       {isOpen && (
@@ -128,7 +165,7 @@ const EmployeeSelectWithSearch = ({
           [&::-webkit-scrollbar-track]:bg-neutral-700
           [&::-webkit-scrollbar-thumb]:bg-neutral-400"
         >
-          {options?.map((option) => (
+          {filteredItems?.map((option) => (
             <li
               key={option.value}
               className="p-2 hover:bg-gray-100 cursor-pointer flex items-center"

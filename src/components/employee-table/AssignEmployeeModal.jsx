@@ -78,7 +78,7 @@ export default function AssignEmployeeModal({
           </div>
 
           <div className="col-start-1 lg:col-end-5 col-end-6">
-            <EmployeeSelect
+            <EmployeeSelectWithSearch
               name="employeeId"
               label="Select Employee"
               options={employeesToAssign}

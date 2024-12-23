@@ -118,7 +118,7 @@ input {
 
 /* width */
 .w-min-percentage {
-  width: min(500px, 90%);
+  width: min(550px, 90%);
 }
 
 .animation-duration-20000 {
