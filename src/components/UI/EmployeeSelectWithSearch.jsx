@@ -24,17 +24,17 @@ const EmployeeSelectWithSearch = ({
     item.label.toLowerCase().includes(query.toLowerCase())
   );
   console.log("options", options);
-  
-  function handleQueryChange (e){
+
+  function handleQueryChange(e) {
     const value = e.target.value;
 
-    if(debounceTimer.current){
+    if (debounceTimer.current) {
       clearTimeout(debounceTimer.current);
     }
 
-    debounceTimer.current = setTimeout(()=>{
+    debounceTimer.current = setTimeout(() => {
       setQuery(value);
-    },500);
+    }, 500);
   }
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const EmployeeSelectWithSearch = ({
       <div
         className={`group border rounded cursor-pointer w-full p-2 sm:p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
         ${isFocused ? "border-blue-900" : "border-gray-200"}`}
-        onClick={(e)=>handleOpen(e)}
+        onClick={(e) => handleOpen(e)}
         onBlur={handleBlur}
         role="combobox"
         aria-expanded={isOpen}
@@ -157,7 +157,11 @@ const EmployeeSelectWithSearch = ({
             onChange={(e) => handleQueryChange(e)}
           ></input>
         </span>
-        <Button type="button" className="p-2" onClick={console.log("click Hoise")}>
+        <Button
+          type="button"
+          className="p-2"
+          onClick={console.log("click Hoise")}
+        >
           <svg
             className={`transform transition-transform ${
               isOpen ? "rotate-180" : ""
