@@ -18,11 +18,24 @@ const EmployeeSelectWithSearch = ({
   );
   const dispatch = useDispatch();
   const showOption = useRef(null);
+  const debounceTimer = useRef(null);
 
   const filteredItems = options?.filter((item) =>
     item.label.toLowerCase().includes(query.toLowerCase())
   );
   console.log("options", options);
+  
+  function handleQueryChange (e){
+    const value = e.target.value;
+
+    if(debounceTimer.current){
+      clearTimeout(debounceTimer.current);
+    }
+
+    debounceTimer.current = setTimeout(()=>{
+      setQuery(value);
+    },500);
+  }
 
   useEffect(() => {
     const handler = (e) => {
@@ -139,8 +152,9 @@ const EmployeeSelectWithSearch = ({
             className="w-11/12"
             placeholder="Select employees"
             autoComplete="off"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            // value={query}
+            // onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => handleQueryChange(e)}
           ></input>
         </span>
         <Button type="button" className="p-2" onClick={console.log("click Hoise")}>
