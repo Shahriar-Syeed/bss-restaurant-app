@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { employeeSelectActions } from "../../store/employee-select-slice";
 import Button from "./Button";
@@ -20,6 +20,16 @@ const EmployeeSelectWithSearch = ({
   const showOption = useRef(null);
   const debounceTimer = useRef(null);
 
+  const debounceUpdateQuery= useCallback((newQuery)=>{
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    debounceTimer.current = setTimeout(() => {
+      setQuery(newQuery);
+    }, 500);
+  },[])
+
   const filteredItems = options?.filter((item) =>
     item.label.toLowerCase().includes(query.toLowerCase())
   );
@@ -27,14 +37,8 @@ const EmployeeSelectWithSearch = ({
 
   function handleQueryChange(e) {
     const value = e.target.value;
-
-    if (debounceTimer.current) {
-      clearTimeout(debounceTimer.current);
-    }
-
-    debounceTimer.current = setTimeout(() => {
-      setQuery(value);
-    }, 500);
+    debounceUpdateQuery(value);
+    
   }
 
   useEffect(() => {
