@@ -1,4 +1,6 @@
-const validateEmployeeEntry = (name, value, formData) => {
+import { checkPhoneNumberExist } from "../../store/employee-actions";
+
+const validateEmployeeEntry = async (name, value, formData) => {
   let error = "";
 
   switch (name) {
@@ -80,10 +82,14 @@ const validateEmployeeEntry = (name, value, formData) => {
 
     case "phoneNumber":
       const phoneRegex = /^[0-9]{11}$/;
+      const phoneExists = await checkPhoneNumberExist(value.trim());
+      console.log('ssfdse',phoneExists);
       if (!value.trim()) {
         error = "Phone number is required.";
       } else if (!phoneRegex.test(value.trim().replace(/\D/g, ""))) {
         error = "Must be 11 digits.";
+      } else if (phoneExists){
+        error = "Phone number already exists.";
       }
       break;
 

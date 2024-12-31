@@ -143,3 +143,27 @@ export function dateConvertToString(date) {
   const dateString = newDate.toISOString();
   return dateString;
 }
+
+export const checkPhoneNumberExist = (phoneNumber) => {
+  return async (dispatch) => {
+    try {
+      const response = await api.get(
+        `Auth/phoneNumberExist/${phoneNumber}`
+      );
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (error) {
+
+      dispatch(modalActions.id("Phone number check fail."));
+      dispatch(employeeActions.errorMessage(error.message));
+      dispatch(modalActions.open()); //
+      console.error(error);
+
+      setTimeout(() => {
+        dispatch(modalActions.id(null)); 
+        dispatch(modalActions.close()); 
+      }, 3000);
+    }
+  };
+};
