@@ -11,6 +11,7 @@ const EmployeeSelectWithSearch = ({
   ...props
 }) => {
   const [query, setQuery] = useState("");
+  const [localQuery, setLocalQuery] = useState("");
   const isOpen = useSelector((state) => state.employeeSelect.isOpen);
   const isFocused = useSelector((state) => state.employeeSelect.isFocused);
   const selectedOption = useSelector(
@@ -38,8 +39,8 @@ const EmployeeSelectWithSearch = ({
 
   function handleQueryChange(e) {
     const value = e.target.value;
-    debounceUpdateQuery(value);
-    
+    setLocalQuery(value);
+    debounceUpdateQuery(value);    
   }
 
   useEffect(() => {
@@ -66,12 +67,12 @@ const EmployeeSelectWithSearch = ({
   const handleToggle = (e) => {
     e.stopPropagation();
     dispatch(employeeSelectActions.setIsOpen(!isOpen));
-    // dispatch(employeeSelectActions.setIsFocused(!isFocused));
-    console.log("handle")
-
+    
     if (selectedOption.length === 0) {
       dispatch(employeeSelectActions.setIsFocused(!isFocused));
     }
+      setQuery("");
+      setLocalQuery("");
   };
 
   const selectOptionHandleWithCheckbox = (option) => {
@@ -161,7 +162,7 @@ const EmployeeSelectWithSearch = ({
             className="w-11/12"
             placeholder="Select employees"
             autoComplete="off"
-            // value={query}
+            value={localQuery}
             // onChange={(e) => setQuery(e.target.value)}
             onChange={(e) => handleQueryChange(e)}
           ></input>
