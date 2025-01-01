@@ -82,8 +82,8 @@ const validateEmployeeEntry = async (name, value, formData) => {
 
     case "phoneNumber":
       const phoneRegex = /^[0-9]{11}$/;
-      const phoneExists = await checkPhoneNumberExist(value.trim());
-      console.log('ssfdse',phoneExists);
+      const phoneExists = checkPhoneNumberExist(value.trim());
+      console.log('ssfdse',checkPhoneNumberExist(value.trim()));
       if (!value.trim()) {
         error = "Phone number is required.";
       } else if (!phoneRegex.test(value.trim().replace(/\D/g, ""))) {

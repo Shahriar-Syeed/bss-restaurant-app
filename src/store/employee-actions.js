@@ -151,7 +151,10 @@ export const checkPhoneNumberExist = (phoneNumber) => {
         `Auth/phoneNumberExist/${phoneNumber}`
       );
       if (response.status === 200) {
-        return response.data;
+       if(response.data === true){  
+        return Promise.resolve(false)} else{
+          return Promise.resolve(true) 
+        }
       }
     } catch (error) {
 
