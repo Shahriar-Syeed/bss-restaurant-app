@@ -26,6 +26,7 @@ const EmployeeSelectWithSearch = ({
     }
 
     debounceTimer.current = setTimeout(() => {
+      console.log('firsts1');
       setQuery(newQuery);
     }, 500);
   },[])
@@ -58,11 +59,15 @@ const EmployeeSelectWithSearch = ({
 
   const handleOpen = (e) => {
     e.stopPropagation();
+    console.log('first')
     dispatch(employeeSelectActions.setIsOpen(true));
   };
 
-  const handleToggle = () => {
+  const handleToggle = (e) => {
+    e.stopPropagation();
     dispatch(employeeSelectActions.setIsOpen(!isOpen));
+    // dispatch(employeeSelectActions.setIsFocused(!isFocused));
+    console.log("handle")
 
     if (selectedOption.length === 0) {
       dispatch(employeeSelectActions.setIsFocused(!isFocused));
@@ -108,16 +113,16 @@ const EmployeeSelectWithSearch = ({
   };
 
   return (
-    <div className={`relative ${className && className}`} ref={showOption}>
+    <div className={`relative ${className && className}`} onClick={(e) => e.stopPropagation()} ref={showOption}>
       <input type="hidden" value={selectedOption ?? []} {...props} />
       <div
         className={`group border rounded cursor-pointer w-full p-2 sm:p-3.5 flex items-center justify-between text-gray-900 bg-transparent border-solid appearance-none hover:border-gray-400 border-gray-200
         ${isFocused ? "border-blue-900" : "border-gray-200"}`}
-        onClick={(e) => handleOpen(e)}
+        onClick={handleOpen}
         onBlur={handleBlur}
         role="combobox"
-        aria-expanded={isOpen}
-        tabIndex={0}
+        // aria-expanded={isOpen}
+        // tabIndex={0}
       >
         <span
           className={`flex-1 flex flex-wrap gap-2 max-h-16 overflow-y-auto [&::-webkit-scrollbar]:w-2
@@ -164,7 +169,7 @@ const EmployeeSelectWithSearch = ({
         <Button
           type="button"
           className="p-2"
-          onClick={console.log("click Hoise")}
+          onClick={(e)=>{handleToggle(e);}}
         >
           <svg
             className={`transform transition-transform ${
