@@ -65,7 +65,7 @@ export const createEmployee = (formData) => {
     };
     console.log("updatedData", updatedData);
     try {
-      const response = await api.post("Employee/create", updatedData);
+      const response = await api.post("Employee/creat", updatedData);
       dispatch(employeeActions.setStatus(response.status));
       console.log("createResult", response);
       if (response.status === 200) {
@@ -75,7 +75,7 @@ export const createEmployee = (formData) => {
       }
       return response;
     } catch (error) {
-      dispatch(modalActions.id("employee-create-error"));
+      dispatch(modalActions.id("Employee create error!"));
       dispatch(employeeActions.loading(false));
       dispatch(employeeActions.errorMessage(error.message));
       dispatch(modalActions.open());
@@ -143,30 +143,3 @@ export function dateConvertToString(date) {
   const dateString = newDate.toISOString();
   return dateString;
 }
-
-export const checkPhoneNumberExist = (phoneNumber) => {
-  return async (dispatch) => {
-    try {
-      const response = await api.get(
-        `Auth/phoneNumberExist/${phoneNumber}`
-      );
-      if (response.status === 200) {
-       if(response.data === true){  
-        return Promise.resolve(false)} else{
-          return Promise.resolve(true) 
-        }
-      }
-    } catch (error) {
-
-      dispatch(modalActions.id("Phone number check fail."));
-      dispatch(employeeActions.errorMessage(error.message));
-      dispatch(modalActions.open()); //
-      console.error(error);
-
-      setTimeout(() => {
-        dispatch(modalActions.id(null)); 
-        dispatch(modalActions.close()); 
-      }, 3000);
-    }
-  };
-};
