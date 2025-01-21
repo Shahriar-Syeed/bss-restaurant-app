@@ -203,7 +203,7 @@ table td[data-th]:before {
     position: relative;
   }
 
-  [title]:focus-within::after {
+  [title]:focus::after {
     content: attr(title);
     position: absolute;
     top: 0;
