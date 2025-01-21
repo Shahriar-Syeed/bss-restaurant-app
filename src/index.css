@@ -51,7 +51,8 @@ input {
   background-color: #cc080b;
   color: #fff;
 }
-.button-primary{
+
+.button-primary {
   border: #cc080b solid 2px;
 }
 
@@ -130,7 +131,7 @@ input {
 }
 
 @media (min-width: 1024px) {
-.viewport-hight {
+  .viewport-hight {
     height: calc(100svh - 17.675rem);
   }
 }
@@ -140,27 +141,27 @@ input {
 .top-72px {
   top: 4.5rem;
 }
+
 @media (min-width: 525px) {
   .top-sm-80px {
     top: 5rem;
   }
 }
+
 @media (min-width: 1280px) {
   .left-xl-256px {
     left: 16rem;
   }
 }
 
-.bottom-105{
+.bottom-105 {
   bottom: 105%;
 }
 
 .bg--page {
   background: linear-gradient(0deg, #fff9, #fff),
-    url('/bss-restaurant-app/src/assets/login-bg-left.png') no-repeat left center /
-      contain,
-    url('/bss-restaurant-app/src/assets/login-bg-right.png') no-repeat right
-      center / contain,
+    url('/bss-restaurant-app/src/assets/login-bg-left.png') no-repeat left center / contain,
+    url('/bss-restaurant-app/src/assets/login-bg-right.png') no-repeat right center / contain,
     linear-gradient(0deg, black, black);
 
   @media (max-width: 525px) {
@@ -168,11 +169,12 @@ input {
   }
 }
 
-.bg-gradient-transparent-to-white{
+.bg-gradient-transparent-to-white {
   background: linear-gradient(to top, transparent 57%, white 43%);
 }
-@media (min-width: 1280px){
-  .bg-gradient-transparent-to-white{
+
+@media (min-width: 1280px) {
+  .bg-gradient-transparent-to-white {
     background: linear-gradient(to top, transparent 55%, white 45%);
   }
 
@@ -182,14 +184,37 @@ table td[data-th]:before {
   content: attr(data-th);
   display: inline;
   font-weight: bold;
-  color:#cc080b;
+  color: #cc080b;
   margin: 0 0 2px;
   padding: 5px;
   font-size: 14px;
 }
-@media (min-width: 576px){
+
+@media (min-width: 576px) {
   table td[data-th]:before {
     content: '';
     display: none;
   }
+}
+
+@media (pointer: coarse),
+(hover: none) {
+  [title] {
+    position: relative;
+  }
+
+  [title]:focus-within::after {
+    content: attr(title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #000;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid;
+    width: fit-content;
+    padding: 2px;
+    font-size: 10px;
+  }
+
 }
