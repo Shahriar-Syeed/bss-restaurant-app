@@ -71,29 +71,25 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
           <td
             className="flex items-center justify-center sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 min-w-18 "
             data-th="Name: "
-            
           >
             <div className="sm:grid flex grid-cols-[1fr_auto] gap-2">
-            <span className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block" title={employee.user.fullName}>{employee.user.fullName}</span>
-          
-
-            <StarCircleIcon className="md:w-6 sm:w-5 w-4 cursor-pointer clickable-icon" />
-            
-
+              <span
+                className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block"
+                title={employee.user.fullName}
+              >
+                {employee.user.fullName}
+              </span>
+              <StarCircleIcon className="md:w-6 sm:w-5 w-4 cursor-pointer clickable-icon" />
             </div>
           </td>
           <td
             className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
             tabIndex="0"
             data-th="Email: "
-              title={employee.user.email}
-            >
-            <span 
-            className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block"
-            >
-            {employee.user.email}
-
-
+            title={employee.user.email}
+          >
+            <span className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block">
+              {employee.user.email}
             </span>
           </td>
           <td
@@ -102,12 +98,8 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
             data-th="Phone: "
             title={employee.user.phoneNumber}
           >
-            <span 
-            className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block"
-            >
-
-
-            {employee.user.phoneNumber}
+            <span className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block">
+              {employee.user.phoneNumber}
             </span>
           </td>
           <td
@@ -116,12 +108,8 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
             data-th="Join Date: "
             title={employee.joinDate}
           >
-            <span 
-            className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block"
-            >
-
-
-            {employee.joinDate}
+            <span className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block">
+              {employee.joinDate}
             </span>
           </td>
           <td
@@ -130,12 +118,8 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
             data-th="Designation: "
             title={employee.designation}
           >
-            <span 
-            className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block"
-            >
-
-
-            {employee.designation}
+            <span className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block">
+              {employee.designation}
             </span>
           </td>
           <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 flex justify-evenly sm:justify-start gap-1">
