@@ -5,6 +5,7 @@ import Modal from "../UI/Modal.jsx";
 import { modalActions } from "../../store/modal-slice.js";
 import defaultImage from "../../assets/default-image-preview.png";
 import apiUrl from "../../apiUrl/ApiUrl.jsx";
+import StarCircleIcon from "../svg/StarCircleIcon.jsx";
 
 export default function RowTableEmployeeList({ deleteEmployee }) {
   const dispatch = useDispatch();
@@ -64,48 +65,78 @@ export default function RowTableEmployeeList({ deleteEmployee }) {
                   : defaultImage
               }
               alt="Admin image"
-              className="sm:w-10 sm:h-10 w-16 h-16 rounded-lg object-cover"
+              className="md:w-10 md:h-10 sm:w-9 sm:h-9 w-16 h-16 rounded-lg object-cover"
             />
           </th>
           <td
-            className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 whitespace-nowrap overflow-clip text-ellipsis min-w-14"
-            tabIndex="0"
+            className="flex items-center justify-center sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 min-w-18 "
             data-th="Name: "
-            title={employee.user.fullName}
+            
           >
-            {employee.user.fullName}
+            <div className="sm:grid flex grid-cols-[1fr_auto] gap-2">
+            <span className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block" title={employee.user.fullName}>{employee.user.fullName}</span>
+          
+
+            <StarCircleIcon className="md:w-6 sm:w-5 w-4 cursor-pointer clickable-icon" />
+            
+
+            </div>
           </td>
           <td
-            className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 whitespace-nowrap overflow-clip text-ellipsis min-w-14"
+            className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
             tabIndex="0"
             data-th="Email: "
-            title={employee.user.email}
-          >
+              title={employee.user.email}
+            >
+            <span 
+            className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block"
+            >
             {employee.user.email}
+
+
+            </span>
           </td>
           <td
-            className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 whitespace-nowrap overflow-clip text-ellipsis min-w-14"
+            className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
             tabIndex="0"
             data-th="Phone: "
             title={employee.user.phoneNumber}
           >
+            <span 
+            className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block"
+            >
+
+
             {employee.user.phoneNumber}
+            </span>
           </td>
           <td
-            className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 whitespace-nowrap overflow-clip text-ellipsis min-w-14"
+            className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1"
             tabIndex="0"
             data-th="Join Date: "
             title={employee.joinDate}
           >
+            <span 
+            className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block"
+            >
+
+
             {employee.joinDate}
+            </span>
           </td>
           <td
-            className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 whitespace-nowrap overflow-clip text-ellipsis min-w-14"
+            className="block sm:table-cell md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 "
             tabIndex="0"
             data-th="Designation: "
             title={employee.designation}
           >
+            <span 
+            className="whitespace-nowrap overflow-clip text-ellipsis min-w-12 max-w-full inline-block"
+            >
+
+
             {employee.designation}
+            </span>
           </td>
           <td className="md:px-2 xl:px-4 xl:py-3 lg:px-3 lg:py-2 p-1 flex justify-evenly sm:justify-start gap-1">
             <Link
