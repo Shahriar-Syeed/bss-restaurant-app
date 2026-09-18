@@ -5,7 +5,7 @@ import { loginActions } from "./login-slice.js";
 export const setLoginData = (data) => {
   return async (dispatch) => {
     try {
-      const res = await dispatch(loginActions.setFormData(data));
+      dispatch(loginActions.setFormData(data));
     } catch (error) {
       console.log(error);
     }
