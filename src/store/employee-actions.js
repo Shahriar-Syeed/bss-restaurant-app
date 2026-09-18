@@ -93,7 +93,7 @@ export const editEmployeeDesignation = (id, data) => {
     dispatch(employeeActions.loading(true));
     try {
       const response = await api.put(
-        `https://restaurantapi.bssoln.com/api/Employee/update/${id}`,
+        `https://bssrms.runasp.net/api/Employee/update/${id}`,
         { designation: data }
       );
       console.log(response);
