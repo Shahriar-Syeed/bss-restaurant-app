@@ -37,7 +37,7 @@ The main challenge is to implement the functionalities like table management, em
 4. Secondary Font: Quattrocento, serif;
 
 ## 🔗 Live Demo Link
-[![Live](https://img.shields.io/badge/Click_Here_For_Restaurant_APP-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://restaurant-bss.netlify.app)
+[![Live](https://img.shields.io/badge/Click_Here_For_Restaurant_APP-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://rest-bss.netlify.app)
 
 
 ## Admin Login Credential
